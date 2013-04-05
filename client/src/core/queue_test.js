@@ -1,4 +1,4 @@
-define(['client/src/queue'], function(Queue) {
+define(['client/src/core/queue'], function(Queue) {
 
 	var testItem = {
 		"provider_url": "http://www.codecademy.com",
@@ -50,7 +50,7 @@ define(['client/src/queue'], function(Queue) {
 
 		it('can register a feed', function() {
 			var q = new Queue();
-			var Feed = require('client/src/feed');
+			var Feed = require('client/src/core/feed');
 			var f = new Feed();
 			q.registerFeed(f);
 			expect(q.feed).to.equal(f);
@@ -58,7 +58,7 @@ define(['client/src/queue'], function(Queue) {
 
 		it('can use its feed to fetch more items', function() {
 			var q = new Queue();
-			var Feed = require('client/src/feed');
+			var Feed = require('client/src/core/feed');
 			q.registerFeed(new Feed());
 			expect(q.items.length).to.equal(0);
 			q.more();

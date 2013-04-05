@@ -1,4 +1,4 @@
-define(['../vendors/state-machine.js'], function(StateMachine) {
+define(['../../../vendors/state-machine.js'], function(StateMachine) {
 
 	function Node(parent) {
 		this.children = [];
@@ -30,9 +30,7 @@ define(['../vendors/state-machine.js'], function(StateMachine) {
 	};
 
 	Node.prototype.requestItem = function() {
-		this.getTree().queue.pop(function(item) {
-			console.log(item);	
-		});
+		console.log( this.getTree().queue.pop() );
 	};
 
 	Node.prototype.addChildren = function() {};

@@ -1,0 +1,84 @@
+TODO
+
+CONFIGURATION PROFILES
+screen size
+transition capabilities
+connection/feed source
+
+Client - node
+let Nodes "ask" for data
+requestItem()
+
+Client - grid/tree
+CONFIGURABLE grid
+	data-width data-height
+	or client-side getBoundingClientRect()?
+
+mobile first - list
+tablet - grid w touch
+pc - grid w mouse
+
+Server
+fake Streaming API
+
+Think about
+2-step content - stream twitter, load embed after twitter render
+
+
+CONTENT ITEMS
+
+1square = 200x200px
+
+1square = paragraph description
+1square = image w/ smallest size > 100px
+1square = paragraph + inline small image (largest size < 100px)
+
+2square = paragraph + large image
+	horizontal
+	vertical
+
+no paragraph, no content image = discard
+
+
+leaving node(s)
+entering node(s)
+
+1 leave, 1 enter
+2 leave, 1 enter
+4 leave, 1 enter
+1 leave, 2 enter
+1 leave, 4 enter
+
+template method - specify algorithm steps (series of method calls). let subclasses execute methods.
+command - encapsulate request/action in an object
+composite command - treat multiple commands as single entity
+
+TransitionCommand(node, items) {
+
+	execute: function() {
+		node.clearView(node->getItems());
+		node.moveItemsIntoView(items);
+	}
+
+	undo: function() {
+		node.clearView(items);
+		node.moveItemsIntoView(node.itemStack.pop());
+	}
+	
+}
+
+stack: [TransitionCommand[node, items], TC[], TC[]];
+
+Node: 	emptyChildState
+		nonEmptyChildState
+		parentState
+		activeItem
+		itemStack
+
+
+strategy - encapsulate various algorithms (input-output mapping) and make them interchangeable
+	- mobile vs desktop item feed?
+state - identify and extract states that an object can be in which lead methods/requests to behave differently.
+	- streaming vs paused/manual rewinding
+	- parent vs child node merge/split request
+

@@ -1,4 +1,4 @@
-define(['./queue', './node'], function(Queue, Node) {
+define(['client/src/core/queue', 'client/src/ui/tree/node'], function(Queue, Node) {
 
 	function Tree() {
 		this.queue = new Queue;

@@ -1,4 +1,4 @@
-define(['client/src/queue'], function(Queue) {
+define(['client/src/core/queue'], function(Queue) {
 
 	var MIN_CONTENT_IMAGE_SIZE = 100;
 

@@ -1,4 +1,4 @@
-define(['client/src/feed'], function(Feed) {
+define(['client/src/core/feed'], function(Feed) {
 
 	function Queue() {
 		this.items = [];

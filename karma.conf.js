@@ -17,8 +17,7 @@ files = [
   'node_modules/expect.js/expect.js',
 
   // files that should be accessible, but not loaded via script tags
-  {pattern: 'client/src/**.js', included: false},
-  {pattern: 'client/src/*_test.js', included: false},
+  {pattern: 'client/src/**/**.js', included: false},
 
   'client/test/main-test.js'
 ];

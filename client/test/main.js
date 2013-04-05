@@ -4,6 +4,6 @@ require.config({
 	}
 });
 
-require(['../src/tree'], function(Tree) {
+require(['../src/ui/tree/tree'], function(Tree) {
 	window.Tree = Tree;
 });

@@ -1,4 +1,4 @@
-define(['client/src/formatter'], function(Formatter) {
+define(['client/src/ui/formatter'], function(Formatter) {
 	describe('Formatter', function() {
 
 		var hasDescriptionHasImageItem = {
@@ -118,7 +118,7 @@ define(['client/src/formatter'], function(Formatter) {
 		});
 
 		it('can get items from a queue', function() {
-			var Queue = require('client/src/queue');
+			var Queue = require('client/src/core/queue');
 			var q = new Queue();
 			q.push(hasDescriptionHasImageItem);
 			var f = new Formatter();
@@ -128,7 +128,7 @@ define(['client/src/formatter'], function(Formatter) {
 		});
 
 		it('finds a Horizontal item deeper down the queue', function() {
-			var Queue = require('client/src/queue');
+			var Queue = require('client/src/core/queue');
 			var q = new Queue();
 			q.push(noDescriptionNoImageItem);
 			q.push(hasDescriptionSmallImageItem);
@@ -141,7 +141,7 @@ define(['client/src/formatter'], function(Formatter) {
 
 
 		it('finds a Vertical item deeper down the queue', function() {
-			var Queue = require('client/src/queue');
+			var Queue = require('client/src/core/queue');
 			var q = new Queue();
 			q.push(noDescriptionNoImageItem);
 			q.push(hasDescriptionSmallImageItem);
