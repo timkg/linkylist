@@ -1,9 +1,9 @@
-define([], function() {
+define(['client/src/queue'], function(Queue) {
 
 	var MIN_CONTENT_IMAGE_SIZE = 100;
 
 	function Formatter() {
-
+		// TODO - accept format adapter
 	}
 
 	Formatter.prototype = {};
@@ -11,7 +11,7 @@ define([], function() {
 	Formatter.prototype.getItemContent = function(item) {
 		var image, description, response = [];
 
-		// TODO - don't hardcode embed.ly's response format, create configurable adapter
+		// TODO - don't hardcode embed.ly's response format, use configurable format adapter
 		if( item.thumbnail_height && item.thumbnail_height >= MIN_CONTENT_IMAGE_SIZE && item.thumbnail_width && item.thumbnail_width >= MIN_CONTENT_IMAGE_SIZE ) {
 			image = {
 				height: item.thumbnail_height,
@@ -39,22 +39,40 @@ define([], function() {
 
 	};
 
+	// TODO - remove duplication
 	Formatter.prototype.getSquare = function(queue) {
-		// iterate over queue
-		// take first item for which getItemContent() returns 1 or 2
-		// build item
+		var item = queue.searchAndRetrieve(function(item) {
+			var contents = this.getItemContent(item);
+			if( contents.image || contents.description ) {
+				return true;
+			}
+			return false;
+		}.bind(this))
+		return item;
 	};
 
+	// TODO - remove duplication
 	Formatter.prototype.getHorizontal = function(queue) {
-		// iterate over queue
-		// take first item for which getItemContent() returns 2
-		// build item
+		var item = queue.searchAndRetrieve(function(item) {
+			var contents = this.getItemContent(item);
+			if( contents.image && contents.description ) {
+				return true;
+			}
+			return false;
+		}.bind(this))
+		return item;
 	};
 
+	// TODO - remove duplication
 	Formatter.prototype.getVertical = function(queue) {
-		// iterate over queue
-		// take first item for which getItemContent() returns 2
-		// build item
+		var item = queue.searchAndRetrieve(function(item) {
+			var contents = this.getItemContent(item);
+			if( contents.image && contents.description ) {
+				return true;
+			}
+			return false;
+		}.bind(this))
+		return item;
 	};
 
 	return Formatter;

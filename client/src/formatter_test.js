@@ -117,6 +117,40 @@ define(['client/src/formatter'], function(Formatter) {
 			expect(contents.description).to.be(undefined);
 		});
 
+		it('can get items from a queue', function() {
+			var Queue = require('client/src/queue');
+			var q = new Queue();
+			q.push(hasDescriptionHasImageItem);
+			var f = new Formatter();
+			var item = f.getSquare(q);
+			expect(item).to.eql(hasDescriptionHasImageItem);
+			expect(q.items.length).to.equal(0);
+		});
+
+		it('finds a Horizontal item deeper down the queue', function() {
+			var Queue = require('client/src/queue');
+			var q = new Queue();
+			q.push(noDescriptionNoImageItem);
+			q.push(hasDescriptionSmallImageItem);
+			q.push(hasDescriptionHasImageItem);
+			var f = new Formatter();
+			var item = f.getHorizontal(q);
+			expect(item).to.eql(hasDescriptionHasImageItem);
+			expect(q.items.length).to.equal(2);
+		});
+
+
+		it('finds a Vertical item deeper down the queue', function() {
+			var Queue = require('client/src/queue');
+			var q = new Queue();
+			q.push(noDescriptionNoImageItem);
+			q.push(hasDescriptionSmallImageItem);
+			q.push(hasDescriptionHasImageItem);
+			var f = new Formatter();
+			var item = f.getVertical(q);
+			expect(item).to.eql(hasDescriptionHasImageItem);
+			expect(q.items.length).to.equal(2);
+		});
 
 	});
 });
