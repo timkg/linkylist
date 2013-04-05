@@ -30,7 +30,7 @@ define(['../vendors/state-machine.js'], function(StateMachine) {
 	};
 
 	Node.prototype.requestItem = function() {
-		this.getTree().queue.getItem(function(item) {
+		this.getTree().queue.pop(function(item) {
 			console.log(item);	
 		});
 	};
