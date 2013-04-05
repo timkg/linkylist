@@ -1,4 +1,4 @@
-define(['base/client/src/formatter'], function(Formatter) {
+define(['client/src/formatter'], function(Formatter) {
 	describe('Formatter', function() {
 
 		var hasDescriptionHasImageItem = {
