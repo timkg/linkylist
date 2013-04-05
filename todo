@@ -8,6 +8,11 @@ connection/feed source
 Client - node
 let Nodes "ask" for data
 requestItem()
+List and Tree are both ItemRequester which connect to a Queue
+Tree minimum 2x2
+Initially full on construction, need to provide 4 squares
+Request coming in - square/vertical/horizontal - knows which node to activate
+Node can respond to Transition
 
 Client - grid/tree
 CONFIGURABLE grid

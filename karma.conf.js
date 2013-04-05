@@ -18,6 +18,7 @@ files = [
 
   // files that should be accessible, but not loaded via script tags
   {pattern: 'client/src/**/**.js', included: false},
+  {pattern: 'client/src/**/**/**.js', included: false},
 
   'client/test/main-test.js'
 ];
