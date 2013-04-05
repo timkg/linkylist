@@ -10,9 +10,8 @@ define(['client/src/feed'], function(Feed) {
 		this.items.push(item);
 	};
 
-	Queue.prototype.pop = function(callback) {
-		var item = this.feed.pop();
-		callback(item);
+	Queue.prototype.pop = function() {
+		return item = this.items.pop();
 	};
 
 	Queue.prototype.at = function(pos) {
@@ -29,6 +28,15 @@ define(['client/src/feed'], function(Feed) {
 		// TODO - if it didn't find, query Feed for more items
 		throw new Error('Queue couldn\'t find item');
 
+	};
+
+	Queue.prototype.registerFeed = function(feed) {
+		this.feed = feed;
+	}
+
+	Queue.prototype.more = function() {
+		var more = this.feed.fetch();
+		this.items = this.items.concat(more);
 	};
 
 	return Queue;
