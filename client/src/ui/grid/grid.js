@@ -1,6 +1,7 @@
-define(['client/src/ui/grid/square'], function(Square){
+define(['client/src/ui/grid/square', 'client/src/ui/itemProvider'], function(Square, ItemProvider){
 
 	function Grid(w, h) {
+		this.itemProvider = new ItemProvider();
 		this.w = w;
 		this.h = h;
 		this.rows = [];
@@ -17,6 +18,10 @@ define(['client/src/ui/grid/square'], function(Square){
 	Grid.prototype.at = function(x, y) {
 		if( x < 0 || x >= this.w || y < 0 || y >= this.h ) throw ('Grid.at(x, y) received out of bounds coordinates');
 		return this.rows[x][y];
+	};
+
+	Grid.prototype.provideItem = function(square) {
+
 	};
 
 	return Grid;

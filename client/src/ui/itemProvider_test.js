@@ -1,5 +1,5 @@
-define(['client/src/ui/formatter'], function(Formatter) {
-	describe('Formatter', function() {
+define(['client/src/ui/itemProvider'], function(ItemProvider) {
+	describe('ItemProvider', function() {
 
 		var hasDescriptionHasImageItem = {
 			"provider_url": "http://www.codecademy.com",
@@ -59,13 +59,14 @@ define(['client/src/ui/formatter'], function(Formatter) {
 		};
 
 		it('can be instantiated', function() {
-			var f = new Formatter();
-			expect(f).to.be.ok();
+			var ip = new ItemProvider();
+			expect(ip).to.be.ok();
 		});
 
 		it('finds image and description in items with both', function() {
-			var f = new Formatter();
-			var contents = f.getItemContent(hasDescriptionHasImageItem);
+			var ip = new ItemProvider();
+			var contents = ip.getItemContent(hasDescriptionHasImageItem);
+
 			expect(contents.image).to.eql({
 				height: 149,
 				width: 297,
@@ -77,8 +78,8 @@ define(['client/src/ui/formatter'], function(Formatter) {
 		});
 
 		it('finds image in items with image', function() {
-			var f = new Formatter();
-			var contents = f.getItemContent(noDescriptionHasImageItem);
+			var ip = new ItemProvider();
+			var contents = ip.getItemContent(noDescriptionHasImageItem);
 			expect(contents.image).to.eql({
 				height: 149,
 				width: 297,
@@ -88,8 +89,8 @@ define(['client/src/ui/formatter'], function(Formatter) {
 		});
 
 		it('finds description in items with description', function() {
-			var f = new Formatter();
-			var contents = f.getItemContent(hasDescriptionNoImageItem);
+			var ip = new ItemProvider();
+			var contents = ip.getItemContent(hasDescriptionNoImageItem);
 			expect(contents.image).to.be(undefined);
 			expect(contents.description).to.eql({
 				text: "Codecademy is the easiest way to learn how to code. It's interactive, fun, and you can do it with your friends."
@@ -97,8 +98,8 @@ define(['client/src/ui/formatter'], function(Formatter) {
 		});
 
 		it('finds description with small image in items with description and small image', function() {
-			var f = new Formatter();
-			var contents = f.getItemContent(hasDescriptionSmallImageItem);
+			var ip = new ItemProvider();
+			var contents = ip.getItemContent(hasDescriptionSmallImageItem);
 			expect(contents.image).to.be(undefined);
 			expect(contents.description).to.eql({
 				text: "Codecademy is the easiest way to learn how to code. It's interactive, fun, and you can do it with your friends.",
@@ -111,8 +112,8 @@ define(['client/src/ui/formatter'], function(Formatter) {
 		});
 
 		it('does not find description or image in items without those', function() {
-			var f = new Formatter();
-			var contents = f.getItemContent(noDescriptionNoImageItem);
+			var ip = new ItemProvider();
+			var contents = ip.getItemContent(noDescriptionNoImageItem);
 			expect(contents.image).to.be(undefined);
 			expect(contents.description).to.be(undefined);
 		});
@@ -120,21 +121,25 @@ define(['client/src/ui/formatter'], function(Formatter) {
 		it('can get items from a queue', function() {
 			var Queue = require('client/src/core/queue');
 			var q = new Queue();
+			q.items = []; // override queue initialization for testing purposes
 			q.push(hasDescriptionHasImageItem);
-			var f = new Formatter();
-			var item = f.getSquare(q);
+
+			var ip = new ItemProvider();
+			var prevQueueLength = q.items.length;
+			var item = ip.getSquare(q);
 			expect(item).to.eql(hasDescriptionHasImageItem);
-			expect(q.items.length).to.equal(0);
+			expect(q.items.length).to.be.lessThan(prevQueueLength);
 		});
 
 		it('finds a Horizontal item deeper down the queue', function() {
 			var Queue = require('client/src/core/queue');
 			var q = new Queue();
+			q.items = []; // override queue initialization for testing purposes
 			q.push(noDescriptionNoImageItem);
 			q.push(hasDescriptionSmallImageItem);
 			q.push(hasDescriptionHasImageItem);
-			var f = new Formatter();
-			var item = f.getHorizontal(q);
+			var ip = new ItemProvider();
+			var item = ip.getHorizontal(q);
 			expect(item).to.eql(hasDescriptionHasImageItem);
 			expect(q.items.length).to.equal(2);
 		});
@@ -143,11 +148,12 @@ define(['client/src/ui/formatter'], function(Formatter) {
 		it('finds a Vertical item deeper down the queue', function() {
 			var Queue = require('client/src/core/queue');
 			var q = new Queue();
+			q.items = []; // override queue initialization for testing purposes
 			q.push(noDescriptionNoImageItem);
 			q.push(hasDescriptionSmallImageItem);
 			q.push(hasDescriptionHasImageItem);
-			var f = new Formatter();
-			var item = f.getVertical(q);
+			var ip = new ItemProvider();
+			var item = ip.getVertical(q);
 			expect(item).to.eql(hasDescriptionHasImageItem);
 			expect(q.items.length).to.equal(2);
 		});

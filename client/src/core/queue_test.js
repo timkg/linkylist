@@ -1,4 +1,4 @@
-define(['client/src/core/queue'], function(Queue) {
+define(['client/src/core/queue', 'client/src/core/feed'], function(Queue, Feed) {
 
 	var testItem = {
 		"provider_url": "http://www.codecademy.com",
@@ -24,21 +24,23 @@ define(['client/src/core/queue'], function(Queue) {
 
 		it('can push new items', function() {
 			var q = new Queue();
+			var prevLength = q.items.length;
 			q.push(testItem);
-			expect(q.items.length).to.equal(1);
+			expect(q.items.length).to.be.greaterThan(prevLength);
 		});
 
 		it('can pop items', function() {
 			var q = new Queue();
 			q.push(testItem);
-			expect(q.items.length).to.equal(1);
+			var prevLength = q.items.length;
 			var item = q.pop();
 			expect(item).to.equal(testItem);
-			expect(q.items.length).to.equal(0);
+			expect(q.items.length).to.be.lessThan(prevLength);
 		});
 
 		it('can return items at position', function() {
 			var q = new Queue();
+			q.items = []; // override queue initialization for testing
 			q.push(testItem);
 			q.push(anotherTestItem);
 			q.push(yetAnotherTestItem);
@@ -53,16 +55,25 @@ define(['client/src/core/queue'], function(Queue) {
 			var Feed = require('client/src/core/feed');
 			var f = new Feed();
 			q.registerFeed(f);
-			expect(q.feed).to.equal(f);
+			expect(q.feed).to.be(f);
+		});
+
+		it('creates a feed if none is given', function() {
+			var q = new Queue();
+			expect(q.feed).to.be.a(Feed);
+		});
+
+		it('accepts a feed as constructor parameter', function() {
+			var f = new Feed();
+			var q = new Queue(f);
+			expect(q.feed).to.be(f);
 		});
 
 		it('can use its feed to fetch more items', function() {
 			var q = new Queue();
-			var Feed = require('client/src/core/feed');
-			q.registerFeed(new Feed());
-			expect(q.items.length).to.equal(0);
+			var prevLength = q.items.length;
 			q.more();
-			expect(q.items.length).to.be.greaterThan(0);
+			expect(q.items.length).to.be.greaterThan(prevLength);
 		});
 
 	});

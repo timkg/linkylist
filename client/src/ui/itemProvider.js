@@ -2,13 +2,14 @@ define(['client/src/core/queue'], function(Queue) {
 
 	var MIN_CONTENT_IMAGE_SIZE = 100;
 
-	function Formatter() {
+	function ItemProvider(queue) {
 		// TODO - accept format adapter
+		this.q = queue || new Queue();
 	}
 
-	Formatter.prototype = {};
+	ItemProvider.prototype = {};
 
-	Formatter.prototype.getItemContent = function(item) {
+	ItemProvider.prototype.getItemContent = function(item) {
 		var image, description, response = [];
 
 		// TODO - don't hardcode embed.ly's response format, use configurable format adapter
@@ -40,7 +41,12 @@ define(['client/src/core/queue'], function(Queue) {
 	};
 
 	// TODO - remove duplication
-	Formatter.prototype.getSquare = function(queue) {
+	ItemProvider.prototype.getItem = function(queue) {
+		return queue.pop();
+	};
+
+	// TODO - remove duplication
+	ItemProvider.prototype.getSquare = function(queue) {
 		var item = queue.searchAndRetrieve(function(item) {
 			var contents = this.getItemContent(item);
 			if( contents.image || contents.description ) {
@@ -52,7 +58,7 @@ define(['client/src/core/queue'], function(Queue) {
 	};
 
 	// TODO - remove duplication
-	Formatter.prototype.getHorizontal = function(queue) {
+	ItemProvider.prototype.getHorizontal = function(queue) {
 		var item = queue.searchAndRetrieve(function(item) {
 			var contents = this.getItemContent(item);
 			if( contents.image && contents.description ) {
@@ -64,7 +70,7 @@ define(['client/src/core/queue'], function(Queue) {
 	};
 
 	// TODO - remove duplication
-	Formatter.prototype.getVertical = function(queue) {
+	ItemProvider.prototype.getVertical = function(queue) {
 		var item = queue.searchAndRetrieve(function(item) {
 			var contents = this.getItemContent(item);
 			if( contents.image && contents.description ) {
@@ -75,6 +81,6 @@ define(['client/src/core/queue'], function(Queue) {
 		return item;
 	};
 
-	return Formatter;
+	return ItemProvider;
 
 });

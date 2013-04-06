@@ -1,7 +1,9 @@
 define(['client/src/core/feed'], function(Feed) {
 
-	function Queue() {
+	function Queue(feed) {
+		this.feed = feed || new Feed();
 		this.items = [];
+		this.more();
 	}
 
 	Queue.prototype = {};
@@ -11,7 +13,7 @@ define(['client/src/core/feed'], function(Feed) {
 	};
 
 	Queue.prototype.pop = function() {
-		return item = this.items.pop();
+		return this.items.pop();
 	};
 
 	Queue.prototype.at = function(pos) {
@@ -27,7 +29,6 @@ define(['client/src/core/feed'], function(Feed) {
 		}
 		// TODO - if it didn't find, query Feed for more items
 		throw new Error('Queue couldn\'t find item');
-
 	};
 
 	Queue.prototype.registerFeed = function(feed) {

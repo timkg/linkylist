@@ -5,9 +5,7 @@ define([], function() {
 	function Feed() {
 		// TODO - remove hardcoded test values
 		this.items = [];
-		for( var i = 0; i < testItems.length; i++ ) {
-			this.items.push(JSON.stringify(testItems[i]));
-		}
+		this.fetch();
 	}
 
 	Feed.prototype = {};
@@ -17,6 +15,10 @@ define([], function() {
 		for( var i = 0; i < testItems.length; i++ ) {
 			this.items.push(JSON.stringify(testItems[i]));
 		}
+	};
+
+	Feed.prototype.release = function() {
+		return this.items.splice(0);
 	};
 
 	return Feed;

@@ -13,61 +13,106 @@ define([], function(){
 		// iterate over this[array[d]]();
 	};
 
-	Square.topLeft = function() {
-		try {
-			var s = this.grid.get(this.x - 1, this.y - 1);
-		} catch(e) {
-			console.log(e);
+	Square.prototype.requestItem = function() {
+		this.grid.provideItem(this);
+	};
+
+	Square.prototype.placeItem = function(item) {
+		this.item = item;
+		if( this.item.isHorizontal ) {
+			//this.left() - do things
+		}
+		if( this.item.isVertical ) {
+			//this.bottom() - do things
+		}
+		if( this.item.isSquare ) {
+			// meh
 		}
 	};
-	Square.top = function() {
+
+	Square.prototype.hasItem = function() {
+		return !!this.item;
+	}
+
+	Square.prototype.topLeft = function() {
+		var s = null;
 		try {
-			var s = this.grid.get(this.x, this.y - 1);
+			s = this.grid.at(this.x - 1, this.y - 1);
 		} catch(e) {
 			console.log(e);
 		}
+		return s;
 	};
-	Square.topRight = function() {
+
+	Square.prototype.top = function() {
+		var s = null;
 		try {
-			var s = this.grid.get(this.x + 1, this.y - 1);
+			s = this.grid.at(this.x, this.y - 1);
+			return s;
 		} catch(e) {
 			console.log(e);
 		}
+		return s;
 	};
-	Square.right = function() {
+
+	Square.prototype.topRight = function() {
+		var s = null;
 		try {
-			var s = this.grid.get(this.x + 1, this.y);
+			s = this.grid.at(this.x + 1, this.y - 1);
 		} catch(e) {
 			console.log(e);
 		}
+		return s;
 	};
-	Square.bottomRight = function() {
+
+	Square.prototype.right = function() {
+		var s = null;
 		try {
-			var s = this.grid.get(this.x + 1, this.y + 1);
+			s = this.grid.at(this.x + 1, this.y);
 		} catch(e) {
 			console.log(e);
 		}
+		return s;
 	};
-	Square.bottom = function() {
+
+	Square.prototype.bottomRight = function() {
+		var s = null;
 		try {
-			var s = this.grid.get(this.x, this.y + 1);
+			s = this.grid.at(this.x + 1, this.y + 1);
 		} catch(e) {
 			console.log(e);
 		}
+		return s;
 	};
-	Square.bottomLeft = function() {
+
+	Square.prototype.bottom = function() {
+		var s = null;
 		try {
-			var s = this.grid.get(this.x - 1, this.y + 1);
+			s = this.grid.at(this.x, this.y + 1);
 		} catch(e) {
 			console.log(e);
 		}
+		return s;
 	};
-	Square.left = function() {
+
+	Square.prototype.bottomLeft = function() {
+		var s = null;
 		try {
-			var s = this.grid.get(this.x - 1, this.y);
+			s = this.grid.at(this.x - 1, this.y + 1);
 		} catch(e) {
 			console.log(e);
 		}
+		return s;
+	};
+
+	Square.prototype.left = function() {
+		var s = null;
+		try {
+			s = this.grid.at(this.x - 1, this.y);
+		} catch(e) {
+			console.log(e);
+		}
+		return s;
 	};
 
 
