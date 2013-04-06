@@ -1,0 +1,177 @@
+<html>
+<head>
+	<link href='http://fonts.googleapis.com/css?family=Droid+Sans|Droid+Serif:400,700' rel='stylesheet' type='text/css'>
+	<title></title>
+	<style type="text/css">
+
+	body {
+		background: #eee;
+	}
+
+	.area1 {
+		position: absolute;
+		height: 420px;
+		width: 620px;
+		margin-left: -300px;
+		margin-top: -200px;
+		top: 50%;
+		left: 50%;
+		background: #eee;
+	}
+
+	.itemholder {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		height: 400px;
+		width: 600px;
+		margin-top: -200px;
+		margin-left: -300px;
+		background: #eee;
+	}
+
+	.item {
+		background-color: white;
+		box-shadow: 1px 1px 1px #ddd;
+		border: 1px solid #ddd;
+		position: absolute;
+		border-radius: 5px;
+	}
+
+	.item.rect {
+		margin: 5px;
+		height: 190px;
+		width: 190px;
+	}
+
+	.item.horizontal {
+		margin: 5px;
+		height: 190px;
+		width: 390px;
+	}
+
+	.item.horizontal .img-container {
+		position: absolute;
+		top: 0;
+		left: 0;
+		border-radius: 2px 2px 0 0;
+		height: 100%;
+		width: 50%;
+		background: #fff url(http://placekitten.com/200/200) no-repeat;
+		border-radius: 2px 0 0 2px;
+	}
+	.item.horizontal .text-container {
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		background-color: #fff;
+		height: 100%;
+		width: 50%;
+		border-radius: 0 2px 2px 0;
+	}
+
+	.item.vertical {
+		margin: 5px;
+		height: 390px;
+		width: 190px;
+
+	}
+
+	.item.vertical .img-container {
+		position: absolute;
+		top: 0;
+		left: 0;
+		border-radius: 2px 2px 0 0;
+		height: 50%;
+		width: 100%;
+		background: #fff url(http://placekitten.com/200/200) no-repeat;
+	}
+	.item.vertical .text-container {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		background-color: #fff;
+		height: 50%;
+		width: 100%;
+		border-radius: 0 0 2px 2px;
+	}
+
+	.one {
+		top: 0;
+		left: 0;
+	}
+	.two {top: 0; left: 200px;}
+	.three {top: 0; right: 0;}
+	.four {bottom: 0; right: 0;}
+	.five {bottom: 0; left: 200px;}
+	.six {bottom: 0; right: 0;}
+
+	.gradient {
+		/* the idea was to smoothen the hard stop where the image starts, but it doesn't look good
+		background: -webkit-gradient(linear, left top, left bottom, color-stop(95%,rgba(255,255,255,0)), color-stop(100%,rgba(255,255,255,1))), url(http://placekitten.com/200/200);
+		*/
+	}
+
+	h3 {
+		font-family: 'Droid Serif';
+		font-size: 16px;
+		color: #333;
+		padding: 10px 5px;
+		margin: 0;
+	}
+
+	p {
+		font-family: 'Droid sans';
+		font-size: 13px;
+		padding: 5px;
+		line-height: 1.4;
+		color: #666;
+		margin: 0;
+		max-height: 55%;
+		overflow: hidden;
+		position: relative;
+	}
+
+	</style>
+</head>
+<body>
+
+<div class="area1">
+	<div class="itemholder">
+		<div class="item vertical one">
+			<div class="img-container gradient"></div>
+			<div class="text-container">
+				<h3>Kittens - the newest thing on the Internet</h3>
+				<p>Over the course of my career, Ive had the pleasure and privilege to work on hundreds of different websites and Web applications. For the vast majority of these projects, I was the sole developer building out the HTML and CSS. I developed a way of coding websites that worked well for me.
+				</p>
+			</div>
+		</div>
+		<div class="item rect two">
+				<div class="text-container">
+				<h3>Kittens - the newest thing on the Internet</h3>
+				<p>Over the course of my career, Ive had the pleasure and privilege to work on hundreds of different websites and Web applications. For the vast majority of these projects, I was the sole developer building out the HTML and CSS. I developed a way of coding websites that worked well for me.
+				</p>
+			</div>
+		</div>
+		<div class="item rect three">
+			<div class="text-container">
+				<h3>Kittens - the newest thing on the Internet</h3>
+				<p>Over the course of my career, Ive had the pleasure and privilege to work on hundreds of different websites and Web applications. For the vast majority of these projects, I was the sole developer building out the HTML and CSS. I developed a way of coding websites that worked well for me.
+				</p>
+			</div>
+		</div>
+		<div class="item horizontal four">
+			<div class="img-container"></div>
+			<div class="text-container">
+				<h3>Kittens - the newest thing on the Internet</h3>
+				<p>Over the course of my career, Ive had the pleasure and privilege to work on hundreds of different websites and Web applications. For the vast majority of these projects, I was the sole developer building out the HTML and CSS. I developed a way of coding websites that worked well for me.
+				</p>
+			</div>
+		</div>
+		<!-- <div class="item rect five"></div>
+		<div class="item rect six"></div> -->
+	</div>
+</div>
+
+</body>
+</html>

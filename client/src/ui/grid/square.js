@@ -8,17 +8,27 @@ define([], function(){
 
 	Square.prototype = {};
 
+	Square.prototype.print = function() {
+		return {
+			x: this.x,
+			y: this.y,
+			item: this.item
+		};
+	};
+
 	Square.prototype.canAccomodate = function(item) {
 		// create array with direction names
 		// iterate over this[array[d]]();
 	};
 
 	Square.prototype.requestItem = function() {
-		this.grid.provideItem(this);
+		this.item = this.grid.provideItem();
 	};
 
 	Square.prototype.placeItem = function(item) {
-		this.item = item;
+		var itemToPlace = item || this.item;
+		if( !itemToPlace ) return false;
+
 		if( this.item.isHorizontal ) {
 			//this.left() - do things
 		}
@@ -28,6 +38,7 @@ define([], function(){
 		if( this.item.isSquare ) {
 			// meh
 		}
+
 	};
 
 	Square.prototype.hasItem = function() {
@@ -39,7 +50,7 @@ define([], function(){
 		try {
 			s = this.grid.at(this.x - 1, this.y - 1);
 		} catch(e) {
-			console.log(e);
+			// console.log(e);
 		}
 		return s;
 	};
@@ -50,7 +61,7 @@ define([], function(){
 			s = this.grid.at(this.x, this.y - 1);
 			return s;
 		} catch(e) {
-			console.log(e);
+			// console.log(e);
 		}
 		return s;
 	};
@@ -60,7 +71,7 @@ define([], function(){
 		try {
 			s = this.grid.at(this.x + 1, this.y - 1);
 		} catch(e) {
-			console.log(e);
+			// console.log(e);
 		}
 		return s;
 	};
@@ -70,7 +81,7 @@ define([], function(){
 		try {
 			s = this.grid.at(this.x + 1, this.y);
 		} catch(e) {
-			console.log(e);
+			// console.log(e);
 		}
 		return s;
 	};
@@ -80,7 +91,7 @@ define([], function(){
 		try {
 			s = this.grid.at(this.x + 1, this.y + 1);
 		} catch(e) {
-			console.log(e);
+			// console.log(e);
 		}
 		return s;
 	};
@@ -90,7 +101,7 @@ define([], function(){
 		try {
 			s = this.grid.at(this.x, this.y + 1);
 		} catch(e) {
-			console.log(e);
+			// console.log(e);
 		}
 		return s;
 	};
@@ -100,7 +111,7 @@ define([], function(){
 		try {
 			s = this.grid.at(this.x - 1, this.y + 1);
 		} catch(e) {
-			console.log(e);
+			// console.log(e);
 		}
 		return s;
 	};
@@ -110,7 +121,7 @@ define([], function(){
 		try {
 			s = this.grid.at(this.x - 1, this.y);
 		} catch(e) {
-			console.log(e);
+			// console.log(e);
 		}
 		return s;
 	};

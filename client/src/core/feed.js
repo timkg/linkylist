@@ -18,6 +18,7 @@ define([], function() {
 	};
 
 	Feed.prototype.release = function() {
+		if( this.items.length === 0 ) this.fetch();
 		return this.items.splice(0);
 	};
 

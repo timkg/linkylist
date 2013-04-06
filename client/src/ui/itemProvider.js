@@ -3,8 +3,8 @@ define(['client/src/core/queue'], function(Queue) {
 	var MIN_CONTENT_IMAGE_SIZE = 100;
 
 	function ItemProvider(queue) {
+		this.queue = queue || new Queue();
 		// TODO - accept format adapter
-		this.q = queue || new Queue();
 	}
 
 	ItemProvider.prototype = {};
@@ -40,9 +40,8 @@ define(['client/src/core/queue'], function(Queue) {
 
 	};
 
-	// TODO - remove duplication
-	ItemProvider.prototype.getItem = function(queue) {
-		return queue.pop();
+	ItemProvider.prototype.next = function(queue) {
+		return this.queue.next();
 	};
 
 	// TODO - remove duplication

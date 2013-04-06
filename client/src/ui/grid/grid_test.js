@@ -34,7 +34,17 @@ define(['client/src/ui/grid/grid', 'client/src/ui/grid/square'], function(Grid, 
 			}).to.throwError();
 		});
 
+		it('can provide an init function for squares', function() {
 
+			var g = new Grid(1, 1, function(square) {
+				square.requestItem();
+			});
+
+//			dump(g.at(0,0));
+//			expect(g.at(0,0).item).to.be.ok();
+
+
+		});
 
 	});
 

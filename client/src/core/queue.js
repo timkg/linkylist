@@ -1,7 +1,7 @@
 define(['client/src/core/feed'], function(Feed) {
 
 	function Queue(feed) {
-		this.feed = feed || new Feed();
+		this.registerFeed( feed || new Feed() );
 		this.items = [];
 		this.more();
 	}
@@ -16,6 +16,10 @@ define(['client/src/core/feed'], function(Feed) {
 		return this.items.pop();
 	};
 
+	Queue.prototype.next = function() {
+		return this.items.shift();
+	};
+
 	Queue.prototype.at = function(pos) {
 		if( pos < 0 || pos >= this.items.length ) throw new Error('Invalid parameter passed to Queue.at');
 		return this.items.splice(pos, 1)[0];
@@ -27,18 +31,18 @@ define(['client/src/core/feed'], function(Feed) {
 				return this.at(i);
 			}
 		}
-		// TODO - if it didn't find, query Feed for more items
+		// TODO - if it didn't find, query Feed for more items. needs to accept callback for async
 		throw new Error('Queue couldn\'t find item');
 	};
 
 	Queue.prototype.registerFeed = function(feed) {
 		this.feed = feed;
+		this.more = function() {
+			var more = this.feed.release();
+			this.items = this.items.concat(more);
+		};
 	}
 
-	Queue.prototype.more = function() {
-		var more = this.feed.fetch();
-		this.items = this.items.concat(more);
-	};
 
 	return Queue;
 
