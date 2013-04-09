@@ -6,10 +6,13 @@ var express = require('express');
 var db = require('./db');
 var twitter_search = require('./twitter-search.js');
 var embedly_oembed = require('./embedly_oembed.js');
+var config = require('../config');
 
 var HTTP_PORT = process.env.PORT || 5000;
 
 exports.start = function() {
+
+	console.log(config.host.url);
 
 	// mongo db should be initialized once for the application, not for each request
 	// https://groups.google.com/forum/#!msg/node-mongodb-native/mSGnnuG8C1o/Hiaqvdu1bWoJ

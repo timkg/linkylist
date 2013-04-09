@@ -1,1 +1,1 @@
-web: node start.js $PORT
+web: node start.js PRODUCTION $PORT
