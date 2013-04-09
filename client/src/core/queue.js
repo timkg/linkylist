@@ -3,10 +3,13 @@ define(['client/src/core/feed'], function(Feed) {
 	function Queue(feed) {
 		this.registerFeed( feed || new Feed() );
 		this.items = [];
-		this.more();
 	}
 
 	Queue.prototype = {};
+
+	Queue.prototype.init = function() {
+		this.more();
+	};
 
 	Queue.prototype.push = function(item) {
 		this.items.push(item);
