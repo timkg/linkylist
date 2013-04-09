@@ -49,11 +49,13 @@ exports.start = function() {
 			response.sendfile('client/test/socket.html');
 		});
 
+		
 		io.sockets.on('connection', function (socket) {
-			db.getRecentLinks(function(links){
-				socket.emit('links', {items: links});
+			socket.on('linkrequest', function (clientArgs) {
+				db.getRecentLinks(function(links) {
+					socket.emit('links', links);
+				});
 			});
 		});
-
 	});
 };	
