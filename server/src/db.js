@@ -2,16 +2,6 @@ var url = require('url');
 var mongoose = require('mongoose');
 var db; // initialized in connect()
 
-exports.getRecentLinks = function(callback) {
-  this.Link.find(function(err, links) {
-    callback(links);
-  });
-};
-
-exports.showModels = function() {
-  console.log(mongoose.modelNames());
-};
-
 exports.connect = function(callback) {
   var connectionUri = url.parse(process.env.MONGOHQ_URL);
   // seems to be sync, no callbacks needed - http://mongoosejs.com/docs/connections.html
@@ -19,6 +9,14 @@ exports.connect = function(callback) {
   db = mongoose.connection;
   db.on('error', console.error.bind(console, 'connection error:'));
   db.once('open', callback);
+};
+
+exports.getRecentLinks = function(callback) {
+  if( !this.Link ) this.initLinkModel();
+  this.Link.find(function(err, links) {
+    if(err) throw err;
+    callback(links);
+  });
 };
 
 exports.initLinkModel = function() {
@@ -37,6 +35,10 @@ exports.initLinkModel = function() {
   };
 
   this.Link = mongoose.model('Link', mongoose.Schema(embedlyOembedFormat));
+};
+
+exports.showModels = function() {
+  console.log(mongoose.modelNames());
 };
 
 exports._saveDummyData = function(callback) {
