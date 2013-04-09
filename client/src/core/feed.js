@@ -4,6 +4,7 @@ define([], function() {
 		var options = opts || {};
 		this.items = [];
 		this.endpoint = opts.endpoint || 'http://localhost:5000/fetch';
+		
 		var socket = io.connect(this.endpoint);
 		socket.on('response', function (data) {
 			console.log(data);
@@ -11,7 +12,7 @@ define([], function() {
 		});
 	}
 
-	Feed.prototype = new Backbone.EventEmitter();
+	Feed.prototype = _.clone(Backbone.Events);
 
 	Feed.prototype.init = function() {
 

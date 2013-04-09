@@ -1,5 +1,5 @@
 var http = require('http');
-var API_KEY = require('./api-keys').embedly.apiKey;
+var API_KEY = process.env.EMBEDLY;
 
 var BASE_URL = 'http://api.embed.ly/1/oembed?key=';
 
