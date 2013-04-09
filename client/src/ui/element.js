@@ -1,4 +1,4 @@
-define(['client/vendors/moustache', '../../vendors/text!client/src/views/square.html'], function(Moustache, template) {
+define(['client/vendors/moustache', '../../vendors/text!client/src/templates/square.html'], function(Moustache, template) {
 
 	function Element(item) {
 		this.item = JSON.parse(item); // TODO - decide where best to parse the JSON
