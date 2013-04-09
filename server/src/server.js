@@ -7,7 +7,7 @@ var db = require('./db');
 var twitter_search = require('./twitter-search.js');
 var embedly_oembed = require('./embedly_oembed.js');
 
-var HTTP_PORT = 5000;
+var HTTP_PORT = process.env.PORT || 5000;
 
 exports.start = function() {
 
