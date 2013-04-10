@@ -1,3 +1,4 @@
+/*
 define([], function() {
 
 	function Node(depth, parent) {
@@ -83,3 +84,4 @@ define([], function() {
 //	return Node;
 //
 //});
+*/

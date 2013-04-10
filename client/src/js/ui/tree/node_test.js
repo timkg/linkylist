@@ -1,3 +1,4 @@
+/*
 define(['client/src/ui/tree/node'], function(Node) {
 
 	var parent = {
@@ -22,3 +23,4 @@ define(['client/src/ui/tree/node'], function(Node) {
 	});
 
 });
+*/

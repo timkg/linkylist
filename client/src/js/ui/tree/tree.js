@@ -1,8 +1,15 @@
-define(['client/src/core/queue', 'client/src/ui/tree/node'], function(Queue, Node) {
+/*
+(function() {
+	
+	"use strict";
+
+	define(['client/src/core/queue', 'client/src/ui/tree/node'], function(Queue, Node) {
 
 	// multiples of 2 in width and height
 	function Tree(w, h) {
-		if( w % 2 !== 0 || h % 2 !== 0 ) throw new Error('Tree w and h must be multiples of 2');
+		if( w % 2 !== 0 || h % 2 !== 0 ) {
+			throw new Error('Tree w and h must be multiples of 2');
+		}
 		this.nodes = [];
 		this.depth = 0;
 		this.root = new Node(0, this);
@@ -21,7 +28,6 @@ define(['client/src/core/queue', 'client/src/ui/tree/node'], function(Queue, Nod
 			n.split();
 		}
 		this._currentDepth += 1;
-		console.log(this.nodes);
 		if(this.nodes.length < this.maxElements) {
 			this._grow();
 		}
@@ -40,3 +46,5 @@ define(['client/src/core/queue', 'client/src/ui/tree/node'], function(Queue, Nod
 	return Tree;
 
 });
+}());
+*/

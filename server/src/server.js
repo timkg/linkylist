@@ -1,61 +1,43 @@
-var http = require('http');
-var url = require('url');
-var fs = require('fs');
-var express = require('express');
+(function() {
+	"use strict";
 
-var db = require('./db');
-var twitter_search = require('./twitter-search.js');
-var embedly_oembed = require('./embedly_oembed.js');
-var config = require('../config');
+	var http = require('http');
+	var url = require('url');
+	var fs = require('fs');
+	var express = require('express');
 
-var HTTP_PORT = process.env.PORT || 5000;
+	var db = require('./db');
+	var handler = require('./requesthandler');
+	var config = require('../config');
 
-exports.start = function() {
+	var HTTP_PORT = process.env.PORT || 5000;
 
-	console.log(config.host.url);
+	exports.start = function() {
 
-	// mongo db should be initialized once for the application, not for each request
-	// https://groups.google.com/forum/#!msg/node-mongodb-native/mSGnnuG8C1o/Hiaqvdu1bWoJ
-	db.connect(function() {
-		
-		var app = express();
-		var server = http.createServer(app);
-		var io = require('socket.io').listen(server);
-		io.configure(function () { 
-			io.set("transports", ["xhr-polling"]); 
-			io.set("polling duration", 10); 
-		});
+		console.log(config.host.url);
 
-		server.listen(HTTP_PORT);
+		// mongo db should be initialized once for the application, not for each request
+		// https://groups.google.com/forum/#!msg/node-mongodb-native/mSGnnuG8C1o/Hiaqvdu1bWoJ
+		db.connect(function() {
 
-		app.get('/', function(request, response) {
-			console.log('request received');
-			// db.getRecentLinks(function(links){
-			// 	response.end(JSON.stringify(links), 'utf8');
-			// });
-			response.end('index');
-		});
+			var app = express();
+			var server = http.createServer(app);
+			var io = require('socket.io').listen(server);
+			io.configure(function () {
+				io.set("transports", ["xhr-polling"]);
+				io.set("polling duration", 10);
+			});
 
-		app.get('/fetch', function(request, response) {
-			console.log('request received');
-			// db.getRecentLinks(function(links){
-			// 	response.end(JSON.stringify(links), 'utf8');
-			// });
-			response.end('fetch');
-		});
+			server.listen(HTTP_PORT);
 
-		app.get('/socket', function(request, response) {
-			console.log('request received');
-			response.sendfile('client/test/socket.html');
-		});
+			app.get('/', function(request, response) {
+				console.log('request received');
+				response.sendfile('client/src/html/index.html');
+			});
 
-		
-		io.sockets.on('connection', function (socket) {
-			socket.on('linkrequest', function (clientArgs) {
-				db.getRecentLinks(function(links) {
-					socket.emit('links', links);
-				});
+			io.sockets.on('connection', function(socket) {
+				handler.init(socket, db);
 			});
 		});
-	});
-};	
+	};
+}());

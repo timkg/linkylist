@@ -1,9 +1,14 @@
-define([], function() {
+(function() {
+	/*global define*/
+	"use strict";
 
-	function Transition() {
+	define([], function() {
 
-	}
+		function Transition() {
 
-	return Transition;
+		}
 
-});
+		return Transition;
+
+	});
+}());

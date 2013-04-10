@@ -10,11 +10,13 @@ basePath = '';
 // included: false means that they will be served/accessible,
 // but not directly loaded via <script> tags
 files = [
+  'http://localhost:5000/socket.io/socket.io.js',
   MOCHA,
   MOCHA_ADAPTER,
   REQUIRE,
   REQUIRE_ADAPTER,
   'node_modules/expect.js/expect.js',
+
 
   // files that should be accessible, but not loaded via script tags
   {pattern: 'client/src/**/**.js', included: false},

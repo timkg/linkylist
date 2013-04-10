@@ -1,16 +1,18 @@
-define([], function() {
+(function() {
+	/*global define, require*/
+	"use strict";
 
-	function Item(data, view) {
-		this.data = data;
-		this.view = view;
-	}
+	define([], function() {
 
-	Item.prototype = {};
+		function Item(data, view) {
+			this.data = data;
+			this.view = view;
+		}
 
-	Item.render = function() {};
+		Item.prototype = {};
 
-	
+		Item.render = function() {};
 
-	return Item;
-
-});
+		return Item;
+	});
+}());

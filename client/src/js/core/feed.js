@@ -1,32 +1,46 @@
-define([], function() {
+(function() {
+	/*global define, require*/
+	"use strict";
 
-	function Feed(opts) {
-		var options = opts || {};
-		this.items = [];
-		this.endpoint = opts.endpoint || 'http://localhost:5000/fetch';
+	define([], function() {
+
+		function Feed(socketIO, events) {
+			this.items = [];
+			this._options = {};
+			this._options.socketIO = socketIO;
+			this._options.events = events;
+		}
+
+		Feed.prototype = {};
+
+		Feed.prototype.init = function() {
+			if( !this._options.socketIO ) {
+				throw new Error('Feed requires socket.io instance');
+			}
+			this.socket = this._options.socketIO.connect('http://localhost:5000');
+			if( this._options.events ) {
+				this._initListeners();
+			}
+		};
+
+		Feed.prototype._initListeners = function() {
+			for( event in this._options.events ) {
+				if( this._options.events.hasOwnProperty(event) ) {
+					this.listenTo(event, this._options.events[event]);
+				}
+			}
+		};
+
+		Feed.prototype.listenTo = function(eventName, callback) {
+			this.socket.on(eventName, callback);
+		};
+
+		Feed.prototype.request = function(requestName) {
+			this.socket.emit(requestName);
+		};
+
 		
-		var socket = io.connect(this.endpoint);
-		socket.on('response', function (data) {
-			console.log(data);
-			socket.emit('my other event', { my: 'data' });
-		});
-	}
+		return Feed;
 
-	Feed.prototype = _.clone(Backbone.Events);
-
-	Feed.prototype.init = function() {
-
-	};
-
-	Feed.prototype.fetch = function() {
-		socket.emit('request');
-	};
-
-	Feed.prototype.release = function() {
-		if( this.items.length === 0 ) this.fetch();
-		return this.items.splice(0);
-	};
-
-	return Feed;
-
-});
+	});
+}());

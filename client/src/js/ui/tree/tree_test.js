@@ -1,4 +1,9 @@
-define(['client/src/ui/tree/tree', 'client/src/ui/tree/node'], function(Tree, Node) {
+/*
+(function() {
+	
+	"use strict";
+
+	define(['client/src/ui/tree/tree', 'client/src/ui/tree/node'], function(Tree, Node) {
 
 	describe('Tree', function() {
 
@@ -9,3 +14,5 @@ define(['client/src/ui/tree/tree', 'client/src/ui/tree/node'], function(Tree, No
 	});
 
 });
+}());
+*/
