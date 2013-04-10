@@ -19,8 +19,8 @@
 			});
 		};
 
-		Queue.prototype.bindFeedTo = function(eventName, callback) {
-			var callback = callback;
+		Queue.prototype.bindFeedTo = function(eventName, callbackFn) {
+			var callback = callbackFn;
 			if( !this.feed ) {
 				this.init();
 			}
@@ -51,19 +51,21 @@
 				throw new Error('Invalid parameter passed to Queue.at');
 			}
 			var item = this.items.at(pos);
-			this.items.remove(item)
+			this.items.remove(item);
 			return item;
 		};
 
-		// Queue.prototype.searchAndRetrieve = function(searchFn) {
-		// 	for( var i = 0, len = this.items.length; i < len; i++ ) {
-		// 		if( searchFn(this.items[i]) ) {
-		// 			return this.at(i);
-		// 		}
-		// 	}
-		// 	// TODO - if it didn't find, query Feed for more items. needs to accept callback for async
-		// 	throw new Error('Queue couldn\'t find item');
-		// };
+		/*
+		Queue.prototype.searchAndRetrieve = function(searchFn) {
+			for( var i = 0, len = this.items.length; i < len; i++ ) {
+				if( searchFn(this.items[i]) ) {
+					return this.at(i);
+				}
+			}
+			// TODO - if it didn't find, query Feed for more items. needs to accept callback for async
+			throw new Error('Queue couldn\'t find item');
+		};
+		*/
 
 		return Queue;
 	});

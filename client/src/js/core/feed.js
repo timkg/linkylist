@@ -24,7 +24,7 @@
 		};
 
 		Feed.prototype._initListeners = function() {
-			for( event in this._options.events ) {
+			for( var event in this._options.events ) {
 				if( this._options.events.hasOwnProperty(event) ) {
 					this.listenTo(event, this._options.events[event]);
 				}
@@ -39,7 +39,7 @@
 			this.socket.emit(requestName);
 		};
 
-		
+
 		return Feed;
 
 	});

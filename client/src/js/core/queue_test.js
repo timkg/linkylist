@@ -1,8 +1,8 @@
 (function() {
-	/*global define, describe, it, expect, require*/
+	/*global define, describe, it, expect, require, io*/
 	"use strict";
 
-	define(['client/src/js/core/queue', 'client/src/js/core/feed', 'client/src/js/app'], function(Queue, Feed, App) {
+	define(['client/src/js/core/queue', 'client/src/js/core/feed', 'client/src/js/app', 'backbone'], function(Queue, Feed, App, Backbone) {
 
 		var testItem = {
 			"provider_url": "http://www.codecademy.com",
@@ -73,7 +73,7 @@
 
 			it('can configure its feed to listen to events', function(done) {
 				function handleLinks(links) {
-					console.log(links);
+					expect(links).to.be.ok();
 					done();
 				}
 				var f = new Feed(io);
@@ -87,7 +87,7 @@
 			it('can use its feed to fetch more items', function(done) {
 				function handleLinks(links) {
 					q.items.add(links);
-					expect(q.items.length).to.be.greaterThan(0);	
+					expect(q.items.length).to.be.greaterThan(0);
 					done();
 				}
 				var f = new Feed(io);

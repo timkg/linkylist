@@ -1,6 +1,6 @@
 (function() {
-
 	"use strict";
+
 	var twitter = require('./twitter.js');
 	var embedly = require('./embedly.js');
 

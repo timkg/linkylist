@@ -16,7 +16,7 @@
 
 		console.log(config.host.url);
 
-		// mongo db should be initialized once for the application, not for each request
+		// mongo db is initialized once for the application, not for each request
 		// https://groups.google.com/forum/#!msg/node-mongodb-native/mSGnnuG8C1o/Hiaqvdu1bWoJ
 		db.connect(function() {
 

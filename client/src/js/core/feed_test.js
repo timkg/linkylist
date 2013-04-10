@@ -1,5 +1,5 @@
 (function() {
-	/*global define, require, describe, it, expect, dump, socket*/
+	/*global define, require, describe, it, expect, dump, socket, io*/
 	"use strict";
 
 	define(['client/src/js/core/feed', 'http://localhost:5000/socket.io/socket.io.js'], function(Feed, socket) {
@@ -24,21 +24,22 @@
 					expect(f.socket).to.be.ok();
 					done();
 				});
-				
+
 			});
 
 			it('can register events upon instantiation and request links', function(done) {
+				function handleLinks(response) {
+					expect(response).to.be.ok();
+					done();
+				}
+
 				var f = new Feed(io, {
 					'links': handleLinks
 				});
 				f.init();
 				f.request('links');
+			});
 
-				function handleLinks(response) {
-					expect(response).to.be.ok();
-					done();
-				}
-			})
 		});
 
 	});
