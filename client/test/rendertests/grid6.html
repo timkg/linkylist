@@ -5,86 +5,31 @@
 	<meta name="viewport" content="width=device-width">
 	<style type="text/css">
 
-		html {
-			font-size: 10px; /* 1em / 1rem = 10px */
+		* {
+			margin: 0;
+			padding: 0;
 		}
 
 		body {
 			background: #ddd;
-		}
-
-		.itemholder {
-			overflow: hidden;
-		}
-
-		.item {
-			height: 200px;
-			background: #333;
-			float: left;
-			overflow: hidden;
+			font-size: 10px; /* 1em / 1rem = 10px */
 		}
 
 		/* mobile defaults first - full-width list items */
 		.itemholder {
 			width: 100%;
-		}
-		.item {
-			width: 100%;
+			overflow: hidden;
 		}
 		
-
 		.item {
 			background-color: white;
 			border-right: 1px solid #aaa;
 			border-bottom: 1px solid #aaa;
 			position: relative;
-		}
-
-		.item.rect {
+			width: 100%;
 			height: 200px;
-		}
-
-		.item.horizontal {
-			height: 200px;
-		}
-
-		.item.vertical {
-			height: 403px;
-		}
-
-		.item.horizontal .img-container {
-			position: absolute;
-			top: .5em;
-			bottom: .5em;
-			left: .5em;
-			width: 50%;
-			background: #fff url(http://placekitten.com/200/200) no-repeat;
-		}
-		.item.horizontal .text-container {
-			position: absolute;
-			bottom: .5em;
-			top: .5em;
-			right: .5em;
-			background-color: #fff;
-			width: 50%;
-		}
-
-		.item.vertical .img-container {
-			position: absolute;
-			top: .5em;
-			left: .5em;
-			right: .5em;
-			height: 50%;
-			background: #fff url(http://placekitten.com/200/200) no-repeat;
-		}
-		.item.vertical .text-container {
-			position: absolute;
-			bottom: .5em;
-			left: .5em;
-			right: .5em;
-			height: 50%;
-			background-color: #fff;
-			
+			float: left;
+			overflow: hidden;
 		}
 
 
@@ -108,7 +53,6 @@
 			position: relative;
 		}
 		
-
 		p:after {
 			content: '';
 			position: absolute;
@@ -119,65 +63,106 @@
 			background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0)), color-stop(90%,rgba(255,255,255,1)));
 			border-bottom: 3px solid white;
 		}
+
 	</style>
-	<link rel="stylesheet" type="text/css" href="mediaqueries1.css">
+	<link rel="stylesheet" type="text/css" href="mediaqueries3.css">
+	<style type="text/css">
+		/*
+		 * ITEM CONTENT DEFINITIONS
+		 * - title
+		 * - description
+		 * - full-height image ("col")
+		 * - full-width image ("row")
+		 * - half height/width image ("halfcol/halfrow")
+		 * - small image ("inline")
+		*/
+
+		/* title, text, no image */
+		.item.text.no-image {}
+
+		/* title, text, inline image */
+		.item.text.inline-image {}
+
+		/* title, text, halfcol-onerow image */
+		.item.text.half-col-one-row-image {}
+
+		/* title, text, halfrow-onecol image */
+		.item.text.half-row-one-col-image {}
+
+		/* title, text, full row image */
+		.item.text.full-image {}
+
+
+	</style>
 	<script type="text/javascript" src="../../vendors/modernizer.js"></script>
 </head>
 <body>
 
 <div class="itemholder">
-	<div class="item vertical">
-			<div class="img-container"></div>
+		<div class="item">
 			<div class="text-container">
 				<h3>Kittens - the newest thing on the Internet</h3>
 				<p>Over the course of my career, Ive had the pleasure and privilege to work on hundreds of different websites and Web applications. For the vast majority of these projects, I was the sole developer building out the HTML and CSS. I developed a way of coding websites that worked well for me.
 				</p>
 			</div>
 		</div>
-		<div class="item rect">
-				<div class="text-container">
-				<h3>Kittens - the newest thing on the Internet</h3>
-				<p>Over the course of my career, Ive had the pleasure and privilege to work on hundreds of different websites and Web applications. For the vast majority of these projects, I was the sole developer building out the HTML and CSS. I developed a way of coding websites that worked well for me.
-				</p>
-			</div>
-		</div>
-		<div class="item rect">
+		<div class="item">
 			<div class="text-container">
 				<h3>Kittens - the newest thing on the Internet</h3>
 				<p>Over the course of my career, Ive had the pleasure and privilege to work on hundreds of different websites and Web applications. For the vast majority of these projects, I was the sole developer building out the HTML and CSS. I developed a way of coding websites that worked well for me.
 				</p>
 			</div>
 		</div>
-		<div class="item rect">
+		<div class="item">
 			<div class="text-container">
 				<h3>Kittens - the newest thing on the Internet</h3>
 				<p>Over the course of my career, Ive had the pleasure and privilege to work on hundreds of different websites and Web applications. For the vast majority of these projects, I was the sole developer building out the HTML and CSS. I developed a way of coding websites that worked well for me.
 				</p>
 			</div>
 		</div>
-		<div class="item horizontal">
-			<div class="img-container"></div>
+		<div class="item">
 			<div class="text-container">
 				<h3>Kittens - the newest thing on the Internet</h3>
 				<p>Over the course of my career, Ive had the pleasure and privilege to work on hundreds of different websites and Web applications. For the vast majority of these projects, I was the sole developer building out the HTML and CSS. I developed a way of coding websites that worked well for me.
 				</p>
 			</div>
 		</div>
-		<div class="item rect">
+		<div class="item">
 			<div class="text-container">
 				<h3>Kittens - the newest thing on the Internet</h3>
 				<p>Over the course of my career, Ive had the pleasure and privilege to work on hundreds of different websites and Web applications. For the vast majority of these projects, I was the sole developer building out the HTML and CSS. I developed a way of coding websites that worked well for me.
 				</p>
 			</div>
 		</div>
-		<div class="item rect">
+		<div class="item">
 			<div class="text-container">
 				<h3>Kittens - the newest thing on the Internet</h3>
 				<p>Over the course of my career, Ive had the pleasure and privilege to work on hundreds of different websites and Web applications. For the vast majority of these projects, I was the sole developer building out the HTML and CSS. I developed a way of coding websites that worked well for me.
 				</p>
 			</div>
 		</div>
-		<div class="item rect">
+		<div class="item">
+			<div class="text-container">
+				<h3>Kittens - the newest thing on the Internet</h3>
+				<p>Over the course of my career, Ive had the pleasure and privilege to work on hundreds of different websites and Web applications. For the vast majority of these projects, I was the sole developer building out the HTML and CSS. I developed a way of coding websites that worked well for me.
+				</p>
+			</div>
+		</div>
+		<div class="item">
+			<div class="text-container">
+				<h3>Kittens - the newest thing on the Internet</h3>
+				<p>Over the course of my career, Ive had the pleasure and privilege to work on hundreds of different websites and Web applications. For the vast majority of these projects, I was the sole developer building out the HTML and CSS. I developed a way of coding websites that worked well for me.
+				</p>
+			</div>
+		</div>
+		<div class="item">
+			<div class="text-container">
+				<h3>Kittens - the newest thing on the Internet</h3>
+				<p>Over the course of my career, Ive had the pleasure and privilege to work on hundreds of different websites and Web applications. For the vast majority of these projects, I was the sole developer building out the HTML and CSS. I developed a way of coding websites that worked well for me.
+				</p>
+			</div>
+		</div>
+		<div class="item">
 			<div class="text-container">
 				<h3>Kittens - the newest thing on the Internet</h3>
 				<p>Over the course of my career, Ive had the pleasure and privilege to work on hundreds of different websites and Web applications. For the vast majority of these projects, I was the sole developer building out the HTML and CSS. I developed a way of coding websites that worked well for me.
@@ -207,7 +192,7 @@
 	}
 
 	var size = window.getComputedStyle(document.body,':after').getPropertyValue('content');
-	
+	alert(size);
 </script>
 
 </body>
