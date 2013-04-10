@@ -1,5 +1,15 @@
 require.config({
-	baseUrl: '../..'
+	baseUrl: '../..',
+
+	shim: {
+		'backbone': {
+			deps: ['lo-dash', 'jquery'],
+			exports: 'Backbone'
+		},
+		'lo-dash': {
+			exports: '_'
+		}
+	}
 
 });
 

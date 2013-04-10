@@ -17,8 +17,10 @@ files = [
   REQUIRE_ADAPTER,
   'node_modules/expect.js/expect.js',
 
-
-  // files that should be accessible, but not loaded via script tags
+  // files that should be accessible, but not loaded directly via script tags - needed for requirejs
+  {pattern: 'client/vendors/jquery.js', included: false},
+  {pattern: 'client/vendors/lo-dash.js', included: false},
+  {pattern: 'client/vendors/backbone.js', included: false},
   {pattern: 'client/src/**/**.js', included: false},
   {pattern: 'client/src/**/**/**.js', included: false},
 
