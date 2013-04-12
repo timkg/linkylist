@@ -94,10 +94,10 @@
 		 * - half height/width image ("halfcol/halfrow")
 		 * - small image ("inline")
 		 *
-		 * http://localhost:8000/client/test/rendertests/imgs/inline.jpg
-		 * http://localhost:8000/client/test/rendertests/imgs/col-halfrow.jpg
-		 * http://localhost:8000/client/test/rendertests/imgs/halfcol-row.jpg
-		 * http://localhost:8000/client/test/rendertests/imgs/col-row.jpg
+		 * /public/img/inline.jpg
+		 * /public/img/col-halfrow.jpg
+		 * /public/img/halfcol-row.jpg
+		 * /public/img/col-row.jpg
 		 *
 		*/
 
@@ -117,7 +117,7 @@
 			height: 50px;
 			width: 50px;
 			margin: 3px 5px 5px 0; /* margin-top to nudge it slightly under the line-height of the p */
-			background: url(http://localhost:8000/client/test/rendertests/imgs/inline.jpg) no-repeat;
+			background: url(/public/img/inline.jpg) no-repeat;
 		}
 
 		/* title, text, halfcol-onerow image */
@@ -127,7 +127,7 @@
 			float: left;
 			height: 40%;
 			width: 100%;
-			background: url(http://localhost:8000/client/test/rendertests/imgs/halfcol-row.jpg) no-repeat;
+			background: url(/public/img/halfcol-row.jpg) no-repeat;
 		}
 
 		/* title, text, halfrow-onecol image */
@@ -137,7 +137,7 @@
 			float: left;
 			height: 90%;
 			width: 30%;
-			background: url(http://localhost:8000/client/test/rendertests/imgs/col-halfrow.jpg) no-repeat;
+			background: url(/public/img/col-halfrow.jpg) no-repeat;
 		}
 		.item.col-halfrow-image .text-container {
 			float: left;
@@ -150,7 +150,7 @@
 			display: block;
 			width: 100%;
 			height: 100%;
-			background: url(http://localhost:8000/client/test/rendertests/imgs/col-row.jpg) no-repeat;
+			background: url(/public/img/col-row.jpg) no-repeat;
 			position: absolute;
 			left: 0;
 			bottom: 0;

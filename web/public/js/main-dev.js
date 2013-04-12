@@ -15,6 +15,7 @@ require.config({
 require(['./app'], function(App) {
 
 	App.initQueue('links');
+	App.initDisplayer();
 
 	window.App = App;
 

@@ -38,7 +38,7 @@
 			});
 
 			
-			// TODO - put dev vs prod route init in its own place
+			// TODO - put dev vs prod routes in their own place
 			if( config.MODE === 'PRODUCTION' ) {
 				app.get('/public/js/main.js', function(request, response) {
 					response.sendfile(__dirname + '/public/js/main-prod.js');
