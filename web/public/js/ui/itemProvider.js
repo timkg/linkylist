@@ -2,39 +2,55 @@
 	/*global define*/
 	"use strict";
 
-	define(['client/src/js/core/queue'], function(Queue) {
+	define([], function(Queue) {
 
-		var MIN_CONTENT_IMAGE_SIZE = 100;
+		var MIN_CONTENT_IMAGE_SIZE = 200;
 
 		function ItemProvider(queue) {
-			this.queue = queue || new Queue();
-			// TODO - accept format adapter
+			this.queue = queue;
 		}
 
 		ItemProvider.prototype = {};
 
 		ItemProvider.prototype.getItemContent = function(item) {
-			var image, description, response = [];
+			var image = {}, description = {};
 
-			// TODO - don't hardcode embed.ly's response format, use configurable format adapter
-			if( item.thumbnail_height && item.thumbnail_height >= MIN_CONTENT_IMAGE_SIZE && item.thumbnail_width && item.thumbnail_width >= MIN_CONTENT_IMAGE_SIZE ) {
-				image = {
-					height: item.thumbnail_height,
-					width: item.thumbnail_width,
-					url: item.thumbnail_url
-				};
+			if( item.thumbnail_height && item.thumbnail_width && item.thumbnail_url ) {
+
+				// TODO - don't hardcode embed.ly's response format, use configurable format adapter
+				if( ( item.thumbnail_height >= MIN_CONTENT_IMAGE_SIZE) && (item.thumbnail_width && item.thumbnail_width >= MIN_CONTENT_IMAGE_SIZE) ) {
+					image = {
+						height: item.thumbnail_height,
+						width: item.thumbnail_width,
+						url: item.thumbnail_url,
+						type: 'full-image'
+					};
+				} else if ( item.thumbnail_height >= MIN_CONTENT_IMAGE_SIZE ) {
+					image = {
+						height: item.thumbnail_height,
+						width: item.thumbnail_width,
+						url: item.thumbnail_url,
+						type: 'col-halfrow-image'
+					};
+				} else if ( item.thumbnail_width >= MIN_CONTENT_IMAGE_SIZE ) {
+					image = {
+						height: item.thumbnail_height,
+						width: item.thumbnail_width,
+						url: item.thumbnail_url,
+						type: 'halfcol-row-image'
+					};
+				} else {
+					image = {
+						height: item.thumbnail_height,
+						width: item.thumbnail_width,
+						url: item.thumbnail_url,
+						type: 'inline-image'
+					};
+				}
 			}
 
 			if( item.description ) {
-				description = {};
-				description.text = item.description;
-				if( item.thumbnail_height && item.thumbnail_height < MIN_CONTENT_IMAGE_SIZE && item.thumbnail_width && item.thumbnail_width < MIN_CONTENT_IMAGE_SIZE ) {
-					description.image = {
-						height: item.thumbnail_height,
-						width: item.thumbnail_width,
-						url: item.thumbnail_url
-					};
-				}
+				description = item.description;
 			}
 
 			return {
@@ -44,7 +60,7 @@
 
 		};
 
-		ItemProvider.prototype.next = function(queue) {
+		ItemProvider.prototype.next = function() {
 			return this.queue.next();
 		};
 

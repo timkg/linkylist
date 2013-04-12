@@ -139,29 +139,8 @@
 		
 </div>
 
-<script type="text/javascript">
-	console.log(window.innerHeight);
-	console.log(window.innerWidth);
-	var timeout;
-	window.onresize = function() {
-		clearTimeout(timeout);
-		timeout = setTimeout(function() {
-			onResize();
-		}, 100);
-	};
-
-	function onResize() {
-		console.log(window.innerHeight);
-		console.log(window.innerWidth);
-	}
-
-	function updateGrid() {
-
-	}
-
-	var size = window.getComputedStyle(document.body,':after').getPropertyValue('content');
-	// alert(size);
-</script>
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="/public/js/vendors/require.js" data-main="/public/js/main.js"></script>
 
 </body>
 </html>
