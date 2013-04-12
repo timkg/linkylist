@@ -7,13 +7,13 @@
 
 	exports.init = function(socket, db) {
 		// listen for requests
-		socket.on('links', function (clientArgs) {
-			console.log('socket.on(\'linkrequest\') called with arguments: ', clientArgs);
+		socket.on('req:links', function (clientArgs) {
+			console.log('socket.on(\'links\') called with arguments: ', clientArgs);
 			db.getRecentLinks(function(links) {
-				socket.emit('links', links);
+				socket.emit('res:links', links);
 			});
 		});
-
+		console.log('socket.io reqeust handler initialized');
 	};
 
 	exports.getApiLinks = function() {

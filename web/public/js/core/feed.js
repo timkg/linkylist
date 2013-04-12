@@ -7,7 +7,7 @@
 		function Feed(socketIO, events) {
 			this.items = [];
 			this._options = {};
-			this._options.socketIO = socketIO;
+			this._options.socketIO = socketIO || io;
 			this._options.events = events;
 		}
 
@@ -32,11 +32,11 @@
 		};
 
 		Feed.prototype.listenTo = function(eventName, callback) {
-			this.socket.on(eventName, callback);
+			this.socket.on('res:' + eventName, callback);
 		};
 
 		Feed.prototype.request = function(requestName) {
-			this.socket.emit(requestName);
+			this.socket.emit('req:' + requestName);
 		};
 
 

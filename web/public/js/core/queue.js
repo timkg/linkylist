@@ -2,7 +2,7 @@
 	/*global define, require*/
 	"use strict";
 
-	define(['client/src/js/core/feed', 'backbone', 'client/src/js/app'], function(Feed, Backbone, App) {
+	define(['./feed', 'backbone'], function(Feed, Backbone) {
 
 		function Queue(feed) {
 			this._options = {};
@@ -14,8 +14,9 @@
 
 		Queue.prototype.init = function() {
 			this.feed = (this._options.feed || new Feed());
+			this.feed.init();
 			this.items.on('add', function() {
-				App.trigger('queue:add');
+				App.events.trigger('queue:add');
 			});
 		};
 
@@ -25,7 +26,7 @@
 				this.init();
 			}
 			if( !callback ) {
-				callback = Queue.prototype.add;
+				callback = Queue.prototype.add.bind(this);
 			}
 			this.feed.listenTo(eventName, callback.bind(this));
 		};
