@@ -58,7 +58,7 @@
 	}
 	.item {
 		height: 33%;
-		width: 49%;
+		width: 50%;
 		float: left;
 		overflow: hidden;
 	}
@@ -74,13 +74,11 @@
 		height: 100%;
 		width: 100%;
 		overflow: hidden;
-		position: absolute;
-		top: 0;
-		left: 0;
+
 	}
 	.item {
-		height: 49%;
-		width: 33%;
+		height: 50%;
+		width: 33.333%;
 		float: left;
 		overflow: hidden;
 	}
@@ -106,15 +104,6 @@
 		width: 100%;
 		height: 150px;
 	}
-	.item.rect {
-		height: 150px;
-	}
-	.item.horizontal {
-		height: 150px;
-	}
-	.item.vertical {
-		height: 150px;
-	}
 	/* http://adactio.com/journal/5429/ */
 	body:after {
 		content: 'desktop-1col';
@@ -131,20 +120,8 @@
 	}
 	.item {
 		float: left;
-		width: 49.5%;
+		width: 50%;
 		height: 200px;
-	}
-	.item.rect {
-		width: 49.5%;
-		height: 200px;
-	}
-	.item.horizontal {
-		width: 99.1%;
-		height: 200px;
-	}
-	.item.vertical {
-		width: 49.5%;
-		height: 401px;
 	}
 	/* http://adactio.com/journal/5429/ */
 	body:after {
@@ -159,19 +136,8 @@
 	}
 	.item {
 		float: left;
-		width: 33%;
+		width: 33.333%;
 		height: 200px;
-	}
-	.item.rect {
-		width: 33%;
-		height: 200px;
-	}
-	.item.horizontal {
-		width: 66.135%;
-	}
-	.item.vertical {
-		width: 33%;
-		height: 401px;
 	}
 	/* http://adactio.com/journal/5429/ */
 	body:after {
@@ -186,11 +152,7 @@
 	}
 	.item {
 		float: left;
-		width: 24.5%;
-	}
-	.item.horizontal {
-		width: 49.1%;
-		height: 200px;
+		width: 25%;
 	}
 	/* http://adactio.com/journal/5429/ */
 	body:after {
@@ -205,11 +167,7 @@
 	}
 	.item {
 		float: left;
-		width: 24.5%;
-	}
-	.item.horizontal {
-		width: 49.1%;
-		height: 200px;
+		width: 25%;
 	}
 	
 	/* http://adactio.com/journal/5429/ */

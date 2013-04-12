@@ -10,7 +10,9 @@ var prod = {
 };
 prod.url = prod.domain + ':' + prod.port;
 
-if(process.argv[2] === 'PRODUCTION') {
+exports.MODE = (process.argv[2] === 'PRODUCTION' ? 'PRODUCTION' : 'DEVELOPMENT');
+
+if(exports.MODE === 'PRODUCTION') {
 	exports.host = prod;
 } else {
 	exports.host = dev;

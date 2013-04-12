@@ -6,9 +6,9 @@
 	var fs = require('fs');
 	var express = require('express');
 
-	var db = require('./db');
-	var handler = require('./requesthandler');
-	var config = require('../config');
+	var db = require('./src/db');
+	var handler = require('./src/requesthandler');
+	var config = require('./config');
 
 	var HTTP_PORT = process.env.PORT || 5000;
 
@@ -30,10 +30,23 @@
 
 			server.listen(HTTP_PORT);
 
-			app.get('/', function(request, response) {
-				console.log('request received');
-				response.sendfile('client/src/html/index.html');
-			});
+			app.use(express.static('/css', '../../../client/src/css'));
+			app.use(express.static('/js', '../../../client/src/js'));
+			app.use(express.static('/vendors', '../../../client/vendors'));
+
+			// TODO - put dev vs prod route init in its own place
+			if( config.MODE === 'PRODUCTION' ) {
+					app.get('/', function(request, response) {
+					console.log('request received');
+					response.sendfile('client/src/html/index-prod.html');	
+				});
+			} else {
+				app.get('/', function(request, response) {
+					console.log('request received');
+					response.sendfile('client/src/html/index-dev.html');
+				});
+			}
+			
 
 			io.sockets.on('connection', function(socket) {
 				handler.init(socket, db);

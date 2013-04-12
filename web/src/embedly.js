@@ -1,7 +1,7 @@
 (function() {
 	/*global escape*/
 	"use strict";
-	
+
 	var http = require('http');
 	var API_KEY = process.env.EMBEDLY;
 
