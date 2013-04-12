@@ -1,5 +1,5 @@
 (function() {
-	/*global define, require*/
+	/*global define, require, App*/
 	"use strict";
 
 	define(['./feed', 'backbone'], function(Feed, Backbone) {

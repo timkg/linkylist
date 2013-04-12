@@ -1,5 +1,5 @@
 (function() {
-	/*global define*/
+	/*global define, console*/
 	"use strict";
 
 	define(['client/src/js/ui/grid/square', 'client/src/js/ui/itemProvider'], function(Square, ItemProvider){

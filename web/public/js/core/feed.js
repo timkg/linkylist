@@ -1,5 +1,5 @@
 (function() {
-	/*global define, require*/
+	/*global define, require, io*/
 	"use strict";
 
 	define([], function() {

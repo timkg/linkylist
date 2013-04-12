@@ -1,6 +1,6 @@
 var dev = {
 	domain: 'http://localhost',
-	port: 5000,
+	port: 5000
 };
 dev.url = dev.domain + ':' + dev.port;
 

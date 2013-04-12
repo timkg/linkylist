@@ -1,12 +1,12 @@
 (function() {
-	/*global define, require*/
+	/*global define, require, io*/
 	"use strict";
 
 	// queue/feed
 	// displayer
 	// all else is optional
 	define(['lo-dash', 'backbone', './core/feed', './core/queue'], function(_, Backbone, Feed, Queue) {
-		
+
 		var App = {};
 
 		App.events = _.extend({}, Backbone.Events);

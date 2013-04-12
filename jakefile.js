@@ -27,13 +27,15 @@
 
 	function clientLintFiles() {
 		var files = new jake.FileList();
-		files.include('client/src/js/**/*.js');
+		files.include('web/public/js/**/*.js');
+		files.exclude('web/public/js/vendors/*.js');
 		return files.toArray();
 	}
 
 	function serverLintFiles() {
 		var files = new jake.FileList();
-		files.include('server/src/*.js');
+		files.include('web/**/*.js');
+		files.exclude('web/public/js/**/*.js');
 		return files.toArray();
 	}
 

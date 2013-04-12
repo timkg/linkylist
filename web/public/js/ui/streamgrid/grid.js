@@ -1,5 +1,5 @@
 (function() {
-	/*global define*/
+	/*global define, console*/
 	"use strict";
 
 	define(['../itemProvider'], function(ItemProvider){
