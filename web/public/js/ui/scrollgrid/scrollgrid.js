@@ -6,17 +6,36 @@
 
 		function ScrollGrid(queue) {
 			this.queue = queue;
+
 		}
 
 		ScrollGrid.prototype = {};
 
 		ScrollGrid.prototype.init = function() {
 			this.itemProvider = new ItemProvider(this.queue);
+
+		};
+
+		ScrollGrid.prototype.fillVisibleArea = function() {
+
+		};
+
+		ScrollGrid.prototype.onWindowResize = function() {
+
+		};
+
+		ScrollGrid.prototype.onScroll = function() {
+
+		};
+
+		ScrollGrid.prototype.getLastChild = function() {
+
 		};
 
 		ScrollGrid.prototype.initItem = function() {
 			var item = this.itemProvider.next();
-			console.log(this.itemProvider.getItemContent(item.toJSON()));
+
+			return item;
 		};
 
 

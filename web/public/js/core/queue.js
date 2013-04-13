@@ -2,7 +2,7 @@
 	/*global define, require, App*/
 	"use strict";
 
-	define(['./feed', 'backbone'], function(Feed, Backbone) {
+	define(['./feed', 'lo-dash', 'backbone'], function(Feed, _, Backbone) {
 
 		function Queue(feed) {
 			this._options = {};
@@ -32,15 +32,17 @@
 		};
 
 		Queue.prototype.add = function(items) {
-			this.items.add(items);
+			var itemArray = [];
+			_.each(items, function(item) {
+				itemArray.push({
+					_base: item
+				});
+			});
+			this.items.add(itemArray);
 		};
 
 		Queue.prototype.request = function(request) {
 			this.feed.request(request);
-		};
-
-		Queue.prototype.push = function(item) {
-			this.items.add(item);
 		};
 
 		Queue.prototype.next = function() {

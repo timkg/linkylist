@@ -27,8 +27,8 @@
 			// check resolution
 			// use modernizer to check for touch
 			// conditionally load correct UI
-			require(['ui/streamgrid/grid'], function(StreamGrid) {
-				App.displayer = new StreamGrid(App.queue);
+			require(['ui/scrollgrid/scrollgrid'], function(ScrollGrid) {
+				App.displayer = new ScrollGrid(App.queue);
 				App.displayer.init();
 			});
 		};
