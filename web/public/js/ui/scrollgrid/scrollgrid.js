@@ -4,22 +4,34 @@
 
 	define(['../itemProvider'], function(ItemProvider){
 
-		function Grid(queue) {
+		function ScrollGrid(queue) {
 			this.queue = queue;
 		}
 
-		Grid.prototype = {};
+		ScrollGrid.prototype = {};
 
-		Grid.prototype.init = function() {
+		ScrollGrid.prototype.init = function() {
 			this.itemProvider = new ItemProvider(this.queue);
 		};
 
-		Grid.prototype.initItem = function() {
+		ScrollGrid.prototype.initItem = function() {
 			var item = this.itemProvider.next();
 			console.log(this.itemProvider.getItemContent(item.toJSON()));
 		};
 
-		return Grid;
+
+
+		// init display area
+
+		// listen to scroll
+
+		// fill visible area
+
+		// react to scroll
+
+		// react to resize
+
+		return ScrollGrid;
 
 	});
 }());
