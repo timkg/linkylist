@@ -51,7 +51,7 @@
 
 		Queue.prototype.at = function(pos) {
 			if( pos < 0 || pos >= this.items.length ) {
-				throw new Error('Invalid parameter passed to Queue.at');
+				throw new Error('Invalid parameter passed to Queue.at()');
 			}
 			var item = this.items.at(pos);
 			this.items.remove(item);

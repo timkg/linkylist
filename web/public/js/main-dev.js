@@ -6,7 +6,8 @@
 		paths: {
 			'jquery': './vendors/jquery',
 			'lo-dash': './vendors/lo-dash',
-			'backbone': './vendors/backbone'
+			'backbone': './vendors/backbone',
+			'text': 'vendors/text'
 		},
 		shim: {
 			'backbone': {
@@ -19,7 +20,7 @@
 	require(['./app'], function(App) {
 
 		App.initQueue('links');
-		App.initDisplayer();
+		App.initDisplayer('.itemholder');
 
 		window.App = App;
 

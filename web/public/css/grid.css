@@ -30,7 +30,6 @@
 	height: 50px;
 	width: 50px;
 	margin: 3px 5px 5px 0; /* margin-top to nudge it slightly under the line-height of the p */
-	background: url(/public/img/inline.jpg) no-repeat;
 }
 
 /* title, text, halfcol-onerow image */
@@ -40,7 +39,6 @@
 	float: left;
 	height: 40%;
 	width: 100%;
-	background: url(/public/img/halfcol-row.jpg) no-repeat;
 }
 
 /* title, text, halfrow-onecol image */
@@ -50,7 +48,6 @@
 	float: left;
 	height: 90%;
 	width: 30%;
-	background: url(/public/img/col-halfrow.jpg) no-repeat;
 }
 .item.col-halfrow-image .text-container {
 	float: left;
@@ -63,7 +60,6 @@
 	display: block;
 	width: 100%;
 	height: 100%;
-	background: url(/public/img/col-row.jpg) no-repeat;
 	position: absolute;
 	left: 0;
 	bottom: 0;
@@ -79,12 +75,11 @@
 }
 
 .item.full-image h3 {
-	background-color: rgba(255,255,255, .6);
+	background-color: rgb(255,255,255);
 	position: absolute;
-	left: 5px;
-	top: 10px;
-	border: 5px solid transparent;
-	right: 5px;
-	padding: 5px;
+	left: 0;
+	top: 0;
+	right: 0;
+	padding: 10px;
 	z-index: 1;
 }

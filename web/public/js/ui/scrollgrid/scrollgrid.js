@@ -2,22 +2,29 @@
 	/*global define, console*/
 	"use strict";
 
-	define(['../itemProvider'], function(ItemProvider){
+	define(['../itemProvider', './square'], function(ItemProvider, Square){
 
 		function ScrollGrid(queue) {
 			this.queue = queue;
-
+			this.items = new Backbone.Collection();
 		}
 
 		ScrollGrid.prototype = {};
 
-		ScrollGrid.prototype.init = function() {
+		ScrollGrid.prototype.init = function(container) {
 			this.itemProvider = new ItemProvider(this.queue);
-
+			this.container = container;
 		};
 
 		ScrollGrid.prototype.fillVisibleArea = function() {
-
+			var count = 15,
+				df = document.createDocumentFragment();
+			while(count > 0) {
+				var s = new Square(this.getItem());
+				df.appendChild(s.render());
+				count -= 1;
+			}
+			this.container.appendChild(df);
 		};
 
 		ScrollGrid.prototype.onWindowResize = function() {
@@ -32,9 +39,9 @@
 
 		};
 
-		ScrollGrid.prototype.initItem = function() {
+		ScrollGrid.prototype.getItem = function() {
 			var item = this.itemProvider.next();
-
+			this.items.add(item);
 			return item;
 		};
 

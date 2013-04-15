@@ -1,6 +1,9 @@
-<div class="item rect">
+<div class="item {{image.type}}">
+	<h3>{{title}}</h3>
+	<div class="col-halfrow-image-container" data-image-url="{{image.colhalfrow.url}}"></div>
+	<div class="halfcol-row-image-container" data-image-url="{{image.halfcolrow.url}}"></div>
+	<div class="full-image-container" data-image-url="{{image.full.url}}"></div>
 	<div class="text-container">
-		<h3>{{title}}</h3>
-		<p>{{description}}</p>
+		<p><span class="inline-image-container" data-image-url="{{image.inline.url}}"></span>{{description}}</p>
 	</div>
 </div>

@@ -77,6 +77,7 @@
 
 		ItemProvider.prototype.next = function() {
 			var item = this.queue.next();
+			console.log(item);
 			return this.setItemContent(item);
 		};
 

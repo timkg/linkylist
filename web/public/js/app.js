@@ -5,7 +5,12 @@
 	// queue/feed
 	// displayer
 	// all else is optional
-	define(['lo-dash', 'backbone', './core/feed', './core/queue'], function(_, Backbone, Feed, Queue) {
+	define([
+		'lo-dash',
+		'backbone',
+		'./core/feed',
+		'./core/queue'
+	], function(_, Backbone, Feed, Queue) {
 
 		var App = {};
 
@@ -20,7 +25,13 @@
 			App.queue.request(channel);
 		};
 
-		App.initDisplayer = function() {
+		App.initDisplayer = function(container) {
+			var containerElm;
+			if( 'string' === typeof container ) {
+				containerElm = document.querySelector(container);
+			} else {
+				containerElm = container;
+			}
 			// var size = window.getComputedStyle(document.body,':after').getPropertyValue('content');
 			// console.log(size);
 
@@ -29,7 +40,7 @@
 			// conditionally load correct UI
 			require(['ui/scrollgrid/scrollgrid'], function(ScrollGrid) {
 				App.displayer = new ScrollGrid(App.queue);
-				App.displayer.init();
+				App.displayer.init(containerElm);
 			});
 		};
 
