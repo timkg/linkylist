@@ -9,6 +9,8 @@
 
 	var searches = {};
 
+
+	// TODO - guarantee minimum amount of links
 	exports.searchFor = function(searchTerm, callback) {
 		var url = TWITTER_SEARCH_BASE_URL;
 		if( !searches[searchTerm] ) {
@@ -50,6 +52,7 @@
 				}
 			}
 		}
+		console.log(urls);
 
 		return urls;
 	};
