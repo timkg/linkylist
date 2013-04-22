@@ -1,11 +1,14 @@
 (function() {
-	/*global define, console*/
+	/*global define, require*/
 	"use strict";
 
 	define([
+		'jquery',
+		'backbone',
 		'../itemFormatter',
-		'./square'
-	], function(ItemFormatter, Square){
+		'./square',
+		'App'
+	], function($, Backbone, ItemFormatter, Square, App){
 
 		function ScrollGrid(queue) {
 			this.queue = queue;
@@ -24,7 +27,7 @@
 					itemSelector: '.item',
 					columnWidth: 205
 				});
-			})
+			});
 		};
 
 		ScrollGrid.prototype.createSquare = function() {

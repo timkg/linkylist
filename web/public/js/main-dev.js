@@ -12,7 +12,8 @@
 			'q': './vendors/q',
 			'masonry': './vendors/jquery.masonry',
 			'imagesLoaded': './vendors/jquery.imagesLoaded',
-			'visible': './vendors/jquery.visible'
+			'visible': './vendors/jquery.visible',
+			'App': './app'
 		},
 		shim: {
 			'backbone': {

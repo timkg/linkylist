@@ -56,13 +56,11 @@
 			this.connection.init();
 
 			this.items.on('add', function() {
-				console.log('add');
 				this.received(); // TODO - only call once for whole add operation
 			}, this);
 
 			this.items.on('remove', function() {
 				if( this.items.length === 0 ) {
-					console.log('emptied');
 					this.emptied();
 				}
 			}, this);
@@ -114,7 +112,6 @@
 		};
 
 		Queue.prototype.resolvePromises = function() {
-			console.log('resolvePromises called');
 			while( (this.waitingPromises.length > 0 && this.items.length > 0) ) {
 				var deferred = this.waitingPromises.shift();
 				deferred.resolve(this.items.shift());

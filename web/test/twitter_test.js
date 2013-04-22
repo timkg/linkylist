@@ -10,7 +10,7 @@
 			var data = JSON.parse(responseData);
 			test.equals(data.page, 1, 'first search returns page 1');
 			test.done();
-		})
+		});
 	};
 
 	exports.test_automaticallyContinuesSearchFromPreviousPage = function(test) {
@@ -19,7 +19,7 @@
 			var data = JSON.parse(responseData);
 			test.equals(data.page, 2, 'second search returns page 2');
 			test.done();
-		})
+		});
 	};
 
 	exports.test_extractsArrayOfUrlsFromApiResponse = function(test) {

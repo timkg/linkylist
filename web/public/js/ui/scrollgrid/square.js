@@ -6,8 +6,9 @@
 		'jquery',
 		'statemachine',
 		'../../vendors/moustache',
-		'text!../../../html/templates/square.html'
-	], function($, StateMachine, Moustache, templateString){
+		'text!../../../html/templates/square.html',
+		'App'
+	], function($, StateMachine, Moustache, templateString, App){
 
 		function Square(queue, formatter) {
 			// TODO - better use "queue" dependency injection or request event?

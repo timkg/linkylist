@@ -8,7 +8,7 @@
 
 	exports.test_getsExtractForListOfUrls = function(test) {
 		fs.readFile('./.env', 'utf8', function(err, data) {
-			if(err) { throw err };
+			if(err) { throw err; }
 			var EMBEDLY_KEY = '';
 			var lines = data.split('\n');
 			lines.forEach(function(line) {
@@ -23,6 +23,6 @@
 				test.ok(data[0].url, 'first child has an URL property');
 				test.done();
 			}, EMBEDLY_KEY);
-		})
+		});
 	};
 }());
