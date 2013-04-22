@@ -85,6 +85,9 @@
 		};
 
 		Queue.prototype.add = function(items) {
+			if( _.isString(items) ) {
+				items = JSON.parse(items);
+			}
 			if( !_.isArray(items) ) {
 				items = [items];
 			}
