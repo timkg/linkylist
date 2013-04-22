@@ -1,0 +1,221 @@
+/*
+ * CONTENTS:
+ *   item container structure
+ *   item content structure
+ *   animations
+ *
+ */
+
+/*
+ * ITEM CONTAINER STRUCTURE
+ *
+ */
+
+.item {
+    background-color: white;
+    border-right: 1px solid #aaa;
+    border-bottom: 1px solid #aaa;
+    position: relative;
+    width: 200px;
+    min-height: 200px;
+    float: left;
+    overflow: hidden;
+    padding: 10px;
+    margin-bottom: 5px;
+}
+
+.item:after {
+    content: '';
+    background-color: white;
+    height: 10px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+.text-container {
+    padding: 0;
+    margin: 0;
+    position: relative;
+}
+
+
+h3 {
+    font-family: 'Droid Serif';
+    font-size: 16px;
+    color: #333;
+    background-color: rgb(255,255,255);
+    z-index: 1;
+    margin: 0 0 10px 0;
+}
+
+p {
+    font-family: 'lucida grande';
+    font-size: 11px;
+    line-height: 1.4;
+    color: #666;
+    margin-top: 0;
+}
+
+/* apply a gradient from transparent to white to fade out overflowing text */
+.text-container.overflows:after {
+    content: '';
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    height: 1em;
+    width: 100%;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0)), color-stop(90%,rgba(255,255,255,1)));
+    border-bottom: 3px solid white;
+}
+
+/*
+ * ITEM CONTENT STRUCTURE
+ * - title
+ * - description
+ * - full-height image ("col")
+ * - full-width image ("row")
+ * - half height/width image ("halfcol/halfrow")
+ * - small image ("inline")
+ *
+ */
+
+.inline-image-container { display: none; background-repeat: no-repeat; }
+.col-halfrow-image-container { display: none; background-repeat: no-repeat; }
+.halfcol-row-image-container { display: none; background-repeat: no-repeat; }
+.full-image-container { display: none; background-repeat: no-repeat; }
+
+/* title, text, no image */
+.item.no-image {}
+
+/* title, text, inline image */
+.item.inline-image {}
+.item.inline-image .inline-image-container {
+    display: block;
+    float: left;
+    height: 50px;
+    width: 50px;
+    margin: 3px 5px 5px 0; /* margin-top to nudge it slightly under the line-height of the p */
+}
+
+/* title, text, halfcol-onerow image */
+.item.halfcol-row-image {}
+.item.halfcol-row-image .halfcol-row-image-container {
+    display: block;
+    float: left;
+    height: 100px;
+    width: 100%;
+}
+
+/* title, text, halfrow-onecol image */
+.item.col-halfrow-image {}
+.item.col-halfrow-image .col-halfrow-image-container {
+    display: block;
+    float: left;
+    height: 90%;
+    width: 30%;
+}
+.item.col-halfrow-image .text-container {
+    float: left;
+    width: 63%;
+    margin-left: 10px;
+}
+
+/* title, text, full row image */
+.item.full-image .full-image-container {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+.item.full-image .text-container {
+    display: none;
+}
+.item.full-image .text-container:after {
+    display: none;
+}
+.item.full-image:after {
+    display: none;
+}
+
+.item.full-image h3 {
+    background-color: rgb(255,255,255);
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    z-index: 1;
+}
+
+
+/**/
+ /** ANIMATIONS*/
+ /***/
+ /**/
+
+/*.item {*/
+    /*-webkit-transform: translateY(150px);*/
+    /*-moz-transform: translateY(150px);*/
+    /*-o-transform: translateY(150px);*/
+    /*-ms-transform: translateY(150px);*/
+    /*transform: translateY(150px);*/
+
+    /*-webkit-animation: come-in 0.8s ease forwards;*/
+    /*-moz-animation: come-in 0.8s ease forwards;*/
+    /*-ms-animation: come-in 0.8s ease forwards;*/
+    /*-o-animation: come-in 0.8s ease forwards;*/
+    /*animation: come-in 0.8s ease forwards;*/
+/*}*/
+
+
+/*.item:nth-child(odd) {*/
+    /*animation-duration: 0.6s; *//* So they look staggered */
+/*}*/
+
+/*@keyframes "come-in" {*/
+    /*to {*/
+        /*-webkit-transform: translateY(0);*/
+        /*-moz-transform: translateY(0);*/
+        /*-o-transform: translateY(0);*/
+        /*-ms-transform: translateY(0);*/
+        /*transform: translateY(0);*/
+    /*}*/
+
+/*}*/
+
+/*@-moz-keyframes come-in {*/
+    /*to {*/
+        /*-moz-transform: translateY(0);*/
+        /*transform: translateY(0);*/
+    /*}*/
+
+/*}*/
+
+/*@-webkit-keyframes "come-in" {*/
+    /*to {*/
+        /*-webkit-transform: translateY(0);*/
+        /*transform: translateY(0);*/
+    /*}*/
+
+/*}*/
+
+/*@-ms-keyframes "come-in" {*/
+         /*to {*/
+           /*-ms-transform: translateY(0);*/
+           /*transform: translateY(0);*/
+         /*}*/
+
+        /*}*/
+
+/*@-o-keyframes "come-in" {*/
+    /*to {*/
+        /*-o-transform: translateY(0);*/
+        /*transform: translateY(0);*/
+    /*}*/
+
+/*}*/
+

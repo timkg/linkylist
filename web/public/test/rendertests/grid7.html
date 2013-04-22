@@ -1,0 +1,234 @@
+
+<html>
+<head>
+    <!-- <link href='http://fonts.googleapis.com/css?family=Droid+Sans|Droid+Serif:400,700' rel='stylesheet' type='text/css'> -->
+    <link href='/public/css/normalize.css' rel='stylesheet' type='text/css'>
+    <title></title>
+    <meta name="viewport" content="width=device-width">
+    <style type="text/css">
+
+        * {
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #ddd;
+            font-size: 10px; /* 1em / 1rem = 10px */
+        }
+
+            /* mobile defaults first - full-width list items */
+        .itemholder {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .item {
+            background-color: white;
+            border-right: 1px solid #aaa;
+            border-bottom: 1px solid #aaa;
+            position: relative;
+            width: 100%;
+            float: left;
+            overflow: hidden;
+            padding: 10px;
+        }
+
+        .item:after {
+            content: '';
+            background-color: white;
+            height: 10px;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .text-container {
+            padding: 0;
+            margin: 0;
+            position: relative;
+        }
+
+
+        h3 {
+            font-family: 'Droid Serif';
+            font-size: 16px;
+            color: #333;
+            background-color: rgb(255,255,255);
+            z-index: 1;
+            margin: 0 0 10px 0;
+        }
+
+        p {
+            font-family: 'lucida grande';
+            font-size: 11px;
+            line-height: 1.4;
+            color: #666;
+            margin-top: 0;
+        }
+
+            /* apply a gradient from transparent to white to fade out overflowing text */
+        .text-container.overflows:after {
+            content: '';
+            position: absolute;
+            bottom: 0px;
+            left: 0;
+            height: 1em;
+            width: 100%;
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0)), color-stop(90%,rgba(255,255,255,1)));
+            border-bottom: 3px solid white;
+        }
+
+
+
+            /*
+             *********
+             * desktop
+             *********
+             */
+        @media all and (min-device-width: 1024px) and (max-width: 400px) {
+            .itemholder {
+                width: 100%;
+                -webkit-column-count: 1;
+                -webkit-column-gap:   20px;
+                -moz-column-count:    1;
+                -moz-column-gap:      20px;
+                column-count:         1;
+                column-gap:           20px;
+            }
+
+            /* http://adactio.com/journal/5429/ */
+            body:after {
+                content: 'desktop-1col';
+                display: none;
+            }
+        }
+            /*
+             * DESKTOP GRID TO ACCOMODATE RESIZING
+             */
+        @media all and (min-device-width: 1024px) and (min-width: 401px) and (max-width: 600px) {
+            .itemholder {
+                width: 100%;
+                -webkit-column-count: 2;
+                -webkit-column-gap:   20px;
+                -moz-column-count:    2;
+                -moz-column-gap:      20px;
+                column-count:         2;
+                column-gap:           20px;
+            }
+
+            /* http://adactio.com/journal/5429/ */
+            body:after {
+                content: 'desktop-2col';
+                display: none;
+            }
+        }
+        @media all and (min-device-width: 1024px) and (min-width: 601px) and (max-width: 850px) {
+            .itemholder {
+                width: 100%;
+                -webkit-column-count: 3;
+                -webkit-column-gap:   20px;
+                -moz-column-count:    3;
+                -moz-column-gap:      20px;
+                column-count:         3;
+                column-gap:           20px;
+            }
+
+            /* http://adactio.com/journal/5429/ */
+            body:after {
+                content: 'desktop-3col';
+                display: none;
+            }
+        }
+        @media all and (min-device-width: 1024px) and (min-width: 851px) and (max-width: 1100px) {
+            .itemholder {
+                width: 100%;
+                -webkit-column-count: 4;
+                -webkit-column-gap:   20px;
+                -moz-column-count:    4;
+                -moz-column-gap:      20px;
+                column-count:         4;
+                column-gap:           20px;
+            }
+
+            /* http://adactio.com/journal/5429/ */
+            body:after {
+                content: 'desktop-4col';
+                display: none;
+            }
+        }
+        @media all and (min-device-width: 1024px) and (min-width: 1100px) {
+            .itemholder {
+                width: 1100px;
+                margin: 0 auto;
+                -webkit-column-count: 5;
+                -webkit-column-gap:   20px;
+                -moz-column-count:    5;
+                -moz-column-gap:      20px;
+                column-count:         5;
+                column-gap:           20px;
+            }
+
+
+            /* http://adactio.com/journal/5429/ */
+            body:after {
+                content: 'desktop-4col';
+                display: none;
+            }
+        }
+
+    </style>
+
+
+</head>
+<body>
+
+<div class="itemholder">
+    <div class="item inline-image come-in"><h3>London - up to £40k - Front End Developer / HTML5 / CSS3</h3><div class="col-halfrow-image-container" data-image-url=""></div><div class="halfcol-row-image-container" data-image-url=""></div><div class="full-image-container" data-image-url=""></div><div class="text-container">
+        <p><span class="inline-image-container" data-image-url="" style="background-image: url(http://www.aplitrak.com/twitter/twitter_logo_normal.jpg); background-position: 50% 50%; background-repeat: no-repeat no-repeat;"></span>A hot content driven London based agency are on the lookour for a capable and ambitious new front end developer to join their fast growing team - taking the reigns on a range of brand new and existing projects for some of the countrys favourite entertainment entities!</p>
+    </div></div><div class="item inline-image come-in"><h3>London - Up to £30k - UI Developer / HTML5 / CSS3 / Javascript</h3><div class="col-halfrow-image-container" data-image-url=""></div><div class="halfcol-row-image-container" data-image-url=""></div><div class="full-image-container" data-image-url=""></div><div class="text-container">
+    <p><span class="inline-image-container" data-image-url="" style="background-image: url(http://www.aplitrak.com/twitter/twitter_logo_normal.jpg); background-position: 50% 50%; background-repeat: no-repeat no-repeat;"></span>The successful UI developer will be working on a fantastic offering of interesting projects, technology solutions, user centric development approaches with a bonus of working alongside a skilled team. The successful UI developer will have a solid commercial experience with HTML5 and CSS3. Alongside this, experience of UI development on mobile platforms is a massive plus!</p>
+</div></div><div class="item inline-image come-in"><h3>CSS Tricks for Headings, Fonts and Text Styling</h3><div class="col-halfrow-image-container" data-image-url=""></div><div class="halfcol-row-image-container" data-image-url=""></div><div class="full-image-container" data-image-url=""></div><div class="text-container">
+    <p><span class="inline-image-container" data-image-url="" style="background-image: url(http://www.inwebson.com/wp-content/uploads/2012/03/css-tricks-fi.png); background-position: 50% 50%; background-repeat: no-repeat no-repeat;"></span>The truth is, we can still creating those fancy headings, cool fonts and text effects without using Photoshop, but just with CSS. In this article, I have listed some useful CSS tricks and techniques which can be used to style your headings, fonts and text as well as content.</p>
+</div></div><div class="item come-in"><h3>CSS3 Patterns Gallery</h3><div class="col-halfrow-image-container" data-image-url=""></div><div class="halfcol-row-image-container" data-image-url=""></div><div class="full-image-container" data-image-url=""></div><div class="text-container">
+    <p><span class="inline-image-container" data-image-url=""></span>Is the number of gradients and color stops worth the effect? The whole point of those patterns is to make page loading faster by reducing file size and HTTP requests without the unreadable gibberish that data URIs add in our stylesheets.</p>
+</div></div><div class="item full-image come-in"><h3>Tempees.com</h3><div class="col-halfrow-image-container" data-image-url=""></div><div class="halfcol-row-image-container" data-image-url=""></div><div class="full-image-container" data-image-url="" style="background-image: url(http://www.tempees.com/sites/default/files/styles/thumbnail/public/fullslider.jpg); background-position: 50% 50%; background-repeat: no-repeat no-repeat;"></div><div class="text-container">
+    <p><span class="inline-image-container" data-image-url=""></span></p>
+</div></div><div class="item full-image come-in"><h3>Clean CSS3 dropdown menu</h3><div class="col-halfrow-image-container" data-image-url=""></div><div class="halfcol-row-image-container" data-image-url=""></div><div class="full-image-container" data-image-url="" style="background-image: url(http://www.tempees.com/sites/default/files/simple-css3-dropdown-menu.png); background-position: 50% 50%; background-repeat: no-repeat no-repeat;"></div><div class="text-container">
+    <p><span class="inline-image-container" data-image-url=""></span>Simple solution of dropdown menu. Without javascript - only CSS3. Compatible with all new browsers (Chrome, Mozilla Firefox, Opera, IE 7+). Click here for demo.</p>
+</div></div><div class="item full-image come-in"><h3>Icon Deposit CSS3 UI Kit (PSD+CSS) - Icon Deposit</h3><div class="col-halfrow-image-container" data-image-url=""></div><div class="halfcol-row-image-container" data-image-url=""></div><div class="full-image-container" data-image-url="" style="background-image: url(http://www.icondeposit.com/local--files/imageid:277/Search-UI-ID-Preview.jpg); background-position: 50% 50%; background-repeat: no-repeat no-repeat;"></div><div class="text-container">
+    <p><span class="inline-image-container" data-image-url=""></span>Here at the Icon Deposit, we give you the opportunity to post your icons, designs, code, and screenshots to promote your work and gain new clients. We feature Hundreds of Free PSD's, Icons, Icon Sets, UI/UX design, Illustrator/Vector graphics, CSS, CSS3, JQuery, Photoshop tutorials and tons more.</p>
+</div></div><div class="item full-image come-in"><h3>CSS3Ps - free cloud based photoshop plugin that converts layers to CSS3 styles.</h3><div class="col-halfrow-image-container" data-image-url=""></div><div class="halfcol-row-image-container" data-image-url=""></div><div class="full-image-container" data-image-url="" style="background-image: url(http://i3.ytimg.com/vi/bwVL6zMauxc/hqdefault.jpg); background-position: 50% 50%; background-repeat: no-repeat no-repeat;"></div><div class="text-container">
+    <p><span class="inline-image-container" data-image-url=""></span>CSS3Ps is a free, cloud based, photoshop plugin for converting layers to CSS3 styles.</p>
+</div></div><div class="item full-image come-in"><h3>Increíbles efectos y animaciones con HTML5 y CSS3 - addigital</h3><div class="col-halfrow-image-container" data-image-url=""></div><div class="halfcol-row-image-container" data-image-url=""></div><div class="full-image-container" data-image-url="" style="background-image: url(http://addigital.com.mx/wp-content/uploads/2012/08/HTML5_Logo_512-300x300.png); background-position: 50% 50%; background-repeat: no-repeat no-repeat;"></div><div class="text-container">
+    <p><span class="inline-image-container" data-image-url=""></span>En Adobe están haciendo bien las cosas, lentamente parecen ir abandonando la idea sobre la vigencia de Flash y comienzan a hacer cosas realmente interesantes utilizando tecnologías como HTML5 y CSS3. Un buen ejemplo de ello es el sitio web The Expressive Web, en donde se explotan las virtudes y mejoras tanto de las propiedades CSS3, como de las mejoras provistas por HTML5.</p>
+</div></div><div class="item full-image come-in"><h3>Magically Turn Your Photoshop Layers Into CSS3 With CSS Hat | Webdesigntuts+</h3><div class="col-halfrow-image-container" data-image-url=""></div><div class="halfcol-row-image-container" data-image-url=""></div><div class="full-image-container" data-image-url="" style="background-image: url(http://cdn.tutsplus.com/webdesign.tutsplus.com/authors/ian-yates/csshat-screenshot-2.jpg); background-position: 50% 50%; background-repeat: no-repeat no-repeat;"></div><div class="text-container">
+    <p><span class="inline-image-container" data-image-url=""></span>Today I'm going to show you a Photoshop plugin which aims to greatly improve your workflow. It's called CSS Hat and it turns your Photoshop layers directly into valid CSS3. Sponsored Content This is a sponsored review or giveaway of a product/service that's particularly relevant to our readers.</p>
+</div></div><div class="item inline-image come-in"><h3>WEB制作フロー、ワイヤーフレームの作成ツール、最新HTML5/CSS3（先行実装プロパティ）に渡るまで、簡単かつ気付きを与えてくれる素晴らしい書籍です。: 一人暮らし研究　iPhoneと神8のいいところ</h3><div class="col-halfrow-image-container" data-image-url=""></div><div class="halfcol-row-image-container" data-image-url=""></div><div class="full-image-container" data-image-url=""></div><div class="text-container">
+    <p><span class="inline-image-container" data-image-url="" style="background-image: url(http://blog.so-net.ne.jp/_profile/_24e/fmabc/_m_fmabc.png); background-position: 50% 50%; background-repeat: no-repeat no-repeat;"></span>iPhoneアプリやAndroidアプリ、WEB制作の関連書籍は数多くありますが、どれも一長一短で普段PCサイトを手掛けている方には物足りないことがほとんどでした。 こちらの書籍は、スマートフォン（iPhone/Android）の概要か..</p>
+</div></div><div class="item full-image come-in"><h3>Creating Multiple Background Images with CSS3 | Best Design Tutorials</h3><div class="col-halfrow-image-container" data-image-url=""></div><div class="halfcol-row-image-container" data-image-url=""></div><div class="full-image-container" data-image-url="" style="background-image: url(http://www.bestdesigntuts.com/wp-content/uploads/2013/04/rsz_cover.jpg); background-position: 50% 50%; background-repeat: no-repeat no-repeat;"></div><div class="text-container">
+    <p><span class="inline-image-container" data-image-url=""></span>One of the latest advancements in the CSS background property is the addition of multiple backgrounds in the new CSS3 specification. The new specification allows multiple background images to be applied to a single element and for each background image to be controlled individually with relation to position, size and repeat.</p>
+</div></div><div class="item halfcol-row-image come-in"><h3>OCWP Web Designer's Meetup &amp; Upcoming #wcmia - Suzette Franck</h3><div class="col-halfrow-image-container" data-image-url=""></div><div class="halfcol-row-image-container" data-image-url="" style="background-image: url(http://suzettefranck.com/wp-content/uploads/ocwpwd-css3-r.jpg); background-position: 50% 50%; background-repeat: no-repeat no-repeat;"></div><div class="full-image-container" data-image-url=""></div><div class="text-container">
+    <p><span class="inline-image-container" data-image-url=""></span>I had the opportunity to give my CSS3 Presentation to about 30 people on Monday in the OCWPWD Meetup at Zeek Interactive. I gave a similar talk at this past 2013 San Diego WordCamp, but ran out of time when it came to the CSS3 Demo.</p>
+</div></div><div class="item full-image come-in"><h3>Script Junkie | Why the Web Is Ready for Responsive Web Design</h3><div class="col-halfrow-image-container" data-image-url=""></div><div class="halfcol-row-image-container" data-image-url=""></div><div class="full-image-container" data-image-url="" style="background-image: url('http://i.msdn.microsoft.com/dn151701.Lalmalani_fig01s(en-us,MSDN.10).png'); background-position: 50% 50%; background-repeat: no-repeat no-repeat;"></div><div class="text-container">
+    <p><span class="inline-image-container" data-image-url=""></span>Rahul Lalmalani | March 28, 2013 The Mobile Playing Field Today, a large portion of site traffic comes from mobile devices-namely smart phones and tablets-in addition to traditional PCs. Across the globe, mobile devices now account for 12 percent of Internet traffic, and this is scaling up faster than desktop Internet traffic.</p>
+</div></div><div class="item halfcol-row-image come-in"><h3>Sr. Front End Javascript Developer Html5, Jquery, Css3 job</h3><div class="col-halfrow-image-container" data-image-url=""></div><div class="halfcol-row-image-container" data-image-url="" style="background-image: url(http://www.simplyhired.com/c/sh/images/3c7fde5c54fd6d8b2c7e39555ca07428aa3abad7/simplyhired.gif); background-position: 50% 50%; background-repeat: no-repeat no-repeat;"></div><div class="full-image-container" data-image-url=""></div><div class="text-container">
+    <p><span class="inline-image-container" data-image-url=""></span>April 03, 2013. View the job posting for Sr. Front End Javascript Developer Html5, Jquery, Css3 at Intake.io in New York, NY. Front End Developer We are a</p>
+</div></div><div class="item inline-image come-in"><h3>WEB制作フロー、ワイヤーフレームの作成ツール、最新HTML5/CSS3（先行実装プロパティ）に渡るまで、簡単かつ気付きを与えてくれる素晴らしい書籍です。: 一人暮らし研究　iPhoneと神8のいいところ</h3><div class="col-halfrow-image-container" data-image-url=""></div><div class="halfcol-row-image-container" data-image-url=""></div><div class="full-image-container" data-image-url=""></div><div class="text-container">
+    <p><span class="inline-image-container" data-image-url="" style="background-image: url(http://blog.so-net.ne.jp/_profile/_24e/fmabc/_m_fmabc.png); background-position: 50% 50%; background-repeat: no-repeat no-repeat;"></span>iPhoneアプリやAndroidアプリ、WEB制作の関連書籍は数多くありますが、どれも一長一短で普段PCサイトを手掛けている方には物足りないことがほとんどでした。 こちらの書籍は、スマートフォン（iPhone/Android）の概要か..</p>
+</div></div><div class="item inline-image come-in"><h3>London - up to £40k - Front End Developer / HTML5 / CSS3</h3><div class="col-halfrow-image-container" data-image-url=""></div><div class="halfcol-row-image-container" data-image-url=""></div><div class="full-image-container" data-image-url=""></div><div class="text-container">
+    <p><span class="inline-image-container" data-image-url="" style="background-image: url(http://www.aplitrak.com/twitter/twitter_logo_normal.jpg); background-position: 50% 50%; background-repeat: no-repeat no-repeat;"></span>A hot content driven London based agency are on the lookour for a capable and ambitious new front end developer to join their fast growing team - taking the reigns on a range of brand new and existing projects for some of the countrys favourite entertainment entities!</p>
+</div></div><div class="item inline-image come-in"><h3>London - Up to £30k - UI Developer / HTML5 / CSS3 / Javascript</h3><div class="col-halfrow-image-container" data-image-url=""></div><div class="halfcol-row-image-container" data-image-url=""></div><div class="full-image-container" data-image-url=""></div><div class="text-container">
+    <p><span class="inline-image-container" data-image-url="" style="background-image: url(http://www.aplitrak.com/twitter/twitter_logo_normal.jpg); background-position: 50% 50%; background-repeat: no-repeat no-repeat;"></span>The successful UI developer will be working on a fantastic offering of interesting projects, technology solutions, user centric development approaches with a bonus of working alongside a skilled team. The successful UI developer will have a solid commercial experience with HTML5 and CSS3. Alongside this, experience of UI development on mobile platforms is a massive plus!</p>
+</div></div><div class="item inline-image come-in"><h3>CSS Tricks for Headings, Fonts and Text Styling</h3><div class="col-halfrow-image-container" data-image-url=""></div><div class="halfcol-row-image-container" data-image-url=""></div><div class="full-image-container" data-image-url=""></div><div class="text-container">
+    <p><span class="inline-image-container" data-image-url="" style="background-image: url(http://www.inwebson.com/wp-content/uploads/2012/03/css-tricks-fi.png); background-position: 50% 50%; background-repeat: no-repeat no-repeat;"></span>The truth is, we can still creating those fancy headings, cool fonts and text effects without using Photoshop, but just with CSS. In this article, I have listed some useful CSS tricks and techniques which can be used to style your headings, fonts and text as well as content.</p>
+</div></div><div class="item come-in"><h3>CSS3 Patterns Gallery</h3><div class="col-halfrow-image-container" data-image-url=""></div><div class="halfcol-row-image-container" data-image-url=""></div><div class="full-image-container" data-image-url=""></div><div class="text-container">
+    <p><span class="inline-image-container" data-image-url=""></span>Is the number of gradients and color stops worth the effect? The whole point of those patterns is to make page loading faster by reducing file size and HTTP requests without the unreadable gibberish that data URIs add in our stylesheets.</p>
+</div></div></div>
+
+<script type="text/javascript" src="/public/js/vendors/require.js" data-main="/public/js/main.js"></script>
+
+</body>
+</html>
