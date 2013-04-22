@@ -5,6 +5,23 @@
 	var lint = require('./lint_runner.js');
 	var nodeunit = require('nodeunit').reporters['default'];
 
+	desc('External Server tests');
+	task('externalServerTests', [], function() {
+		console.log('\n\nEXTERNAL SERVER TESTS');
+		nodeunit.run(externalServerTestFiles().toArray(), null, function(failures) {
+			if (failures) { fail('tests failed'); }
+			complete(); // tell jake that this async task is complete
+		});
+	}, {async: true}); // tell jake to wait for an async task that signalizes it's done with a call to complete()
+
+	function externalServerTestFiles() {
+		var files = new jake.FileList();
+		files.include('./web/test/embedly_test.js');
+		files.include('./web/test/twitter_test.js');
+		return files;
+	}
+
+
 	desc('Default - lint');
 	task('default', ['lint'], function(){
 		console.log('\n\nOK');

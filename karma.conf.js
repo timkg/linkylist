@@ -10,21 +10,18 @@ basePath = '';
 // included: false means that they will be served/accessible,
 // but not directly loaded via <script> tags
 files = [
-  'http://localhost:5000/socket.io/socket.io.js',
+  'http://localhost:5000/socket.io/socket.io.js', // make socket.io available for tests
   MOCHA,
   MOCHA_ADAPTER,
   REQUIRE,
   REQUIRE_ADAPTER,
   'node_modules/expect.js/expect.js',
+  'web/public/test/requirejs-tests.js', // tests loaded here
 
   // files that should be accessible, but not loaded directly via script tags - needed for requirejs
-  {pattern: 'client/vendors/jquery.js', included: false},
-  {pattern: 'client/vendors/lo-dash.js', included: false},
-  {pattern: 'client/vendors/backbone.js', included: false},
-  {pattern: 'client/src/**/**.js', included: false},
-  {pattern: 'client/src/**/**/**.js', included: false},
+  {pattern: 'web/public/**/*.js', included: false},
+  {pattern: 'web/public/html/**/*.html', included: false},
 
-  'client/test/main-test.js'
 ];
 
 

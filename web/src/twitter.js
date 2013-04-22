@@ -23,6 +23,7 @@
 			var responseData = '';
 
 			response.setEncoding('utf8');
+			console.log('twitter returned statusCode ' + response.statusCode);
 
 			response.on('data', function(chunk) {
 				responseData += chunk;

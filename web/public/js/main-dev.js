@@ -7,13 +7,20 @@
 			'jquery': './vendors/jquery',
 			'lo-dash': './vendors/lo-dash',
 			'backbone': './vendors/backbone',
-			'text': 'vendors/text'
+			'text': 'vendors/text',
+			'statemachine': './vendors/state-machine',
+			'q': './vendors/q',
+			'masonry': './vendors/jquery.masonry',
+			'imagesLoaded': './vendors/jquery.imagesLoaded',
+			'visible': './vendors/jquery.visible'
 		},
 		shim: {
 			'backbone': {
 				deps: ['lo-dash', 'jquery'],
 				exports: 'Backbone'
-			}
+			},
+			'masonry': ['jquery'],
+			'visible': ['jquery']
 		}
 	});
 

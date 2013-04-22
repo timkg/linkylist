@@ -1,85 +1,175 @@
 /*
- * ITEM CONTENT DEFINITIONS
- * - title
- * - description
- * - full-height image ("col")
- * - full-width image ("row")
- * - half height/width image ("halfcol/halfrow")
- * - small image ("inline")
- *
- * /public/img/inline.jpg
- * /public/img/col-halfrow.jpg
- * /public/img/halfcol-row.jpg
- * /public/img/col-row.jpg
- *
-*/
-
-.inline-image-container { display: none; background-repeat: no-repeat; }		
-.col-halfrow-image-container { display: none; background-repeat: no-repeat; }
-.halfcol-row-image-container { display: none; background-repeat: no-repeat; }
-.full-image-container { display: none; background-repeat: no-repeat; } 
-
-/* title, text, no image */
-.item.no-image {}
-
-/* title, text, inline image */
-.item.inline-image {}
-.item.inline-image .inline-image-container {
-	display: block;
-	float: left;
-	height: 50px;
-	width: 50px;
-	margin: 3px 5px 5px 0; /* margin-top to nudge it slightly under the line-height of the p */
+ ***************
+ * small screens
+ ***************
+ */
+@media all and (max-device-width: 400px) {
+	.itemholder {
+		width: 100%;
+	}
+	.item {
+		width: 100%;
+		margin: 0;
+	}
+	/* http://adactio.com/journal/5429/ */
+	body:after {
+		content: '1collist';
+		display: none;
+	}
 }
 
-/* title, text, halfcol-onerow image */
-.item.halfcol-row-image {}
-.item.halfcol-row-image .halfcol-row-image-container {
-	display: block;
-	float: left;
-	height: 40%;
-	width: 100%;
+/*
+ ******************
+ * medium / tablets
+ ******************
+ */
+@media all and (min-device-width: 401px) and (max-device-width: 1023px) {
+	.itemholder {
+		width: 100%;
+	}
+	.item {
+		width: 49%;
+	}
+	/* http://adactio.com/journal/5429/ */
+	body:after {
+		content: '2collist';
+		display: none;
+	}
 }
 
-/* title, text, halfrow-onecol image */
-.item.col-halfrow-image {}
-.item.col-halfrow-image .col-halfrow-image-container {
-	display: block;
-	float: left;
-	height: 90%;
-	width: 30%;
+
+
+/*
+ ******* 
+ * ipads
+ *******
+ */
+/* ipad and iphone keep device-width and device-height consistent (height is bigger than width), independently from orientation */
+@media all and (device-width: 768px) and (device-height: 1024px) and (orientation:portrait) {
+	.itemholder {
+		height: 100%;
+		width: 100%;
+		overflow: hidden;
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+	.item {
+		height: 33%;
+		width: 50%;
+		float: left;
+		overflow: hidden;
+	}
+	/* http://adactio.com/journal/5429/ */
+	body:after {
+		content: 'ipad-portrait2';
+		display: none;
+	}
 }
-.item.col-halfrow-image .text-container {
-	float: left;
-	width: 63%;
-	margin-left: 10px;
+/* ipad */
+@media all and (device-width: 768px) and (device-height: 1024px) and (orientation:landscape) {
+	.itemholder {
+		height: 100%;
+		width: 100%;
+		overflow: hidden;
+
+	}
+	.item {
+		height: 50%;
+		width: 33.333%;
+		float: left;
+		overflow: hidden;
+	}
+	/* http://adactio.com/journal/5429/ */
+	body:after {
+		content: 'ipad-landscape2wq';
+		display: none;
+	}
 }
 
-/* title, text, full row image */
-.item.full-image .full-image-container {
-	display: block;
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	left: 0;
-	bottom: 0;
-}
-.item.full-image .text-container {
-	display: none;
-}
-.item.full-image .text-container:after {
-	display: none;
-}
-.item.full-image:after {
-	display: none;
-}
 
-.item.full-image h3 {
-	background-color: rgb(255,255,255);
-	position: absolute;
-	left: 0;
-	top: 0;
-	right: 0;
-	padding: 10px;
-	z-index: 1;
+/*
+ ********* 
+ * desktop
+ *********
+ */
+@media all and (min-device-width: 1024px) and (max-width: 400px) {
+	.itemholder {
+		width: 100%;
+	}
+	.item {
+		width: 100%;
+		height: 150px;
+		margin: 0 0 1% 0;
+	}
+	/* http://adactio.com/journal/5429/ */
+	body:after {
+		content: 'desktop-1col';
+		display: none;
+	}
+}
+/*
+ * DESKTOP GRID TO ACCOMODATE RESIZING
+ */
+@media all and (min-device-width: 1024px) and (min-width: 401px) and (max-width: 600px) {
+	.itemholder {
+		width: 100%;
+	}
+	.item {
+		float: left;
+		width: 49%;
+		margin: 0 1% 1% 0;
+	}
+	/* http://adactio.com/journal/5429/ */
+	body:after {
+		content: 'desktop-2col';
+		display: none;
+	}
+}
+@media all and (min-device-width: 1024px) and (min-width: 601px) and (max-width: 850px) {
+	.itemholder {
+		width: 100%;
+	}
+	.item {
+		float: left;
+		width: 32.333%;
+		margin: 0 1% 1% 0;
+	}
+	/* http://adactio.com/journal/5429/ */
+	body:after {
+		content: 'desktop-3col';
+		display: none;
+	}
+}
+@media all and (min-device-width: 1024px) and (min-width: 851px) and (max-width: 1100px) {
+	.itemholder {
+		width: 100%;
+	}
+	.item {
+		float: left;
+		width: 24%;
+		margin: 0 1% 1% 0;
+	}
+	/* http://adactio.com/journal/5429/ */
+	body:after {
+		content: 'desktop-4col';
+		display: none;
+	}
+}
+@media all and (min-device-width: 1024px) and (min-width: 1100px) {
+	.itemholder {
+		width: 1100px;
+		margin: 0 auto;
+	}
+	.item {
+		float: left;
+		width: 24%;
+		margin: 0 1% 1% 0;
+	}
+	
+	/* http://adactio.com/journal/5429/ */
+	body:after {
+		content: 'desktop-4col';
+		display: none;
+	}
 }

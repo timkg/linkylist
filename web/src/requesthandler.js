@@ -6,11 +6,10 @@
 
 
 	exports.init = function(socket, db) {
-		// listen for requests
-		socket.on('req:links', function (clientArgs) {
+		socket.on('links', function (clientArgs) {
 			console.log('socket.on(\'links\') called with arguments: ', clientArgs);
 			db.getRecentLinks(function(links) {
-				socket.emit('res:links', links);
+				socket.emit('links', links);
 			});
 		});
 		console.log('socket.io reqeust handler initialized');

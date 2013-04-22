@@ -7,11 +7,13 @@
 
 	var BASE_URL = 'http://api.embed.ly/1/oembed?key=';
 
-	exports.getOembedForListOfUrls = function(listOfUrls, callback) {
-		var url = BASE_URL + API_KEY + '&urls=' + listOfUrlsIntoQueryParameter(listOfUrls);
+	exports.getOembedForListOfUrls = function(listOfUrls, callback, api_key) {
+		api_key = api_key || API_KEY;
+		var url = BASE_URL + api_key + '&urls=' + listOfUrlsIntoQueryParameter(listOfUrls);
 
 		var request = http.get(url);
 		request.on('response', function(response) {
+			console.log('response received from ', url);
 			var responseData = '';
 
 			response.setEncoding('utf8');
@@ -22,6 +24,9 @@
 			});
 
 			response.on('end', function() {
+				if( response.statusCode == 401 ) {
+					// TODO
+				}
 				callback(responseData);
 			});
 		});
