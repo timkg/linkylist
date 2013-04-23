@@ -16,8 +16,9 @@
 
 	function externalServerTestFiles() {
 		var files = new jake.FileList();
-		files.include('./web/test/embedly_test.js');
-		files.include('./web/test/twitter_test.js');
+//		files.include('./web/test/embedly_test.js');
+//		files.include('./web/test/twitter_test.js');
+		files.include('./web/test/readability_test.js');
 		return files;
 	}
 
