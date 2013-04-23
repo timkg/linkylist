@@ -27,7 +27,35 @@
 					itemSelector: '.item',
 					columnWidth: 205
 				});
+				self.initScrollListener(function() {
+					self.fillRows(1)
+				});
 			});
+		};
+
+		ScrollGrid.prototype.initScrollListener = function(callback) {
+			var $window = $(window),
+				$document = $(document),
+				scrollThrottle = 50,
+				scrollTimeout;
+
+			$window.on('scroll', function() {
+				clearTimeout(scrollTimeout);
+				scrollTimeout = setTimeout(function() {
+					if( $window.scrollTop() + $window.height() > getDocHeight() - 50) {
+						callback();
+					}
+				}, scrollThrottle);
+			});
+
+			function getDocHeight() {
+				var D = document;
+				return Math.max(
+					Math.max(D.body.scrollHeight, D.documentElement.scrollHeight),
+					Math.max(D.body.offsetHeight, D.documentElement.offsetHeight),
+					Math.max(D.body.clientHeight, D.documentElement.clientHeight)
+				);
+			}
 		};
 
 		ScrollGrid.prototype.createSquare = function() {
@@ -36,48 +64,40 @@
 			return s;
 		};
 
-		ScrollGrid.prototype.fillVisibleArea = function() {
-//			var self = this;
-//			var count = 20,
-//				df = document.createDocumentFragment();
-//			while(count > 0) {
-//				var s = this.createSquare();
-//				df.appendChild(s.render());
-//				count -= 1;
-//			}
-//			var $container = $(this.container);
-//			$container.append(df);
-//			require(['masonry', 'imagesLoaded'], function() {
-//				$container.imagesLoaded(function() {
-//					$container.masonry({
-//						itemSelector: '.item',
-//						columnWidth: 205,
-//						isAnimated: true
-//					});
-//				});
-//			})
+		ScrollGrid.prototype.start = function() {
+			this.fillVisibleArea();
 		};
 
+		ScrollGrid.prototype.fillVisibleArea = function() {
+			this.fillRows( this.getNumberOfRowsPerScreen() );
+		};
 
-		ScrollGrid.prototype.prepareRow = function(callback) {
-			callback = callback || function() {};
-			var rowSize = this.getRowSize();
-			var count = rowSize;
-			this.itemsPendingToInsert.reset();
-			App.events.on('itemReady', function(item) {
+		ScrollGrid.prototype.fillRows = function(numberOfRowsToInsert) {
+			var totalNumberOfItemsPerRow = this.getNumberOfItemsPerRow();
+			var remainingItemsToPlaceOnCurrentRow = totalNumberOfItemsPerRow;
+			App.events.on('itemReadyToPlaceOnRow', function(item) {
 				this.itemsPendingToInsert.add(item);
-				if( this.itemsPendingToInsert.length === rowSize ) {
+				if( this.itemsPendingToInsert.length === totalNumberOfItemsPerRow ) {
 					this.insertHiddenElements();
+					this.itemsPendingToInsert.reset();
+					numberOfRowsToInsert -= 1;
+					if( numberOfRowsToInsert > 0 ) {
+						this.fillRows(numberOfRowsToInsert);
+					}
 				}
 			}, this);
-			while( count > 0 ) {
+			while( remainingItemsToPlaceOnCurrentRow > 0 ) {
 				var s = this.createSquare();
-				count -= 1;
+				remainingItemsToPlaceOnCurrentRow -= 1;
 			}
 		};
 
-		ScrollGrid.prototype.getRowSize = function() {
-			return 5; // TODO
+		ScrollGrid.prototype.getNumberOfItemsPerRow = function() {
+			return  Math.floor( (this.$container.width() / 200));
+		};
+
+		ScrollGrid.prototype.getNumberOfRowsPerScreen = function() {
+			return Math.ceil( (window.innerHeight / 200));
 		};
 
 		ScrollGrid.prototype.insertHiddenElements = function() {

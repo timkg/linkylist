@@ -11,7 +11,6 @@
 	], function($, StateMachine, Moustache, templateString, App){
 
 		function Square(queue, formatter) {
-			// TODO - better use "queue" dependency injection or request event?
 			this.queue = queue;
 			this.formatter = formatter;
 			this.kickoff();
@@ -48,19 +47,11 @@
 					.css({'background': "url('"+json.image.url+"') no-repeat center center"}) // single quotes around url: https://code.google.com/p/slimbox/issues/detail?id=25
 				.end()
 				.appendTo('.hiddenitemholder');
-			App.events.trigger('itemReady', this.item);
+			App.events.trigger('itemReadyToPlaceOnRow', this.item);
 		};
 
 		Square.prototype.onError = function(reason) {
 			throw new Error(reason);
-		};
-
-		// TODO - clean me up
-		Square.prototype.render = function() {
-			this.elm = document.createElement('div');
-			this.elm.setAttribute('class', 'item');
-
-			return this.elm;
 		};
 
 		return Square;

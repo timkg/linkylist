@@ -12,6 +12,7 @@
 			'q': './vendors/q',
 			'masonry': './vendors/jquery.masonry',
 			'imagesLoaded': './vendors/jquery.imagesLoaded',
+			'infinitescroll': './vendors/jquery.infinitescroll',
 			'visible': './vendors/jquery.visible',
 			'App': './app'
 		},

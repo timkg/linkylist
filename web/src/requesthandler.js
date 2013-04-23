@@ -11,9 +11,18 @@
 			socket.emit('links', links);
 		});
 
+		// uncomment to load links from twitter & embedly
+//		socket.on('links', function (clientArgs) {
+//			console.log('socket.on(\'links\') called with arguments: ', clientArgs);
+//			exports.getApiLinks(db, socket);
+//		});
+
+		// uncomment to load example links from DB - for development, to save requests
 		socket.on('links', function (clientArgs) {
 			console.log('socket.on(\'links\') called with arguments: ', clientArgs);
-			exports.getApiLinks(db, socket);
+			db.getRecentLinks(function(links) {
+				socket.emit('links', links);
+			});
 		});
 		console.log('socket.io reqeust handler initialized');
 	};
@@ -23,16 +32,9 @@
 			var urls = twitter.getListOfUrlsFromApiResponse(responseData);
 			embedly.getOembedForListOfUrls(urls, function(response) {
 				socket.emit('links', response);
+				// TODO - save new responses in DB
 			});
 		});
-		// get series of urls
-		// check which urls in DB
-		// in parallel:
-		//   send those in DB to socket
-		//   request remaining from embedly
-		//		in parallel:
-		//			save response in DB
-		//			send response to socket
 	};
 
 }());

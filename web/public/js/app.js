@@ -29,7 +29,7 @@
 			require(['ui/scrollgrid/scrollgrid'], function(ScrollGrid) {
 				App.displayer = new ScrollGrid(App.queue);
 				App.displayer.init( $(container) );
-				App.displayer.prepareRow();
+				App.displayer.start();
 			});
 		};
 
