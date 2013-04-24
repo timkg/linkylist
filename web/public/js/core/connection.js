@@ -4,7 +4,7 @@
 
 	define(['/socket.io/socket.io.js'], function(io) {
 
-		var SOCKET_IO_HOST = 'http://localhost:5000';
+		var SOCKET_IO_HOST = '/';
 
 		function Connection(events) {
 			this.items = [];
