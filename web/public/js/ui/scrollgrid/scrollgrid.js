@@ -36,6 +36,15 @@
 				});
 			});
 
+			// TODO - remove from init()
+			App.events.on('itemReadyToPlaceOnRow', function(item) {
+				this.itemsPendingToInsert.add(item);
+				if( this.itemsPendingToInsert.length >= this.getNumberOfItemsPerRow() ) {
+					this.itemsPendingToInsert.reset();
+					this.insertHiddenElements();
+				}
+			}, this);
+
 		};
 
 		ScrollGrid.prototype.initScrollListener = function(callback) {
@@ -79,21 +88,10 @@
 
 		ScrollGrid.prototype.fillRows = function(numberOfRowsToInsert) {
 			var totalNumberOfItemsPerRow = this.getNumberOfItemsPerRow();
-			var remainingItemsToPlaceOnCurrentRow = totalNumberOfItemsPerRow;
-			App.events.on('itemReadyToPlaceOnRow', function(item) {
-				this.itemsPendingToInsert.add(item);
-				if( this.itemsPendingToInsert.length === totalNumberOfItemsPerRow ) {
-					this.insertHiddenElements();
-					this.itemsPendingToInsert.reset();
-					numberOfRowsToInsert -= 1;
-					if( numberOfRowsToInsert > 0 ) {
-						this.fillRows(numberOfRowsToInsert);
-					}
+			for(  var i = 0; i < numberOfRowsToInsert; i++ ) {
+				for( var j = 0; j < totalNumberOfItemsPerRow; j++ ) {
+					var s = this.createSquare(); // when ready triggers App.events.on('itemReadyToPlaceOnRow')
 				}
-			}, this);
-			while( remainingItemsToPlaceOnCurrentRow > 0 ) {
-				var s = this.createSquare();
-				remainingItemsToPlaceOnCurrentRow -= 1;
 			}
 		};
 
