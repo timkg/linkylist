@@ -47,6 +47,7 @@
 					.css({'background': "url('"+json.image.url+"') no-repeat center center"}) // single quotes around url: https://code.google.com/p/slimbox/issues/detail?id=25
 				.end()
 				.appendTo('.hiddenitemholder');
+
 			App.events.trigger('itemReadyToPlaceOnRow', this.item);
 		};
 

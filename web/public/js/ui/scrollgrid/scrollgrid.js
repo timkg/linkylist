@@ -22,15 +22,20 @@
 		ScrollGrid.prototype.init = function($container) {
 			var self = this;
 			this.$container = $container;
+			this.$container.on('click', '.item', function(event) {
+				// we need to use currentTarget when using event delegation with child element selector
+				alert( $(event.currentTarget).data('url'));
+			})
 			require(['masonry', 'imagesLoaded'], function() {
 				self.$container.masonry({
 					itemSelector: '.item',
-					columnWidth: 205
+					columnWidth: 206
 				});
 				self.initScrollListener(function() {
 					self.fillRows(1)
 				});
 			});
+
 		};
 
 		ScrollGrid.prototype.initScrollListener = function(callback) {
@@ -102,12 +107,9 @@
 
 		ScrollGrid.prototype.insertHiddenElements = function() {
 			var $content = $('.hiddenitemholder').children();
+			// TODO - use imagesLoaded
 			this.$container.append($content).masonry('appended', $content, true);
 			$('.hiddenitemholder').empty();
-		};
-
-		ScrollGrid.prototype.onScroll = function() {
-
 		};
 
 		return ScrollGrid;
