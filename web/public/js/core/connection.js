@@ -2,7 +2,10 @@
 	/*global define, require, io*/
 	"use strict";
 
-	define(['/socket.io/socket.io.js'], function(io) {
+	// prevent r.js from loading this file by specifying dependency as variable name, not string literal
+	var SCOKET_SCRIPT_URL = '/socket.io/socket.io.js';
+
+	define([SCOKET_SCRIPT_URL], function(io) {
 
 		var SOCKET_IO_HOST = '/';
 
