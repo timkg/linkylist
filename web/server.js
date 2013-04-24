@@ -39,18 +39,18 @@
 
 
 			// TODO - put dev vs prod routes in their own place
-//			if( config.MODE === 'PRODUCTION' ) {
-//				app.get('/public/js/main.js', function(request, response) {
-//					response.sendfile(__dirname + '/public/js/main-prod.js');
-//				});
-//				app.get('/public/*', function(request, response) {
-//					response.sendfile(__dirname + request.originalUrl);
-//				});
-//				app.get('/', function(request, response) {
-//					console.log('request received');
-//					response.sendfile(__dirname + '/public/html/index-prod.html');
-//				});
-//			} else {
+			if( config.MODE === 'PRODUCTION' ) {
+				app.get('/public/js/main.js', function(request, response) {
+					response.sendfile(__dirname + '/public/js/main-prod.js');
+				});
+				app.get('/public/*', function(request, response) {
+					response.sendfile(__dirname + request.originalUrl);
+				});
+				app.get('/', function(request, response) {
+					console.log('request received');
+					response.sendfile(__dirname + '/public/html/index-prod.html');
+				});
+			} else {
 				app.get('/public/js/main.js', function(request, response) {
 					response.sendfile(__dirname + '/public/js/main-dev.js');
 				});
@@ -60,7 +60,7 @@
 				app.get('/', function(request, response) {
 					response.sendfile(__dirname + '/public/html/index-dev.html');
 				});
-//			}
+			}
 
 		});
 	};
