@@ -21,6 +21,6 @@
 		'masonry': ['jquery'],
 		'visible': ['jquery']
 	},
-	name: "core",
-	out: "build/main-prod.js"
+	name: "main-dev",
+	out: "main-prod.js"
 })
