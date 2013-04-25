@@ -1,23 +1,20 @@
 (function() {
-	/*global define, require, io*/
+	/*global define, require*/
 	"use strict";
 
 	define([
+		'jquery',
 		'lo-dash',
 		'backbone',
-		'jquery',
-		'./core/connection',
 		'./core/queue'
-	], function(_, Backbone, $, Connection, Queue) {
+	], function($, _, Backbone, Queue) {
 
 		var App = {};
 
 		App.events = _.extend({}, Backbone.Events);
 
 		App.initQueue = function(channel) {
-			var connection = new Connection(io);
-			connection.init();
-			App.queue = new Queue(connection);
+			App.queue = new Queue();
 			App.queue.listenTo(channel);
 		};
 
@@ -27,7 +24,7 @@
 			// conditionally load correct UI
 			require(['ui/scrollgrid/scrollgrid'], function(ScrollGrid) {
 				App.displayer = new ScrollGrid(App.queue);
-				App.displayer.init( $(container) );
+				App.displayer.init( container );
 				App.displayer.start();
 			});
 		};

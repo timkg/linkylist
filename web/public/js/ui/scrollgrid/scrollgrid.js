@@ -1,5 +1,5 @@
 (function() {
-	/*global define, require*/
+	/*global define, require, console*/
 	"use strict";
 
 	define([
@@ -24,15 +24,15 @@
 			this.$container = $container;
 			this.$container.on('click', '.item', function(event) {
 				// we need to use currentTarget when using event delegation with child element selector
-				alert( $(event.currentTarget).data('url'));
-			})
+				console.log( $(event.currentTarget).data('url'));
+			});
 			require(['masonry'], function() {
 				self.$container.masonry({
 					itemSelector: '.item',
 					columnWidth: 206
 				});
 				self.initScrollListener(function() {
-					self.fillRows(1)
+					self.fillRows(1);
 				});
 			});
 

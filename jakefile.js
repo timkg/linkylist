@@ -46,6 +46,8 @@
 	function clientLintFiles() {
 		var files = new jake.FileList();
 		files.include('web/public/js/**/*.js');
+		files.exclude('web/public/js/build.js');
+		files.exclude('web/public/js/main-prod.js');
 		files.exclude('web/public/js/vendors/*.js');
 		return files.toArray();
 	}
