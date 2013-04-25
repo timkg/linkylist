@@ -5,8 +5,8 @@
 	define([
 		'jquery',
 		'backbone',
-		'../itemFormatter',
-		'./square',
+		'../../core/itemFormatter',
+		'./linkSquareView',
 		'App'
 	], function($, Backbone, ItemFormatter, Square, App){
 
@@ -26,7 +26,7 @@
 				// we need to use currentTarget when using event delegation with child element selector
 				alert( $(event.currentTarget).data('url'));
 			})
-			require(['masonry', 'imagesLoaded'], function() {
+			require(['masonry'], function() {
 				self.$container.masonry({
 					itemSelector: '.item',
 					columnWidth: 206

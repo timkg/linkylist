@@ -15,7 +15,6 @@
 		App.events = _.extend({}, Backbone.Events);
 
 		App.initQueue = function(channel) {
-			// TODO - check if socket.io is initialized
 			var connection = new Connection(io);
 			connection.init();
 			App.queue = new Queue(connection);
