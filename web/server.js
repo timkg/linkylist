@@ -52,20 +52,32 @@
 					response.sendfile(__dirname + '/public/html/index-prod.html');
 				});
 			} else {
-				app.get('/links', function(request, response) {
-					twitter.searchFor('javascript', function(tweets) {
+
+				app.get('/links/:next_page', function(request, response) {
+					twitter.searchFor('', function(tweets) {
 						response.json(tweets);
-					})
+					}, request.params.next_page)
 				});
+
+				app.get('/links', function(request, response) {
+					var searchterm = (request.query && request.query.search ? request.query.search : 'javascript');
+					twitter.searchFor(searchterm, function(tweets) {
+						response.json(tweets);
+					});
+				});
+
 				app.get('/public/js/main.js', function(request, response) {
 					response.sendfile(__dirname + '/public/js/main-dev.js');
 				});
+
 				app.get('/public/*', function(request, response) {
 					response.sendfile(__dirname + request.originalUrl);
 				});
+
 				app.get('/', function(request, response) {
 					response.sendfile(__dirname + '/public/html/index-dev.html');
 				});
+
 			}
 
 		});
