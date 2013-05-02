@@ -5,11 +5,9 @@
 	var http = require('http');
 
 	var db = require('./src/db');
-	var twitter = require('./src/twitter');
+	var twitter = require('./src/services/twitter');
 	var handler = require('./src/requesthandler');
 	var config = require('./config');
-
-	var HTTP_PORT = process.env.PORT || 5000;
 
 	exports.start = function() {
 
@@ -17,11 +15,11 @@
 		// https://groups.google.com/forum/#!msg/node-mongodb-native/mSGnnuG8C1o/Hiaqvdu1bWoJ
 		db.connect(function() {
 
-			console.log(config.host.url);
+			console.log(config.app_url);
 
 			var app = express();
 			var server = http.createServer(app);
-			server.listen(HTTP_PORT);
+			server.listen(config.http_port);
 
 			// TODO - figure out why static file server doesn't work
 			// app.configure(function() {
@@ -54,14 +52,15 @@
 			} else {
 
 				app.get('/links/:next_page', function(request, response) {
-					twitter.searchFor('', function(tweets) {
+					// next_page includes searchterm, we can omit the first argument
+					twitter.searchTweetsWithUrlsAbout('', function(tweets) {
 						response.json(tweets);
-					}, request.params.next_page)
+					}, decodeURIComponent(request.params.next_page))
 				});
 
 				app.get('/links', function(request, response) {
 					var searchterm = (request.query && request.query.search ? request.query.search : 'javascript');
-					twitter.searchFor(searchterm, function(tweets) {
+					twitter.searchTweetsWithUrlsAbout(searchterm, function(tweets) {
 						response.json(tweets);
 					});
 				});

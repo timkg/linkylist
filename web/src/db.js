@@ -5,11 +5,11 @@
 	var url = require('url');
 	var mongoose = require('mongoose');
 	var db; // initialized in connect()
+	var config = require('../config');
 
 	exports.connect = function (callback) {
-		var connectionUri = url.parse(process.env.MONGOHQ_URL);
-		// seems to be sync, no callbacks needed - http://mongoosejs.com/docs/connections.html
-		mongoose.connect(connectionUri.href);
+		console.log(config.mongourl);
+		mongoose.connect(config.mongourl);
 		db = mongoose.connection;
 		db.on('error', console.error.bind(console, 'connection error:'));
 		db.once('open', callback);
@@ -27,23 +27,15 @@
 		});
 	};
 
-	exports.initLinkModel = function () {
 
-		var embedlyOembedFormat = {
-			"provider_url":String,
-			"description":String,
-			"title":String,
-			"url":String,
-			"thumbnail_width":Number,
-			"thumbnail_url":String,
-			"version":String,
-			"provider_name":String,
-			"type":String,
-			"thumbnail_height":Number
-		};
 
-		this.Link = mongoose.model('Link', mongoose.Schema(embedlyOembedFormat));
-	};
+
+
+
+
+
+
+
 
 	exports.showModels = function () {
 		console.log(mongoose.modelNames());

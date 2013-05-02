@@ -1,19 +1,29 @@
-var dev = {
-	domain: 'http://localhost',
-	port: 5000
-};
-dev.url = dev.domain + ':' + dev.port;
+var url = require('url');
+var mongoUrl = url.parse(process.env.MONGOHQ_URL);
 
-var prod = {
-	domain: 'http://hidden-retreat-7932.herokuapp.com',
-	port: process.env.PORT || 0
-};
-prod.url = prod.domain + ':' + prod.port;
+var DEV_HOST = 'http://localhost';
+var DEV_PORT = '5000';
+
+var PROD_HOST = 'http://hidden-retreat-7932.herokuapp.com';
+var PROD_PORT = process.env.PORT; // heroku sets port dynamically
+
+function getDevMongoUrl() {
+	// connecting to DB "/test" does not require admin credentials
+	return 'mongodb://' + mongoUrl.hostname + ':' + mongoUrl.port + '/test';
+}
+
+function getProductionMongoUrl() {
+	return mongoUrl.href;
+}
 
 exports.MODE = (process.argv[2] === 'PRODUCTION' ? 'PRODUCTION' : 'DEVELOPMENT');
 
 if(exports.MODE === 'PRODUCTION') {
-	exports.host = prod;
+	exports.http_port = PROD_PORT;
+	exports.app_url = PROD_HOST + ':' + PROD_PORT;
+	exports.mongourl = getProductionMongoUrl();
 } else {
-	exports.host = dev;
+	exports.http_port = DEV_PORT;
+	exports.app_url = DEV_HOST + ':' + DEV_PORT;
+	exports.mongourl = getDevMongoUrl();
 }
