@@ -4,15 +4,15 @@
 
 	var http = require('http');
 
-	var TWITTER_SEARCH_BASE_URL = 'http://search.twitter.com/search.json?';
+	var TWITTER_SEARCH_BASE_URL = 'http://search.twitter.com/search.json';
 	var TWITTER_SEARCH_PARAMS = '&filter:links&include_entities=1';
 
 	var searches = {};
 
-	exports.searchFor = function(searchTerm, callback, next_page) {
+	exports.searchTweetsWithUrlsAbout = function(searchTerm, callback, next_page) {
 		var url = TWITTER_SEARCH_BASE_URL;
 		if( !next_page ) {
-			url += 'q=' + searchTerm + TWITTER_SEARCH_PARAMS;
+			url += '?q=' + searchTerm + TWITTER_SEARCH_PARAMS;
 		} else {
 			url += next_page;
 		}
@@ -44,12 +44,14 @@
 	};
 
 
-	exports.getListOfUrlsFromApiResponse = function(data) {
-		var parsedJson = JSON.parse(data);
+	exports.separateUrlsFromTweets = function(data) {
+		if( typeof data === 'string' ) { data = JSON.parse(data); }
 		var urls = [];
+		var tweetsWithUrls = [];
 		var results = parsedJson.results;
 		for( var i = 0, len = results.length; i < len; i++ ) {
 			if( results[i].entities && results[i].entities.urls ) {
+				tweetsWithUrls.push(results[i]);
 				var arrayOfUrlsInTweet = results[i].entities.urls;
 				for( var j = 0, urlsLen = arrayOfUrlsInTweet.length; j < urlsLen; j++ ) {
 					urls.push(arrayOfUrlsInTweet[j].expanded_url);
@@ -57,7 +59,11 @@
 			}
 		}
 		console.log(urls);
+		console.log(tweetsWithUrls);
 
-		return urls;
+		return {
+			urls: urls,
+			tweets: tweetsWithUrls
+		};
 	};
 }());
