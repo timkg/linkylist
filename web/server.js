@@ -5,6 +5,7 @@
 	var http = require('http');
 
 	var db = require('./src/db');
+	var twitter = require('./src/twitter');
 	var handler = require('./src/requesthandler');
 	var config = require('./config');
 
@@ -51,6 +52,11 @@
 					response.sendfile(__dirname + '/public/html/index-prod.html');
 				});
 			} else {
+				app.get('/links', function(request, response) {
+					twitter.searchFor('javascript', function(tweets) {
+						response.json(tweets);
+					})
+				});
 				app.get('/public/js/main.js', function(request, response) {
 					response.sendfile(__dirname + '/public/js/main-dev.js');
 				});
