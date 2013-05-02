@@ -28,8 +28,7 @@
 
 		}, [
 			// 'web/public/js/app',
-			'web/public/js/core/feed_test',
-			'web/public/js/core/queue_test'
+			'web/public/js/core/asyncQueue_test'
 			// 'web/public/js/ui/itemProvider_test',
 			// 'web/public/js/ui/scrollgrid/scrollgrid_test',
 			// 'web/public/js/ui/scrollgrid/square_test'

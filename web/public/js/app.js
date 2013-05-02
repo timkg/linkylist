@@ -6,7 +6,7 @@
 		'jquery',
 		'lo-dash',
 		'backbone',
-		'./core/queue'
+		'./core/asyncQueue'
 	], function($, _, Backbone, Queue) {
 
 		var App = {};
