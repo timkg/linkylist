@@ -1,5 +1,4 @@
 var url = require('url');
-var mongoUrl = url.parse(process.env.MONGOHQ_URL);
 
 var DEV_HOST = 'http://localhost';
 var DEV_PORT = '5000';
@@ -8,11 +7,11 @@ var PROD_HOST = 'http://hidden-retreat-7932.herokuapp.com';
 var PROD_PORT = process.env.PORT; // heroku sets port dynamically
 
 function getDevMongoUrl() {
-	// connecting to DB "/test" does not require admin credentials
-	return 'mongodb://' + mongoUrl.hostname + ':' + mongoUrl.port + '/test';
+	return 'mongodb://localhost:27017/test'; // requires mongo installed locally
 }
 
 function getProductionMongoUrl() {
+	var mongoUrl = url.parse(process.env.MONGOHQ_URL);
 	return mongoUrl.href;
 }
 

@@ -5,23 +5,39 @@
 	var lint = require('./lint_runner.js');
 	var nodeunit = require('nodeunit').reporters['default'];
 
-	desc('External Server tests');
-	task('externalServerTests', [], function() {
-		console.log('\n\nEXTERNAL SERVER TESTS');
-		nodeunit.run(externalServerTestFiles().toArray(), null, function(failures) {
+	desc('External Service tests');
+	task('externalServiceTests', [], function() {
+		console.log('\n\nEXTERNAL SERVICE TESTS');
+		nodeunit.run(externalServiceTestFiles().toArray(), null, function(failures) {
 			if (failures) { fail('tests failed'); }
 			complete(); // tell jake that this async task is complete
 		});
 	}, {async: true}); // tell jake to wait for an async task that signalizes it's done with a call to complete()
 
-	function externalServerTestFiles() {
+	function externalServiceTestFiles() {
 		var files = new jake.FileList();
 //		files.include('./web/test/embedly_test.js');
 //		files.include('./web/test/twitter_test.js');
-		files.include('./web/test/readability_test.js');
+//		files.include('./web/test/readability_test.js');
+		files.include('./web/test/services/*_test.js');
 		return files;
 	}
 
+	desc('Server-side DB tests');
+	task('DBTests', [], function() {
+		console.log('\n\Server-side DB TESTS');
+		nodeunit.run(dbTestFiles().toArray(), null, function(failures) {
+			if (failures) { fail('tests failed'); }
+			complete(); // tell jake that this async task is complete
+		});
+	}, {async: true}); // tell jake to wait for an async task that signalizes it's done with a call to complete()
+
+	function dbTestFiles() {
+		var files = new jake.FileList();
+//		files.include('./web/test/db/*_test.js');
+		files.include('./web/test/db/LinkModel_test.js');
+		return files;
+	}
 
 	desc('Default - lint');
 	task('default', ['lint'], function(){

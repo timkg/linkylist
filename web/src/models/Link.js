@@ -1,11 +1,12 @@
-exports.initLinkModel = function () {
+var mongoose = require('mongoose');
 
+exports.initLinkModel = function () {
 	var linkFormat = {
-		"url":String,
-		"embedlyRepresentation":Schema.Types.ObjectId,
-		"readabilityRepresentation":Schema.Types.ObjectId,
-		"tweets":Array
+		"url": String,
+		"embedlyRepresentation": mongoose.Schema.Types.ObjectId,
+		"readabilityRepresentation": mongoose.Schema.Types.ObjectId,
+		"tweets": Array
 	};
 
-	this.Link = mongoose.model('Link', mongoose.Schema(linkFormat));
+	return mongoose.model('Link', mongoose.Schema(linkFormat));
 };
