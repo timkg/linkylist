@@ -9,6 +9,8 @@
 
 		var LinkStreamCollection = Backbone.Paginator.requestPager.extend({
 
+			currentPage: 0,
+
 			paginator_core: {
 				type: 'GET',
 				dataType: 'json',
@@ -22,14 +24,8 @@
 				}
 			},
 
-			paginator_ui: {
-				firstPage: 0,
-				currentPage: 0,
-				perPage: 15
-			},
-
 			parse: function(response) {
-				this.next_page_param = response.next_page;
+				this.next_page_param = encodeURIComponent(response.next_page);
 				return response.payload;
 			}
 
