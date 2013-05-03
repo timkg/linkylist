@@ -7,9 +7,8 @@
 
 	var BASE_URL = 'http://api.embed.ly/1/oembed?key=';
 
-	exports.getOembedForListOfUrls = function(listOfUrls, callback, api_key) {
-		api_key = api_key || API_KEY;
-		var url = BASE_URL + api_key + '&urls=' + listOfUrlsIntoQueryParameter(listOfUrls);
+	exports.getOembedForListOfUrls = function(listOfUrls, callback) {
+		var url = BASE_URL + API_KEY + '&urls=' + listOfUrlsIntoQueryParameter(listOfUrls);
 
 		var request = http.get(url);
 		request.on('response', function(response) {
