@@ -13,7 +13,7 @@
 	};
 
 	exports.test_compilesModelFromSchema = function(test) {
-		Link = LinkModel.initLinkModel();
+		Link = LinkModel.compileModel();
 		test.ok(Link, 'compiled Link model');
 		test.done();
 	};
@@ -44,6 +44,24 @@
 			test.done();
 		});
 	};
+
+	exports.test_findsMultipleLinksByArrayOfUrls = function(test) {
+		var link2 = new Link({
+			url: 'http://google.com'
+		});
+		link2.save(function(err, result) {
+			if( err ) { throw err; }
+
+			Link.find({ url: { $in: ['http://twitter.com', 'http://google.com'] } }, function(err, results) {
+				if( err ) { throw err; }
+				test.equals(results.length, 2, 'found multiple links with $in');
+				test.done();
+			});
+
+		});
+	};
+
+
 
 	exports.end = function(test) {
 		// nodeunit tests run in sequence and tearDown() runs for each test,
