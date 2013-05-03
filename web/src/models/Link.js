@@ -3,8 +3,8 @@ var mongoose = require('mongoose');
 exports.initLinkModel = function () {
 	var linkFormat = {
 		"url": String,
-		"embedlyRepresentation": mongoose.Schema.Types.ObjectId,
-		"readabilityRepresentation": mongoose.Schema.Types.ObjectId,
+		"_embedly": { type: mongoose.Schema.Types.ObjectId, ref: 'Embedly' },
+		"_readability": { type: mongoose.Schema.Types.ObjectId, ref: 'Readability' },
 		"tweets": Array
 	};
 
