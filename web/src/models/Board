@@ -1,5 +1,0 @@
-//	exports.initBoardModel = function () {
-//		var boardFormat = {
-//		};
-//		this.Board = mongoose.model('Board', mongoose.Schema(boardFormat));
-//	};
