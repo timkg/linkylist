@@ -33,7 +33,11 @@
 	exports.test_onResponse = function(test) {
 
 		tweetStreamHandler.onResponse(['http://twitter.com/api', 'http://twitter.com'], function(payload) {
-			console.log(payload);
+			test.ok(payload.resultsWithPreview, 'returns results with previews');
+			test.ok(payload.resultsWithoutPreview, 'returns results without previews');
+			test.equals(payload.resultsWithPreview[0].url, 'http://twitter.com/api', 'finds correct link in db');
+			test.equals(payload.resultsWithoutPreview[0].url, 'http://twitter.com', 'finds correct link missing from db');
+			test.ok(payload.socketUUID, 'returns socketUUID');
 			test.done();
 		});
 	};
