@@ -11,7 +11,7 @@
 	};
 
 	exports.test_compilesModelFromSchema = function(test) {
-		Embedly = EmbedlyModel.initEmbedlyModel();
+		Embedly = EmbedlyModel.compileModel();
 		test.ok(Embedly, 'compiled Embedly model');
 		test.done();
 	};

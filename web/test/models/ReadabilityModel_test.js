@@ -13,7 +13,7 @@
 	};
 
 	exports.test_compilesModelFromSchema = function(test) {
-		Readability = ReadabilityModel.initReadabilityModel();
+		Readability = ReadabilityModel.compileModel();
 		test.ok(Readability, 'compiled Readability model');
 		test.done();
 	};

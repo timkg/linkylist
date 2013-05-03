@@ -13,9 +13,9 @@
 	exports.start = function(test) {
 		// nodeunit tests run in sequence and setUp() runs for each test,
 		// so I use this method to get things going
-		Link = LinkModel.initLinkModel();
+		Link = LinkModel.compileModel();
 		test.ok(Link, 'Link model properly compiled');
-		Embedly = EmbedlyModel.initEmbedlyModel();
+		Embedly = EmbedlyModel.compileModel();
 		test.ok(Embedly, 'Embedly model properly compiled');
 		db.connect(test.done);
 	};
