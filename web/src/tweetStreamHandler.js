@@ -8,45 +8,38 @@
 
 	var uuid = require('node-uuid');
 
-	exports.onResponse = function(listOfUrls, onDbCallback) {
+	exports.onResponse = function(listOfUrls, onDbCallback, socketIoCallback) {
 
 		LinkModel
 			.find({ url: { $in: listOfUrls } })
 			.populate('_embedly')
-			.exec(function(err, results) {
+			.exec(function(err, resultsFromDb) {
 				if (err) { throw err; }
-				var clientSocketUUID;
-				if( listOfUrls.length > results.length ) {
-					clientSocketUUID = uuid.v1();
+				var tempIdForSocketIoSessionWithClient; // used to create channel with client for this specific request
+				if( listOfUrls.length > resultsFromDb.length ) {
+					tempIdForSocketIoSessionWithClient = uuid.v1();
 				}
-				exports.sendDbResults(results, listOfUrls, onDbCallback, clientSocketUUID);
-				exports.startStreamForRemaining(results, listOfUrls, clientSocketUUID);
+				var urlsNotInDb = exports.extractUrlsNotInDbFromListOfUrls(resultsFromDb, listOfUrls);
+				onDbCallback({
+					resultsWithPreview: resultsFromDb,
+					resultsWithoutPreview: urlsNotInDb,
+					socketUUID: tempIdForSocketIoSessionWithClient // optional here, can be undefined
+				});
+				if(socketIoCallback) { socketIoCallback(urlsNotInDb, tempIdForSocketIoSessionWithClient) };
 			})
 	};
 
-	exports.sendDbResults = function(resultsFromDb, urlsFromTwitter, callback, optionalSocketUUID) {
-
+	exports.extractUrlsNotInDbFromListOfUrls = function(resultsFromDb, listOfUrls) {
 		var missingFromDb = [];
-		urlsFromTwitter.map(function(twitterUrl) {
+		listOfUrls.map(function(url) {
 			var existsInDb = false;
 			resultsFromDb.forEach(function(dbResult) {
-				if (dbResult.url === twitterUrl) { existsInDb = true; }
+				if (dbResult.url === url) { existsInDb = true; }
 			});
- 			if (!existsInDb) { missingFromDb.push(twitterUrl); }
+			if (!existsInDb) { missingFromDb.push({url: url}); }
 		});
 
-		callback({
-			resultsWithPreview: resultsFromDb,
-			resultsWithoutPreview: missingFromDb,
-			socketUUID: optionalSocketUUID
-		});
-	};
-
-	exports.startStreamForRemaining = function(results, expected, socketUUID) {
-		if( !socketUUID ) { return; }
-		// start embedly request for remaining
-		// on response, init socket.io remainingEmbedsAreYetToComeUUID session. On connection, send links to client.
-		// save remaining data (links + embedly) in DB
+		return missingFromDb;
 	};
 
 } ());
