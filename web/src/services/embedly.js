@@ -3,12 +3,18 @@
 	"use strict";
 
 	var http = require('http');
-	var API_KEY = process.env.EMBEDLY;
 
+	var Q = require('q');
+
+	var API_KEY = process.env.EMBEDLY;
 	var BASE_URL = 'http://api.embed.ly/1/oembed?key=';
 
-	exports.getOembedForListOfUrls = function(listOfUrls, callback) {
-		var url = BASE_URL + API_KEY + '&urls=' + listOfUrlsIntoQueryParameter(listOfUrls);
+	var EmbedlyModel = require('../../src/models/embedly').compileModel();
+	var LinkModel = require('../../src/models/link').compileModel();
+
+	exports.getOembedForListOfUrls = function(listOfUrls, callback, test_api_key) {
+		var api_key = API_KEY || test_api_key;
+		var url = BASE_URL + api_key + '&urls=' + listOfUrlsIntoQueryParameter(listOfUrls);
 
 		var request = http.get(url);
 		request.on('response', function(response) {
@@ -31,10 +37,28 @@
 		});
 	};
 
+	exports.saveEmbedData = function(json, callback) {
+		if (typeof json === 'string') { json = JSON.parse(json); }
+		if (!Array.isArray(json)) { json = [json]; }
+
+		var allOperationsAsPromises = [];
+		json.forEach(function(embedValue) {
+			allOperationsAsPromises.push(EmbedlyModel.promiseToSave(embedValue));
+		});
+
+		Q.allResolved(allOperationsAsPromises).then(function() {
+			callback();
+		});
+	};
+
 	function listOfUrlsIntoQueryParameter(listOfUrls) {
 		var param = '';
 		for( var i = 0, len = listOfUrls.length; i < len; i++ ) {
-			param += escape(listOfUrls[i]);
+			if (typeof listOfUrls[i] === 'object' && listOfUrls[i].url) {
+				param += escape(listOfUrls[i].url);
+			} else {
+				param += escape(listOfUrls[i]);
+			}
 			if( i < len-1 ) {
 				param += ',';
 			}
@@ -42,4 +66,5 @@
 
 		return param;
 	}
+
 }());
