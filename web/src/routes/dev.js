@@ -27,7 +27,6 @@ exports.start = function(app) {
 	});
 
 	app.get('/', function(request, response) {
-		console.log(getHomePath() + '/public/html/index-dev.html');
 		response.sendfile( getHomePath() + '/public/html/index-dev.html');
 	});
 

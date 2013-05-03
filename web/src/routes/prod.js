@@ -13,7 +13,6 @@ exports.start = function(app) {
 	});
 
 	app.get('/', function(request, response) {
-		console.log('request received');
 		response.sendfile( getHomePath() + '/public/html/index-prod.html');
 	});
 };
