@@ -14,8 +14,8 @@
 		// nodeunit tests run in sequence and setUp() runs for each test,
 		// so I use this method to get things going
 		Readability = ReadabilityModel.initReadabilityModel();
-		Link = LinkModel.initLinkModel();
 		test.ok(Readability, 'Readability model properly compiled');
+		Link = LinkModel.initLinkModel();
 		test.ok(Link, 'Link model properly compiled');
 		db.connect(test.done);
 	};
@@ -63,16 +63,15 @@
 			.populate( '_readability' )
 			.exec(function(err, link) {
 				if( err ) { throw err; }
-				console.log(link);
 				test.equals(link._readability.url, 'http://info.cern.ch/hypertext/WWW/TheProject.html', 'link finds Readability via ReadabilityId reference');
 				test.done();
 			});
 	};
 
 	exports.end = function(test) {
-		Link.remove({url: 'http://www.aplitrak.com/?adid=Y2FtZXJvbmMuNzE0NDUudHdpQGV4cGxvcmVyZWMuYXBsaXRyYWsuY29t'}, function(err) {
+		Link.remove({}, function(err) {
 			if( err ) { throw err; }
-			Readability.remove({url: 'http://www.aplitrak.com/?adid=Y2FtZXJvbmMuNzE0NDUudHdpQGV4cGxvcmVyZWMuYXBsaXRyYWsuY29t'}, function(err) {
+			Readability.remove({}, function(err) {
 				if( err ) { throw err; }
 				db.disconnect(test.done);
 			});

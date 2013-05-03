@@ -18,13 +18,13 @@
 		test.done();
 	};
 
-	exports.test_createsReadabilityInstances = function(test) {
-		var read = new Readability({
-			url: "http://info.cern.ch/hypertext/WWW/TheProject.html"
-		});
-		test.ok(read, 'created a Readability instance');
-		test.done();
-	};
+//	exports.test_createsReadabilityInstances = function(test) {
+//		var read = new Readability({
+//			url: "http://info.cern.ch/hypertext/WWW/TheProject.html"
+//		});
+//		test.ok(read, 'created a Readability instance');
+//		test.done();
+//	};
 
 	exports.test_savesInstancesToDb = function(test) {
 		var read = new Readability({
@@ -62,7 +62,7 @@
 	exports.end = function(test) {
 		// nodeunit tests run in sequence and tearDown() runs for each test,
 		// so I use this method to clean up after me
-		Readability.remove({url: 'http://info.cern.ch/hypertext/WWW/TheProject.html'}, function(err) {
+		Readability.remove({}, function(err) {
 			if( err ) { throw err; }
 			db.disconnect(test.done);
 		});

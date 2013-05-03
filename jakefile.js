@@ -31,7 +31,7 @@
 
 	function dbTestFiles() {
 		var files = new jake.FileList();
-		files.include('./web/test/db/*_test.js');
+		files.include('./web/test/models/*_test.js');
 		return files;
 	}
 

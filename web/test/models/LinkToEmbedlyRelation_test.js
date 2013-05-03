@@ -14,8 +14,8 @@
 		// nodeunit tests run in sequence and setUp() runs for each test,
 		// so I use this method to get things going
 		Link = LinkModel.initLinkModel();
-		Embedly = EmbedlyModel.initEmbedlyModel();
 		test.ok(Link, 'Link model properly compiled');
+		Embedly = EmbedlyModel.initEmbedlyModel();
 		test.ok(Embedly, 'Embedly model properly compiled');
 		db.connect(test.done);
 	};
@@ -26,7 +26,6 @@
 		}, function (err, embed) {
 			if( err ) { throw err; }
 			test.ok(embed, 'embed document properly saved');
-			console.log(embed._id);
 			test.ok(embed._id, 'embed document has an _id');
 			embedlyId = embed._id;
 			test.done()
@@ -56,9 +55,9 @@
 	};
 
 	exports.end = function(test) {
-		Link.remove({url: 'http://www.aplitrak.com/?adid=Y2FtZXJvbmMuNzE0NDUudHdpQGV4cGxvcmVyZWMuYXBsaXRyYWsuY29t'}, function(err) {
+		Link.remove({}, function(err) {
 			if( err ) { throw err; }
-			Embedly.remove({url: 'http://www.aplitrak.com/?adid=Y2FtZXJvbmMuNzE0NDUudHdpQGV4cGxvcmVyZWMuYXBsaXRyYWsuY29t'}, function(err) {
+			Embedly.remove({}, function(err) {
 				if( err ) { throw err; }
 				db.disconnect(test.done);
 			});

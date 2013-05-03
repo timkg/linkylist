@@ -48,7 +48,7 @@
 	exports.end = function(test) {
 		// nodeunit tests run in sequence and tearDown() runs for each test,
 		// so I use this method to clean up after me
-		Link.remove({url: 'http://twitter.com'}, function(err) {
+		Link.remove({}, function(err) {
 			if( err ) { throw err; }
 			db.disconnect(test.done);
 		});

@@ -44,7 +44,7 @@
 	};
 
 	exports.end = function(test) {
-		Embedly.remove({url: 'http://www.aplitrak.com/?adid=Y2FtZXJvbmMuNzE0NDUudHdpQGV4cGxvcmVyZWMuYXBsaXRyYWsuY29t'}, function(err) {
+		Embedly.remove({}, function(err) {
 			if( err ) { throw err; }
 			db.disconnect(test.done);
 		});
