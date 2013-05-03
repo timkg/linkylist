@@ -4,11 +4,9 @@
 
 	var mongoose = require('mongoose');
 
-	var ReadabilityModel;
-
 	exports.compileModel = function () {
 
-		if (ReadabilityModel) { return ReadabilityModel; }
+		if (mongoose.models.ReadabilityModel) { return mongoose.models.ReadabilityModel; }
 
 		var readabilityFormat = {
 			"content": String,
@@ -28,8 +26,8 @@
 			"rendered_pages": Number
 		};
 
-		ReadabilityModel = mongoose.model('Readability', mongoose.Schema(readabilityFormat));
-		return ReadabilityModel;
+		mongoose.models.ReadabilityModel = mongoose.model('Readability', mongoose.Schema(readabilityFormat));
+		return mongoose.models.ReadabilityModel;
 	};
 
 
