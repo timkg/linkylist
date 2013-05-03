@@ -1,8 +1,8 @@
 (function() {
 	"use strict";
 
-	var twitter = require('./twitter');
-	var embedly = require('./embedly');
+	var twitter = require('./services/twitter');
+	var embedly = require('./services/embedly');
 
 	exports.init = function(socket, db) {
 		// send once on start
