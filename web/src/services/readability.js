@@ -6,11 +6,8 @@
 	var TOKEN = process.env.READABILITY_TOKEN;
 	var READABILITY_BASE_URL = 'https://www.readability.com/api/content/v1/parser?url=';
 
-	exports.get = function(urlToRead, callback, token) {
-		token = TOKEN || token;
-		if( !token ) { throw 'Could not find readability token'; }
-
-		var requestUrl = READABILITY_BASE_URL + urlToRead + '&token=' + token;
+	exports.get = function(urlToRead, callback) {
+		var requestUrl = READABILITY_BASE_URL + urlToRead + '&token=' + TOKEN;
 
 		var request = https.get(requestUrl);
 		request.on('response', function(response) {
