@@ -28,7 +28,7 @@
 			test.ok(embed, 'embed document properly saved');
 			test.ok(embed._id, 'embed document has an _id');
 			embedlyId = embed._id;
-			test.done()
+			test.done();
 		})
 	};
 
