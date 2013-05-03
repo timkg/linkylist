@@ -2,14 +2,13 @@
 	/**/
 	"use strict";
 
-	var EmbedlyModel = require('./models/Embedly').compileModel();
-	var TweetModel = require('./models/Tweet').compileModel();
 	var LinkModel = require('./models/Link').compileModel();
+	var twitter = require('./services/twitter');
 
 	var uuid = require('node-uuid');
 
-	exports.onResponse = function(listOfUrls, onDbCallback, socketIoCallback) {
-
+	exports.onResponse = function(tweets, callback) {
+		var listOfUrls = twitter.extractUrlsFromTweets(tweets.items);
 		LinkModel
 			.find({ url: { $in: listOfUrls } })
 			.populate('_embedly')
@@ -20,13 +19,16 @@
 					tempIdForSocketIoSessionWithClient = uuid.v1();
 				}
 				var urlsNotInDb = exports.extractUrlsNotInDbFromListOfUrls(resultsFromDb, listOfUrls);
-				onDbCallback({
+				callback({
 					resultsWithPreview: resultsFromDb,
 					resultsWithoutPreview: urlsNotInDb,
 					socketUUID: tempIdForSocketIoSessionWithClient // optional here, can be undefined
 				});
-				if(socketIoCallback) { socketIoCallback(urlsNotInDb, tempIdForSocketIoSessionWithClient) };
-			})
+			});
+	};
+
+	exports.onMissingLinks = function(payload) {
+
 	};
 
 	exports.extractUrlsNotInDbFromListOfUrls = function(resultsFromDb, listOfUrls) {
