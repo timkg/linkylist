@@ -6,7 +6,7 @@
 
 	var EmbedlyModel;
 
-	exports.initEmbedlyModel = function () {
+	exports.compileModel = function () {
 
 		if (EmbedlyModel) { return EmbedlyModel; }
 

@@ -6,7 +6,7 @@
 
 	var LinkModel;
 
-	exports.initLinkModel = function () {
+	exports.compileModel = function () {
 
 		if (LinkModel) { return LinkModel; }
 

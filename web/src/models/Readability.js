@@ -6,7 +6,7 @@
 
 	var ReadabilityModel;
 
-	exports.initReadabilityModel = function () {
+	exports.compileModel = function () {
 
 		if (ReadabilityModel) { return ReadabilityModel; }
 
