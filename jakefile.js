@@ -35,6 +35,21 @@
 		return files;
 	}
 
+	desc('Stream logic tests');
+	task('streamTests', [], function() {
+		console.log('\n\nSTREAM TESTS');
+		nodeunit.run(streamTestFiles().toArray(), null, function(failures) {
+			if (failures) { fail('tests failed'); }
+			complete();
+		});
+	}, {async: true});
+
+	function streamTestFiles() {
+		var files = new jake.FileList();
+		files.include('./web/test/tweetStreamHandler_test.js');
+		return files;
+	}
+
 	desc('Default - lint');
 	task('default', ['lint'], function(){
 		console.log('\n\nOK');
