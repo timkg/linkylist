@@ -37,33 +37,27 @@
 				var data = JSON.parse(responseData);
 				callback({
 					next_page: data.next_page,
-					payload: data.results
+					items: data.results
 				});
 			});
 		});
 	};
 
 
-	exports.separateUrlsFromTweets = function(data) {
+	exports.extractUrlsFromTweets = function(data) {
 		if( typeof data === 'string' ) { data = JSON.parse(data); }
 		var urls = [];
 		var tweetsWithUrls = [];
-		var results = parsedJson.results;
-		for( var i = 0, len = results.length; i < len; i++ ) {
-			if( results[i].entities && results[i].entities.urls ) {
-				tweetsWithUrls.push(results[i]);
-				var arrayOfUrlsInTweet = results[i].entities.urls;
+		for( var i = 0, len = data.length; i < len; i++ ) {
+			if( data[i].entities && data[i].entities.urls ) {
+				tweetsWithUrls.push(data[i]);
+				var arrayOfUrlsInTweet = data[i].entities.urls;
 				for( var j = 0, urlsLen = arrayOfUrlsInTweet.length; j < urlsLen; j++ ) {
 					urls.push(arrayOfUrlsInTweet[j].expanded_url);
 				}
 			}
 		}
-		console.log(urls);
-		console.log(tweetsWithUrls);
 
-		return {
-			urls: urls,
-			tweets: tweetsWithUrls
-		};
+		return urls;
 	};
 }());
