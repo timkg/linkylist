@@ -25,7 +25,7 @@
 
 		var EmbedlyModel = mongoose.model('Embedly', mongoose.Schema(embedlyOembedFormat));
 
-		EmbedlyModel.promiseToSaveSingleValue = function(json) {
+		EmbedlyModel.promiseToSaveDocument = function(json) {
 			if (typeof json === 'string') { json = JSON.parse(json); }
 
 			var deferred = Q.defer();
@@ -45,13 +45,13 @@
 			return deferred.promise;
 		};
 
-		EmbedlyModel.saveEmbedApiResponse = function(json, callback) {
+		EmbedlyModel.saveDocuments = function(json, callback) {
 			if (typeof json === 'string') { json = JSON.parse(json); }
 			if (!Array.isArray(json)) { json = [json]; }
 
 			var allOperationsAsPromises = [];
 			json.forEach(function(embedValue) {
-				allOperationsAsPromises.push(EmbedlyModel.promiseToSaveSingleValue(embedValue));
+				allOperationsAsPromises.push(EmbedlyModel.promiseToSaveDocument(embedValue));
 			});
 
 			Q.allResolved(allOperationsAsPromises)

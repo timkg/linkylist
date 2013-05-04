@@ -27,7 +27,7 @@
 
 		var TweetModel = mongoose.model('Tweet', mongoose.Schema(tweetFormat));
 
-		TweetModel.promiseToSaveSingleValue = function(json) {
+		TweetModel.promiseToSaveDocument = function(json) {
 			if (typeof json === 'string') { json = JSON.parse(json); }
 
 			var deferred = Q.defer();
@@ -53,7 +53,7 @@
 			return deferred.promise;
 		};
 
-		TweetModel.saveTwitterApiResponse = function(json, callback) {
+		TweetModel.saveDocuments = function(json, callback) {
 			if (typeof json === 'string') { json = JSON.parse(json); }
 			// guarantee that we have the results, and not the whole api response
 			if (json.results && json.completed_in) { json = json.results; }
@@ -61,7 +61,7 @@
 
 			var allOperationsAsPromises = [];
 			json.forEach(function(tweet) {
-				allOperationsAsPromises.push(TweetModel.promiseToSaveSingleValue(tweet));
+				allOperationsAsPromises.push(TweetModel.promiseToSaveDocument(tweet));
 			});
 
 			Q.allResolved(allOperationsAsPromises)

@@ -64,7 +64,7 @@
 		fs.readFile('./web/test/testdata/exampleTwitterSearchResponse.json', 'utf8', function(err, data) {
 			if (err) { throw err; }
 			data = JSON.parse(data);
-			TweetModel.saveTwitterApiResponse(data, function() {
+			TweetModel.saveDocuments(data, function() {
 				// one of the test tweets contains the url http://www.codecademy.com
 				LinkModel
 					.findOne({url: 'http://www.codecademy.com'})
