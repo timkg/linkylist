@@ -4,6 +4,7 @@
 
 	var baserequest = require('./baserequest');
 
+	// API version = 1.0
 	var TWITTER_SEARCH_BASE_URL = 'http://search.twitter.com/search.json';
 	var TWITTER_SEARCH_PARAMS = '&filter:links&include_entities=1';
 
