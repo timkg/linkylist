@@ -76,7 +76,6 @@
 	exports.test_findOrCreateFindsExisting = function(test) {
 		var query = {url: 'http://twitter.com'};
 		LinkModel.findOrCreate(query, function(err, link) {
-			console.log(err);
 			test.equals(link.url, 'http://twitter.com', 'finds link document when query matches');
 			test.done();
 		});
