@@ -6,7 +6,11 @@
 	var LinkModel = require('../../src/models/Link').compileModel();
 
 	exports.start = function(test) {
-		db.connect(test.done);
+		// clean test DB before starting tests
+		LinkModel.remove({}, function(err) {
+			if( err ) { throw err; }
+			db.connect(test.done);
+		});
 	};
 
 	exports.test_compilesModelFromSchema = function(test) {
@@ -66,7 +70,7 @@
 		});
 	};
 
-	exports.test_findOrCreateMatchesExisting = function(test) {
+	exports.test_findOrCreateFindsExisting = function(test) {
 		var query = {url: 'http://twitter.com'};
 		LinkModel.findOrCreate(query, function(link) {
 			test.equals(link.url, 'http://twitter.com', 'finds link document when query matches');
@@ -75,8 +79,6 @@
 	};
 
 	exports.end = function(test) {
-		// nodeunit tests run in sequence and tearDown() runs for each test,
-		// so I use this method to clean up after me
 		LinkModel.remove({}, function(err) {
 			if( err ) { throw err; }
 			db.disconnect(test.done);
