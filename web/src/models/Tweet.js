@@ -55,7 +55,7 @@
 
 		TweetModel.saveTwitterApiResponse = function(json, callback) {
 			if (typeof json === 'string') { json = JSON.parse(json); }
-			// check if we got the whole api response, or the results
+			// guarantee that we have the results, and not the whole api response
 			if (json.results && json.completed_in) { json = json.results; }
 			if (!Array.isArray(json)) { json = [json]; }
 
