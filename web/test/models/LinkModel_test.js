@@ -7,9 +7,11 @@
 
 	exports.start = function(test) {
 		// clean test DB before starting tests
-		LinkModel.remove({}, function(err) {
-			if( err ) { throw err; }
-			db.connect(test.done);
+		db.connect(function() {
+			LinkModel.remove({}, function(err) {
+				if( err ) { throw err; }
+				test.done();
+			});
 		});
 	};
 
@@ -63,7 +65,8 @@
 
 	exports.test_findOrCreateCreatesNew = function(test) {
 		var query = {url: 'http://does.not/exist'};
-		LinkModel.findOrCreate(query, function(link) {
+		LinkModel.findOrCreate(query, function(err, link) {
+			if (err) { throw err; }
 			test.ok(link._id, 'creates a new, empty link document when query does not match');
 			test.equals(typeof link.url, 'undefined', 'creates empty document');
 			test.done();
@@ -72,7 +75,8 @@
 
 	exports.test_findOrCreateFindsExisting = function(test) {
 		var query = {url: 'http://twitter.com'};
-		LinkModel.findOrCreate(query, function(link) {
+		LinkModel.findOrCreate(query, function(err, link) {
+			console.log(err);
 			test.equals(link.url, 'http://twitter.com', 'finds link document when query matches');
 			test.done();
 		});

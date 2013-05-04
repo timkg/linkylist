@@ -18,12 +18,12 @@
 
 		LinkModel.findOrCreate = function(query, callback) {
 			LinkModel.findOne(query, function(err, link) {
-				if (err) { throw err; }
-				if (link) { callback(link); }
+				if (err) { callback(err, null); }
+				if (link) { callback(null, link); } // first arg is the error object
 				if (!link) {
 					LinkModel.create({}, function(err, link) {
-						if (err) { throw err; }
-						callback(link);
+						if (err) { callback(err, null); }
+						callback(null, link); // first arg is the error object
 					});
 				}
 			});
