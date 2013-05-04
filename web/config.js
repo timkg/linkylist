@@ -1,28 +1,42 @@
-var url = require('url');
+(function () {
+	/**/
+	"use strict";
 
-var DEV_HOST = 'http://localhost';
-var DEV_PORT = '5000';
+	var url = require('url');
 
-var PROD_HOST = 'http://hidden-retreat-7932.herokuapp.com';
-var PROD_PORT = process.env.PORT; // heroku sets port dynamically
+	var DEV_HOST = 'http://localhost';
+	var DEV_PORT = '5000';
 
-function getDevMongoUrl() {
-	return 'mongodb://localhost:27017/test'; // requires mongo installed locally
-}
+	var PROD_HOST = 'http://hidden-retreat-7932.herokuapp.com';
+	var PROD_PORT = process.env.PORT; // heroku sets port dynamically
 
-function getProductionMongoUrl() {
-	var mongoUrl = url.parse(process.env.MONGOHQ_URL);
-	return mongoUrl.href;
-}
+	function getTestMongoUrl() {
+		return 'mongodb://localhost:27017/test'; // requires mongo installed locally
+	}
 
-exports.MODE = (process.argv[2] === 'PRODUCTION' ? 'PRODUCTION' : 'DEVELOPMENT');
+	function getDevMongoUrl() {
+		return 'mongodb://localhost:27017/twitterboards'; // requires mongo installed locally
+	}
 
-if(exports.MODE === 'PRODUCTION') {
-	exports.http_port = PROD_PORT;
-	exports.app_url = PROD_HOST + ':' + PROD_PORT;
-	exports.mongourl = getProductionMongoUrl();
-} else {
-	exports.http_port = DEV_PORT;
-	exports.app_url = DEV_HOST + ':' + DEV_PORT;
-	exports.mongourl = getDevMongoUrl();
-}
+	function getProductionMongoUrl() {
+		return url.parse(process.env.MONGOHQ_URL).href; // set by heroku or .env file
+	}
+
+	exports.MODE = (process.argv[2]);
+	if (!exports.MODE) { exports.MODE = 'TEST'; }
+
+	if (exports.MODE === 'PRODUCTION') {
+		exports.http_port = PROD_PORT;
+		exports.app_url = PROD_HOST + ':' + PROD_PORT;
+		exports.mongourl = getProductionMongoUrl();
+	} else if (exports.MODE === 'DEVELOPMENT') {
+		exports.http_port = DEV_PORT;
+		exports.app_url = DEV_HOST + ':' + DEV_PORT;
+		exports.mongourl = getDevMongoUrl();
+	} else {
+		exports.http_port = DEV_PORT;
+		exports.app_url = DEV_HOST + ':' + DEV_PORT;
+		exports.mongourl = getTestMongoUrl();
+	}
+
+} ());
