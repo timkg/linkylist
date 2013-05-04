@@ -2,31 +2,16 @@
 	/**/
 	"use strict";
 
-	var https = require('https');
-	var TOKEN = process.env.READABILITY_TOKEN;
+	var baserequest = require('./baserequest');
+
+	var API_TOKEN = process.env.READABILITY_TOKEN;
 	var READABILITY_BASE_URL = 'https://www.readability.com/api/content/v1/parser?url=';
 
-	exports.get = function(urlToRead, callback) {
-		var requestUrl = READABILITY_BASE_URL + urlToRead + '&token=' + TOKEN;
+	exports.get = function(urlToRead, callback, test_token) {
+		var token = API_TOKEN || test_token;
+		var url = READABILITY_BASE_URL + urlToRead + '&token=' + token;
 
-		var request = https.get(requestUrl);
-		request.on('response', function(response) {
-			console.log('response received from ', requestUrl);
-			var responseData = '';
-
-			response.setEncoding('utf8');
-			console.log('readability returned statusCode ' + response.statusCode);
-
-			response.on('data', function(chunk) {
-				responseData += chunk;
-			});
-
-			response.on('end', function() {
-				var data = JSON.parse(responseData);
-				callback(data);
-			});
-		});
-
+		baserequest.httpsget(url, callback);
 	};
 
 }());

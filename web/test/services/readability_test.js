@@ -2,27 +2,28 @@
 	/**/
 	"use strict";
 
-	var fs = require('fs');
-	var readability = require('../src/readability');
+	var helper = require('./helper');
+	var readability = require('../../src/services/readability');
 	var testUrl = 'http://www.spiegel.de';
 
-	exports.test_getsResponseForSingleUrl = function(test) {
-		fs.readFile('./.env', 'utf8', function(err, data) {
-			if(err) { throw err; }
-			var READABILITY_TOKEN = '';
-			var lines = data.split('\n');
-			lines.forEach(function(line) {
-				var parts = line.split('=');
-				if( parts[0] === 'READABILITY_TOKEN' ) {
-					READABILITY_TOKEN = parts[1];
-				}
-			});
-			readability.get(testUrl, function(response) {
-				test.ok(response, 'returned something');
-				test.equals(typeof response.domain, 'string', 'returns an object with properties');
-				test.done();
-			}, READABILITY_TOKEN);
+	var API_TOKEN;
+
+	exports.start = function(test) {
+		// read api token from .env file
+		helper.readTokenFromFile('READABILITY_TOKEN', function(TOKEN) {
+			API_TOKEN = TOKEN;
+			test.done();
 		});
+	};
+
+	exports.test_getsResponseForSingleUrl = function(test) {
+
+		readability.get(testUrl, function(response) {
+			if (typeof response === 'string') { response = JSON.parse(response); }
+			test.ok(response, 'returned something');
+			test.equals(typeof response.domain, 'string', 'returns an object with properties');
+			test.done();
+		}, API_TOKEN);
 	};
 
 }());
