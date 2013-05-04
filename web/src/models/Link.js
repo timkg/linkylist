@@ -11,7 +11,8 @@
 		var linkFormat = {
 			"url": { type: String, required: true },
 			"_embedly": { type: mongoose.Schema.Types.ObjectId, ref: 'Embedly' },
-			"_readability": { type: mongoose.Schema.Types.ObjectId, ref: 'Readability' }
+			"_readability": { type: mongoose.Schema.Types.ObjectId, ref: 'Readability' },
+			"_tweets": [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tweet' }]
 		};
 
 		var LinkModel = mongoose.model('Link', mongoose.Schema(linkFormat));
