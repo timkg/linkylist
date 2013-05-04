@@ -86,7 +86,6 @@
 				.populate('_embedly')
 				.exec(function(err, result) {
 					if (err) { throw err; }
-					console.log(result);
 					test.ok(result._id, 'created link');
 					test.equals(result._embedly.provider_name, 'Embed', 'found associated Embed');
 					test.done();
