@@ -64,11 +64,11 @@
 	};
 
 	exports.test_findOrCreateCreatesNew = function(test) {
-		var query = {url: 'http://does.not/exist'};
+		var query = {url: 'http://not.in/db'};
 		LinkModel.findOrCreate(query, function(err, link) {
 			if (err) { throw err; }
-			test.ok(link._id, 'creates a new, empty link document when query does not match');
-			test.equals(typeof link.url, 'undefined', 'creates empty document');
+			test.ok(link._id, 'creates a new link document when query does not match');
+			test.equals(link.url, 'http://not.in/db', 'creates document with searched url');
 			test.done();
 		});
 	};

@@ -9,7 +9,7 @@
 		if (mongoose.models.LinkModel) { return mongoose.models.LinkModel; }
 
 		var linkFormat = {
-			"url": String,
+			"url": { type: String, required: true },
 			"_embedly": { type: mongoose.Schema.Types.ObjectId, ref: 'Embedly' },
 			"_readability": { type: mongoose.Schema.Types.ObjectId, ref: 'Readability' }
 		};
@@ -21,7 +21,10 @@
 				if (err) { callback(err, null); }
 				if (link) { callback(null, link); } // first arg is the error object
 				if (!link) {
-					LinkModel.create({}, function(err, link) {
+					if (!query.url) {
+						callback(new Error('LinkModel.findOrCreate requires object literal with url as argument'), null);
+					}
+					LinkModel.create({url: query.url}, function(err, link) {
 						if (err) { callback(err, null); }
 						callback(null, link); // first arg is the error object
 					});

@@ -35,7 +35,6 @@
 				LinkModel.findOrCreate({ url: embed.url}, function(err, link) {
 					if (err) { deferred.reject(new Error(err)); }
 					link._embedly = embed._id;
-					link.url = embed.url;
 					link.save(function(err) {
 						if (err) { deferred.reject(new Error(err)); }
 						deferred.resolve(embed);
