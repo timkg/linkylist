@@ -38,7 +38,7 @@
 					console.log(err);
 					deferred.reject(new Error(err));
 				}
-				LinkModel.findOrCreate({ url: tweet.entities.urls[0].expanded_url}, function(err, link) {
+				LinkModel.findOrCreate({ url: tweet.entities.urls[0].url}, function(err, link) {
 					if (err) {
 						console.log(err);
 						deferred.reject(new Error(err));
