@@ -11,8 +11,7 @@
 
 	exports.start = function(app) {
 		app.get('/links', function(request, response) {
-			var searchterm = (request.query && request.query.search ? request.query.search : 'javascript');
-			TwitterModel.searchApiForTweetsAbout(searchterm, function(twitterApiResponse) {
+			TwitterModel.searchApiForTweetsAbout(request.query, function(twitterApiResponse) {
 				var urls = twitterhelper.extractUrlsFromTweets(twitterApiResponse.results);
 				LinkModel
 					.find({ url: { $in: urls } })

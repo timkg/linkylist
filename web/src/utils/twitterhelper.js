@@ -13,7 +13,6 @@
 		var urls = [];
 		var tweetsWithUrls = [];
 		for( var i = 0, len = tweets.length; i < len; i++ ) {
-			console.log(tweets[i].entities);
 			if( tweets[i].entities && tweets[i].entities.urls ) {
 				tweetsWithUrls.push(tweets[i]);
 				var arrayOfUrlsInTweet = tweets[i].entities.urls;
@@ -34,9 +33,12 @@
 	};
 
 	exports.buildSearchUrlFromQuery = function(query) {
-		// format for first search: q=SEARCHTERM&filter:links&include_entities=1
-		// format for successive pages: page=PAGE&max_id=MAXID&q=SEARCHTERM&filter:links&include_entities=1
+		// format for first search: q=SEARCHTERM%20filter:links&include_entities=1
+		// format for successive pages: page=PAGE&max_id=MAXID&q=SEARCHTERM%20filter:links&include_entities=1
 		if (typeof query === 'string') { query = qs.parse(query); }
+
+		// set default search to "javascript" when no "q" param given
+		if (!query.q) { query.q = 'javascript'; }
 
 		return TWITTER_SEARCH_BASE_URL
 				+ 'q=' + query.q + TWITTER_SEARCH_PARAMS
