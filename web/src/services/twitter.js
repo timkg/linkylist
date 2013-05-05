@@ -16,7 +16,10 @@
 			url += next_page;
 		}
 
-		baserequest.httpget(url, callback);
+		baserequest.httpget(url, function(response) {
+			if (typeof response === 'string') { response = JSON.parse(response); }
+			callback(response);
+		});
 	};
 
 }());
