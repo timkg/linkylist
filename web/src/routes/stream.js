@@ -3,7 +3,7 @@
 	"use strict";
 
 	var LinkModel = require('../models/Link').compileModel();
-	var EmbedlyModel = require('../models/Embedly').compileModel();
+	var EmbedlyExtractModel = require('../models/EmbedlyExtract').compileModel();
 	var TwitterModel = require('../models/Tweet').compileModel();
 	var twitterhelper = require('../utils/twitterhelper');
 
@@ -15,18 +15,35 @@
 				var urls = twitterhelper.extractUrlsFromTweets(twitterApiResponse.results);
 				LinkModel
 					.find({ url: { $in: urls } })
-					.populate('_embedly')
+					.populate('_embedlyExtract')
 					.populate('_tweets')
 					.exec(function(err, links) {
 						if (err) { throw err; }
-						exports.send(response, links);
+						var data = {
+							'connection': uuid.v1(),
+							'links': links
+						};
+						response.json(data);
+						exports.streamMissingEmbeds(data);
 					});
 			});
 		});
 	};
 
-	exports.send = function(response, links) {
-		response.json(links);
+	exports.streamMissingEmbeds = function(data) {
+		var linksWithoutEmbed = [];
+		var linksWithEmbed = [];
+		data.links.map(function(link) {
+			if (!link._embedlyExtract) {
+				linksWithoutEmbed.push(link.url);
+			} else {
+				linksWithEmbed.push(link.url); // just used for testing
+			}
+		});
+		EmbedlyExtractModel.getExtractForUrls(linksWithoutEmbed, function(embeds) {
+			console.log(embeds);
+		});
+
 		// todo  - socketio etc
 	};
 

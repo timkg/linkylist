@@ -61,7 +61,7 @@
 
 	exports.test_savesApiResponse = function(test) {
 
-		fs.readFile('./web/test/testdata/exampleTwitterSearchResponse.json', 'utf8', function(err, data) {
+		fs.readFile('./web/test/testdata/twitterSearchResponse.json', 'utf8', function(err, data) {
 			if (err) { throw err; }
 			data = JSON.parse(data);
 			TweetModel.saveDocuments(data, function() {

@@ -17,7 +17,8 @@
 				tweetsWithUrls.push(tweets[i]);
 				var arrayOfUrlsInTweet = tweets[i].entities.urls;
 				for( var j = 0, urlsLen = arrayOfUrlsInTweet.length; j < urlsLen; j++ ) {
-					urls.push(arrayOfUrlsInTweet[j].url);
+					var expanded_url = (arrayOfUrlsInTweet[j].expanded_url ? arrayOfUrlsInTweet[j].expanded_url : arrayOfUrlsInTweet[j].url);
+					urls.push(expanded_url);
 				}
 			}
 		}

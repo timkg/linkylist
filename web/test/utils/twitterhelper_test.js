@@ -6,7 +6,7 @@
 	var twitterhelper = require('../../src/utils/twitterhelper');
 
 	exports.test_extractUrlsFromTweets = function(test) {
-		fs.readFile('./web/test/testdata/exampleTwitterSearchResponse.json', 'utf8', function(err, data) {
+		fs.readFile('./web/test/testdata/twitterSearchResponse.json', 'utf8', function(err, data) {
 			if (err) { throw err; }
 			var data = JSON.parse(data);
 			var tweets = data.results;
