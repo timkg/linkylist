@@ -6,7 +6,7 @@
 
 	// API version == 1.0
 	var TWITTER_SEARCH_BASE_URL = 'http://search.twitter.com/search.json?';
-	var TWITTER_SEARCH_PARAMS = '%20filter:links&include_entities=1';
+	var TWITTER_DEFAULT_SEARCH_PARAMS = '&include_entities=1';
 
 	exports.extractUrlsFromTweets = function(tweets) {
 		if( typeof tweets === 'string' ) { tweets = JSON.parse(tweets); }
@@ -40,8 +40,11 @@
 		// set default search to "javascript" when no "q" param given
 		if (!query.q) { query.q = 'javascript'; }
 
+		// tell twitter to only return tweets with links, if corresponding filter is not yet included in query
+		if (query.q.indexOf('filter:links') === -1) { query.q += " filter:links" }
+
 		return TWITTER_SEARCH_BASE_URL
-				+ 'q=' + query.q + TWITTER_SEARCH_PARAMS
+				+ 'q=' + query.q + TWITTER_DEFAULT_SEARCH_PARAMS
 				+ (query.page ? '&page=' + query.page : '' )
 				+ (query.max_id ? '&max_id=' + query.max_id : '' );
 	};
