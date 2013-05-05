@@ -5,6 +5,7 @@
 	var mongoose = require('mongoose');
 	var LinkModel = require('./Link').compileModel();
 	var Q = require('q');
+	var tweetService = require('../services/twitter');
 
 	exports.compileModel = function () {
 
@@ -61,7 +62,9 @@
 
 			var allOperationsAsPromises = [];
 			json.forEach(function(tweet) {
-				allOperationsAsPromises.push(TweetModel.promiseToSaveDocument(tweet));
+				if( tweet.entities.urls && tweet.entities.urls[0] ) {
+					allOperationsAsPromises.push(TweetModel.promiseToSaveDocument(tweet));
+				}
 			});
 
 			Q.allResolved(allOperationsAsPromises)
@@ -71,6 +74,14 @@
 				.fail(function(err) {
 					console.log(err);
 				});
+		};
+
+		TweetModel.searchApiForTweetsAbout = function(searchTerm, callback) {
+			tweetService.searchTweetsWithUrlsAbout(searchTerm, function(twitterApiResponse) {
+				TweetModel.saveDocuments(twitterApiResponse, function() {
+					callback(twitterApiResponse);
+				});
+			});
 		};
 
 		return mongoose.models.TweetModel = TweetModel;
