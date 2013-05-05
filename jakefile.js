@@ -50,6 +50,21 @@
 		return files;
 	}
 
+	desc('utils tests');
+	task('utilsTests', [], function() {
+		console.log('\n\nUTILS TESTS');
+		nodeunit.run(utilsTestFiles().toArray(), null, function(failures) {
+			if (failures) { fail('tests failed'); }
+			complete();
+		});
+	}, {async: true});
+
+	function utilsTestFiles() {
+		var files = new jake.FileList();
+		files.include('./web/test/utils/*_test.js');
+		return files;
+	}
+
 	desc('Default - lint');
 	task('default', ['lint'], function(){
 		console.log('\n\nOK');
