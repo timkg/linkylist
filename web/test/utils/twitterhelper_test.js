@@ -18,4 +18,18 @@
 		})
 	};
 
+	exports.test_buildsSearchUrlFromKeyword = function(test) {
+		var query = 'q=javascript';
+		var url = twitterhelper.buildSearchUrlFromQuery(query);
+		test.equals(url, 'http://search.twitter.com/search.json?q=javascript&filter:links&include_entities=1', 'built correct url');
+		test.done();
+	};
+
+	exports.test_buildsSearchUrlFromNextPage = function(test) {
+		var query = 'page=2&max_id=331006804047822849&q=javascript';
+		var url = twitterhelper.buildSearchUrlFromQuery(query);
+		test.equals(url, 'http://search.twitter.com/search.json?q=javascript&page=2&max_id=331006804047822849&filter:links&include_entities=1', 'built correct url');
+		test.done();
+	};
+
 } ());
