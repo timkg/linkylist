@@ -5,6 +5,19 @@
 	var lint = require('./lint_runner.js');
 	var nodeunit = require('nodeunit').reporters['default'];
 
+	desc('Socket.io tests');
+	task('socketTests', [], function() {
+		console.log('\n\nSOCKETIO TESTS');
+		var testserver = require('./web/test/socketio/socketiotestserver');
+		testserver.startTestServer(function() {
+			nodeunit.run(['./web/test/socketio/socket_test.js'], null, function(failures) {
+				if (failures) { fail('tests failed'); }
+				testserver.stopTestServer(complete);
+			});
+		});
+	}, {async: true});
+
+
 	desc('Service tests');
 	task('serviceTests', [], function() {
 		console.log('\n\nSERVICE TESTS');
@@ -19,6 +32,7 @@
 		files.include('./web/test/services/*_test.js');
 		return files;
 	}
+
 
 	desc('DB tests');
 	task('dbTests', [], function() {
@@ -35,6 +49,7 @@
 		return files;
 	}
 
+
 	desc('Stream logic tests');
 	task('streamTests', [], function() {
 		console.log('\n\nSTREAM TESTS');
@@ -49,6 +64,7 @@
 		files.include('./web/test/tweetStreamHandler_test.js');
 		return files;
 	}
+
 
 	desc('utils tests');
 	task('utilsTests', [], function() {
@@ -65,19 +81,23 @@
 		return files;
 	}
 
+
 	desc('Default - lint');
 	task('default', ['lint'], function(){
 		console.log('\n\nOK');
 	});
 
+
 	desc('Lint everything');
 	task('lint', ['lintClient', 'lintServer']);
+
 
 	desc('Lint Server code');
 	task('lintServer', [], function() {
 		var passed = lint.validateFileList(serverLintFiles(), nodeLintOptions(), {});
 		if (!passed) { fail('lint server failed'); }
 	});
+
 
 	desc('Lint Client code');
 	task('lintClient', [], function() {

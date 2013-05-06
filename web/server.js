@@ -17,12 +17,12 @@
 			var server = http.createServer(app);
 			server.listen(config.http_port);
 
-			require('./src/socketio').init(server);
+			var socketio = require('./src/socketio').init(server);
 
-			if( config.MODE === 'PRODUCTION' ) {
-				require('./src/routes/prod.js').start(app);
-			} else {
-				require('./src/routes/dev.js').start(app);
+			if (config.MODE === 'PRODUCTION') {
+				require('./src/routes/prod.js').start(app, socketio);
+			} else if (config.MODE === 'DEVELOPMENT') {
+				require('./src/routes/dev.js').start(app, socketio);
 			}
 
 		});
