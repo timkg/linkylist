@@ -13,7 +13,8 @@
 			"_embedlyOembed": { type: mongoose.Schema.Types.ObjectId, ref: 'EmbedlyOembed' },
 			"_embedlyExtract": { type: mongoose.Schema.Types.ObjectId, ref: 'EmbedlyExtract' },
 			"_readability": { type: mongoose.Schema.Types.ObjectId, ref: 'Readability' },
-			"_tweets": [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tweet' }]
+			"_tweets": [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tweet' }],
+			"date_added": Date
 		};
 
 		var LinkModel = mongoose.model('Link', mongoose.Schema(linkFormat));
@@ -26,7 +27,7 @@
 					if (!query.url) {
 						callback(new Error('LinkModel.findOrCreate requires object literal with url as argument'), null);
 					}
-					LinkModel.create({url: query.url}, function(err, link) {
+					LinkModel.create({url: query.url, date_added: Date.now()}, function(err, link) {
 						if (err) { callback(err, null); }
 						callback(null, link); // first arg is the error object
 					});
