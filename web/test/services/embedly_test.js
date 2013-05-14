@@ -17,14 +17,25 @@
 	};
 
 	// uncomment to actually request things from embed.ly API
-	exports.test_getOembedForListOfUrls = function(test) {
+	exports.test_getOembedForUrls = function(test) {
 
-		embedly.getOembedForListOfUrls(testUrls, function(response) {
+		embedly.getOembedForUrls(testUrls, function(response) {
 			if (typeof response === 'string') { response = JSON.parse(response); }
 			test.ok(Array.isArray(response), 'embedly returns array with data');
 			test.ok(response[0].url, 'first child has an URL property');
 			test.done();
 		}, API_TOKEN);
+	};
+
+	// uncomment to actually request things from embed.ly API
+	exports.test_getExtractForUrls = function(test) {
+		embedly.getExtractForUrls(testUrls, function(response) {
+			if (typeof response === 'string') { response = JSON.parse(response); }
+			test.ok(Array.isArray(response), 'embedly returns array with data');
+			test.ok(response[0].url, 'first child has an URL property');
+			test.done();
+		}, API_TOKEN);
+
 	};
 
 }());

@@ -34,6 +34,7 @@
 	};
 
 	exports.buildSearchUrlFromQuery = function(query) {
+		if (query[0] === '?') { query = query.substr(1); }
 		// format for first search: q=SEARCHTERM%20filter:links&include_entities=1
 		// format for successive pages: page=PAGE&max_id=MAXID&q=SEARCHTERM%20filter:links&include_entities=1
 		if (typeof query === 'string') { query = qs.parse(query); }
@@ -45,9 +46,10 @@
 		if (query.q.indexOf('filter:links') === -1) { query.q += " filter:links" }
 
 		return TWITTER_SEARCH_BASE_URL
-				+ 'q=' + query.q + TWITTER_DEFAULT_SEARCH_PARAMS
+				+ 'q=' + query.q
 				+ (query.page ? '&page=' + query.page : '' )
-				+ (query.max_id ? '&max_id=' + query.max_id : '' );
+				+ (query.max_id ? '&max_id=' + query.max_id : '' )
+				+ TWITTER_DEFAULT_SEARCH_PARAMS;
 	};
 
 } ());
