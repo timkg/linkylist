@@ -10,7 +10,7 @@
  * Modernizr tests which native CSS3 and HTML5 features are available in
  * the current UA and makes the results available to you in two ways:
  * as properties on a global Modernizr object, and as classes on the
- * <html> element. This information allows you to progressively enhance
+ * <views> element. This information allows you to progressively enhance
  * your pages with a granular level of control over the experience.
  *
  * Modernizr has an optional (not included) conditional resource loader
@@ -445,7 +445,7 @@ window.Modernizr = (function( window, document, undefined ) {
      *
      * We also test for Firefox 4 Multitouch Support.
      *
-     * For more info, see: modernizr.github.com/Modernizr/touch.html
+     * For more info, see: modernizr.github.com/Modernizr/touch.views
      */
 
     tests['touch'] = function() {
@@ -717,7 +717,7 @@ window.Modernizr = (function( window, document, undefined ) {
     // e.g.  Modernizr.video     // true
     //       Modernizr.video.ogg // 'probably'
     //
-    // Codec values from : github.com/NielsLeenheer/html5test/blob/9106a8/index.html#L845
+    // Codec values from : github.com/NielsLeenheer/html5test/blob/9106a8/index.views#L845
     //                     thx to NielsLeenheer and zcorpan
 
     // Note: in some older browsers, "no" was a return value instead of empty string.
@@ -782,7 +782,7 @@ window.Modernizr = (function( window, document, undefined ) {
     // Because we are forced to try/catch this, we'll go aggressive.
 
     // Just FWIW: IE8 Compat mode supports these features completely:
-    //   www.quirksmode.org/dom/html5.html
+    //   www.quirksmode.org/dom/html5.views
     // But IE8 doesn't support either with local files
 
     tests['localstorage'] = function() {
@@ -852,8 +852,8 @@ window.Modernizr = (function( window, document, undefined ) {
         // We're using f which is the <input> element created early on
         // Mike Taylr has created a comprehensive resource for testing these attributes
         //   when applied to all input types:
-        //   miketaylr.com/code/input-type-attr.html
-        // spec: www.whatwg.org/specs/web-apps/current-work/multipage/the-input-element.html#input-type-attr-summary
+        //   miketaylr.com/code/input-type-attr.views
+        // spec: www.whatwg.org/specs/web-apps/current-work/multipage/the-input-element.views#input-type-attr-summary
 
         // Only input placeholder is tested while textarea's placeholder is not.
         // Currently Safari 4 and Opera 11 have support only for the input placeholder
@@ -961,7 +961,7 @@ window.Modernizr = (function( window, document, undefined ) {
     /**
      * addTest allows the user to define their own feature tests
      * the result will be added onto the Modernizr object,
-     * as well as an appropriate className set on the html element
+     * as well as an appropriate className set on the views element
      *
      * @param feature - String naming the feature
      * @param test - Function returning true if feature is supported, false if not
@@ -1381,10 +1381,10 @@ window.Modernizr = (function( window, document, undefined ) {
 
 
     /*>>cssclasses*/
-    // Remove "no-js" class from <html> element, if it exists:
+    // Remove "no-js" class from <views> element, if it exists:
     docElement.className = docElement.className.replace(/(^|\s)no-js(\s|$)/, '$1$2') +
 
-                            // Add the new classes to the <html> element.
+                            // Add the new classes to the <views> element.
                             (enableClasses ? ' js ' + classes.join(' ') : '');
     /*>>cssclasses*/
 

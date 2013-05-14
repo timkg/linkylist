@@ -20,7 +20,7 @@ files = [
 
   // files that should be accessible, but not loaded directly via script tags - needed for requirejs
   {pattern: 'web/public/**/*.js', included: false},
-  {pattern: 'web/public/html/**/*.html', included: false},
+  {pattern: 'web/public/views/**/*.views', included: false},
 
 ];
 

@@ -3,10 +3,12 @@
 	"use strict";
 
 	require.config({
+		baseUrl: '/js',
 		paths: {
 			'jquery': './vendors/jquery',
 			'lo-dash': './vendors/lo-dash',
 			'backbone': './vendors/backbone',
+			'backbone.paginator': './vendors/backbone.paginator',
 			'text': 'vendors/text',
 			'statemachine': './vendors/state-machine',
 			'q': './vendors/q',
@@ -21,15 +23,16 @@
 				deps: ['lo-dash', 'jquery'],
 				exports: 'Backbone'
 			},
+			'backbone.paginator': {
+				'deps': ['backbone'],
+				'exports': 'Backbone.Paginator'
+			},
 			'masonry': ['jquery'],
 			'visible': ['jquery']
 		}
 	});
 
-	require(['./app'], function(App) {
-
-		App.initQueue('links');
-		App.initDisplayer('.itemholder');
+	require(['App'], function(App) {
 
 		window.App = App;
 

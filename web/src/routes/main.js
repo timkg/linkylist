@@ -3,21 +3,20 @@
 	"use strict";
 
 	var path = require('path');
-	var LinkModel = require('../models/Link').compileModel();
 
-	exports.start = function(app, socketio) {
+	exports.start = function(app) {
 
-		require('./search').start(app, socketio);
-		require('./stream').start(app, socketio);
+		app.set('views', path.join(__dirname, '../views'));
+		app.set('view engine', 'jade');
+
+		require('./link').start(app);
+		require('./search').start(app);
+		require('./stream').start(app);
 
 		app.get('/', function(request, response) {
-			response.sendfile( getHomePath() + '/public/html/index-dev.html');
+			response.render('layouts/index.jade');
 		});
 
 	};
-
-	function getHomePath() {
-		return path.join( __dirname + '../../..' );
-	}
 
 } ());

@@ -302,7 +302,7 @@ define(['module'], function (module) {
 				line = input.readLine();
 
 				// Byte Order Mark (BOM) - The Unicode Standard, version 3.0, page 324
-				// http://www.unicode.org/faq/utf_bom.html
+				// http://www.unicode.org/faq/utf_bom.views
 
 				// Note that when we use utf-8, the BOM should appear as "EF BB BF", but it doesn't due to this bug in the JDK:
 				// http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4508058

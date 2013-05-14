@@ -9,14 +9,20 @@
 			'jquery': 'web/public/js/vendors/jquery',
 			'lo-dash': 'web/public/js/vendors/lo-dash',
 			'backbone': 'web/public/js/vendors/backbone',
+			'backbone.paginator': 'web/public/js/vendors/backbone.paginator',
 			'text': 'web/public/js/vendors/text',
 			'statemachine': 'web/public/js/vendors/state-machine',
-			'q': 'web/public/js/vendors/q'
+			'q': 'web/public/js/vendors/q',
+			'app': 'web/public/js/app'
 		},
 		shim: {
 			'backbone': {
 				deps: ['lo-dash', 'jquery'],
 				exports: 'Backbone'
+			},
+			'backbone.paginator': {
+				deps: ['backbone'],
+				exports: 'Backbone.Paginator'
 			},
 			'lo-dash': {
 				exports: '_'
@@ -27,11 +33,7 @@
 		}
 
 		}, [
-			// 'web/public/js/app',
-			'web/public/js/core/asyncQueue_test'
-			// 'web/public/js/ui/itemProvider_test',
-			// 'web/public/js/ui/scrollgrid/scrollgrid_test',
-			// 'web/public/js/ui/scrollgrid/square_test'
+
 		], function() {
 			window.__karma__.start();
 	});

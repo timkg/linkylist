@@ -1,0 +1,10 @@
+article(id= link._id)
+    time(datetime= link.date_added)
+    a(href= link.url)= link.url
+    ul
+        for tweet in link._tweets
+            li
+                a(href= tweet.from_user)
+                    img(src= tweet.profile_image_url)
+                    h4= tweet.from_user_name
+                    p= tweet.text

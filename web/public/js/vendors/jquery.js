@@ -138,10 +138,10 @@ jQuery.fn = jQuery.prototype = {
 				match = rquickExpr.exec( selector );
 			}
 
-			// Match html or make sure no context is specified for #id
+			// Match views or make sure no context is specified for #id
 			if ( match && (match[1] || !context) ) {
 
-				// HANDLE: $(html) -> $(array)
+				// HANDLE: $(views) -> $(array)
 				if ( match[1] ) {
 					context = context instanceof jQuery ? context[0] : context;
 
@@ -152,7 +152,7 @@ jQuery.fn = jQuery.prototype = {
 						true
 					) );
 
-					// HANDLE: $(html, props)
+					// HANDLE: $(views, props)
 					if ( rsingleTag.test( match[1] ) && jQuery.isPlainObject( context ) ) {
 						for ( match in context ) {
 							// Properties of context are called as methods if possible
@@ -507,9 +507,9 @@ jQuery.extend({
 		throw new Error( msg );
 	},
 
-	// data: string of html
+	// data: string of views
 	// context (optional): If specified, the fragment will be created in this context, defaults to document
-	// keepScripts (optional): If true, will include scripts passed in the html string
+	// keepScripts (optional): If true, will include scripts passed in the views string
 	parseHTML: function( data, context, keepScripts ) {
 		if ( !data || typeof data !== "string" ) {
 			return null;
@@ -3363,7 +3363,7 @@ jQuery.Event = function( src, props ) {
 };
 
 // jQuery.Event is based on DOM3 Events as specified by the ECMAScript Language Binding
-// http://www.w3.org/TR/2003/WD-DOM-Level-3-Events-20030331/ecma-script-binding.html
+// http://www.w3.org/TR/2003/WD-DOM-Level-3-Events-20030331/ecma-script-binding.views
 jQuery.Event.prototype = {
 	isDefaultPrevented: returnFalse,
 	isPropagationStopped: returnFalse,
@@ -3753,7 +3753,7 @@ var i,
 
 	// Loosely modeled on CSS identifier characters
 	// An unquoted value should be a CSS identifier http://www.w3.org/TR/css3-selectors/#attribute-selectors
-	// Proper syntax: http://www.w3.org/TR/CSS21/syndata.html#value-def-identifier
+	// Proper syntax: http://www.w3.org/TR/CSS21/syndata.views#value-def-identifier
 	identifier = characterEncoding.replace( "w", "w#" ),
 
 	// Acceptable operators http://www.w3.org/TR/selectors/#attribute-selectors
@@ -3806,7 +3806,7 @@ var i,
 	rescape = /'|\\/g,
 	rattributeQuotes = /\=[\x20\t\r\n\f]*([^'"\]]*)[\x20\t\r\n\f]*\]/g,
 
-	// CSS escapes http://www.w3.org/TR/CSS21/syndata.html#escaped-characters
+	// CSS escapes http://www.w3.org/TR/CSS21/syndata.views#escaped-characters
 	runescape = /\\([\da-fA-F]{1,6}[\x20\t\r\n\f]?|.)/g,
 	funescape = function( _, escaped ) {
 		var high = "0x" + escaped - 0x10000;
@@ -6454,11 +6454,11 @@ jQuery.extend({
 				if ( jQuery.type( elem ) === "object" ) {
 					jQuery.merge( nodes, elem.nodeType ? [ elem ] : elem );
 
-				// Convert non-html into a text node
+				// Convert non-views into a text node
 				} else if ( !rhtml.test( elem ) ) {
 					nodes.push( context.createTextNode( elem ) );
 
-				// Convert html into DOM nodes
+				// Convert views into DOM nodes
 				} else {
 					tmp = tmp || safe.appendChild( context.createElement("div") );
 
@@ -7068,7 +7068,7 @@ function getWidthOrHeight( elem, name, extra ) {
 		styles = getStyles( elem ),
 		isBorderBox = jQuery.support.boxSizing && jQuery.css( elem, "boxSizing", false, styles ) === "border-box";
 
-	// some non-html elements return undefined for offsetWidth, so check for null/undefined
+	// some non-views elements return undefined for offsetWidth, so check for null/undefined
 	// svg - https://bugzilla.mozilla.org/show_bug.cgi?id=649285
 	// MathML - https://bugzilla.mozilla.org/show_bug.cgi?id=491668
 	if ( val <= 0 || val == null ) {
@@ -7676,7 +7676,7 @@ jQuery.extend({
 			// Convert anything to text
 			"* text": window.String,
 
-			// Text to html (true = no transformation)
+			// Text to views (true = no transformation)
 			"text html": true,
 
 			// Evaluate text as a json expression

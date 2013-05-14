@@ -15,10 +15,10 @@
 
 			var app = express();
 
-			// serve all static files in /public
-			// /public is not part of the path. /public/js is requested as /js
+			// static asset serving
+			// "/public" is not part of the HHTP path. /public/js/somefile.js is requested as /js/somefile.js
 			app.use(express.static(__dirname + '/public'));
-			// except for main.js - serve custom main.js. This file is requested as /public/js
+			// except for main.js - serve custom main.js for dev vs prod. This file is requested as /public/js/main.js
 			app.get('/public/js/main.js', function(request, response) {
 				response.sendfile( __dirname + '/public/js/main-dev.js');
 			});
@@ -29,9 +29,9 @@
 			var socketio = require('./src/socketio').init(server);
 
 			if (config.MODE === 'PRODUCTION') {
-				require('./src/routes/prod.js').start(app, socketio);
+				require('./src/routes/prod.js').start(app);
 			} else if (config.MODE === 'DEVELOPMENT') {
-				require('./src/routes/main.js').start(app, socketio);
+				require('./src/routes/main.js').start(app);
 			}
 
 		});

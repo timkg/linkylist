@@ -15,18 +15,26 @@
 			var page = parseInt(request.query.page) || 1;
 			LinkModel
 				.find({})
+				.sort('-date_added')
 				.populate('_tweets')
 				.populate('_embedlyExtract')
 				.paginate(page, 10)
 				.exec(function(err, links) {
 					// TODO - remove duplication with search.js
+					var prev = ((page - 1) > 0 ? page - 1 : null)
+					var next = (links.length === 10 ? page + 1 : null)
+					if (prev) { prev = '/stream?page=' + prev }
+					if (next) { next = '/stream?page=' + next }
 					var data = {
-						'connection': uuid.v1(),
-						'page': page,
-						'payload': links
+						'connection': uuid.v1()
+						, 'page': page
+						, 'prev_page': prev
+						, 'next_page': next
+						, 'payload': links
 					};
-					response.json(data);
-					socketio.sendMissingPreviews(data, response);
+					response.render('templates/stream', {links: data});
+//					response.json(data);
+//					socketio.sendMissingPreviews(data, response);
 				});
 		});
 	};

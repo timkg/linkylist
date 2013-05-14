@@ -4,6 +4,12 @@
 
 	var lint = require('./lint_runner.js');
 	var nodeunit = require('nodeunit').reporters['default'];
+	var templatizer = require('templatizer');
+
+	desc('Compile jade templates for client-side templating');
+	task('compileJade', [], function() {
+		templatizer(__dirname + '/web/templates/partials', __dirname + '/web/public/js/templates.js');
+	});
 
 	desc('Socket.io tests');
 	task('socketTests', [], function() {

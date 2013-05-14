@@ -20,7 +20,7 @@
 
 //	exports.test_createsReadabilityInstances = function(test) {
 //		var read = new Readability({
-//			url: "http://info.cern.ch/hypertext/WWW/TheProject.html"
+//			url: "http://info.cern.ch/hypertext/WWW/TheProject.views"
 //		});
 //		test.ok(read, 'created a Readability instance');
 //		test.done();

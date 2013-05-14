@@ -6,7 +6,7 @@
  *
  * With parts by Tyler Close
  * Copyright 2007-2009 Tyler Close under the terms of the MIT X license found
- * at http://www.opensource.org/licenses/mit-license.html
+ * at http://www.opensource.org/licenses/mit-license.views
  * Forked at ref_send.js version: 2009-05-11
  *
  * With parts by Mark Miller
@@ -142,7 +142,7 @@ if (typeof setImmediate === "function") {
 
         if (typeof MessageChannel !== "undefined") {
             // modern browsers
-            // http://www.nonblocking.io/2011/06/windownexttick.html
+            // http://www.nonblocking.io/2011/06/windownexttick.views
             var channel = new MessageChannel();
             channel.port1.onmessage = onTick;
             requestTick = function () {

@@ -21,9 +21,11 @@
 						if (err) { throw err; }
 						// TODO - remove duplication with stream.js
 						var data = {
-							'connection': uuid.v1(),
-							'payload': links
+							'connection': uuid.v1()
+							, 'next_page': '/search' + twitterApiResponse.next_page
+							, 'payload': links
 						};
+						response.render('templates/search', {links: data});
 						response.json(data);
 						socketio.sendMissingPreviews(data, response);
 					});
