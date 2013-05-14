@@ -11,6 +11,11 @@
 		templatizer(__dirname + '/web/templates/partials', __dirname + '/web/public/js/templates.js');
 	});
 
+	desc('Run all tests');
+	task('allTests', ['serviceTests', 'dbTests', 'utilsTests', 'socketTests'], function() {
+
+	}, {async: true});
+
 	desc('Socket.io tests');
 	task('socketTests', [], function() {
 		console.log('\n\nSOCKETIO TESTS');
@@ -52,22 +57,6 @@
 	function dbTestFiles() {
 		var files = new jake.FileList();
 		files.include('./web/test/models/*_test.js');
-		return files;
-	}
-
-
-	desc('Stream logic tests');
-	task('streamTests', [], function() {
-		console.log('\n\nSTREAM TESTS');
-		nodeunit.run(streamTestFiles().toArray(), null, function(failures) {
-			if (failures) { fail('tests failed'); }
-			complete();
-		});
-	}, {async: true});
-
-	function streamTestFiles() {
-		var files = new jake.FileList();
-		files.include('./web/test/tweetStreamHandler_test.js');
 		return files;
 	}
 
