@@ -28,22 +28,6 @@
 		});
 	};
 
-	exports.sendMissingPreviews = function(data, response) {
-		var linksWithoutEmbed = [];
-		var linksWithEmbed = [];
-		data.payload.map(function(link) {
-			if (!link._embedlyExtract) {
-				linksWithoutEmbed.push(link.url);
-			} else {
-				linksWithEmbed.push(link.url); // just used for testing
-			}
-		});
-
-	//		EmbedlyExtractModel.getExtractForUrls(linksWithoutEmbed, function(embeds) {
-	//
-	//		});
-	};
-
 	exports.closeConnections = function(callback) {
 		socketList.forEach(function(socket) {
 			socket.disconnect();

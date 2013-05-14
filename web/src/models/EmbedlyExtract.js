@@ -36,11 +36,6 @@
 
 			var deferred = Q.defer();
 
-			console.log({
-				url: json.url,
-				original_url: json.original_url
-			});
-
 			if (!json.url) { deferred.reject(new Error('url not existent or not readable')); }
 
 			EmbedlyExtractModel.create(json, function(err, embed) {

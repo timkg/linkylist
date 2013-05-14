@@ -21,10 +21,16 @@
 				.paginate(page, 10)
 				.exec(function(err, links) {
 					// TODO - remove duplication with search.js
+
+					// prepare pagination parameters
+					// -----------------------------
 					var prev = ((page - 1) > 0 ? page - 1 : null)
 					var next = (links.length === 10 ? page + 1 : null)
 					if (prev) { prev = '/stream?page=' + prev }
 					if (next) { next = '/stream?page=' + next }
+
+					// preprare response data
+					// ----------------------
 					var data = {
 						'connection': uuid.v1()
 						, 'page': page
@@ -32,9 +38,29 @@
 						, 'next_page': next
 						, 'payload': links
 					};
-					response.render('templates/stream', {links: data});
-//					response.json(data);
-//					socketio.sendMissingPreviews(data, response);
+
+					// send response to client
+					// -----------------------
+//					response.render('templates/stream', {links: data});
+					response.json(data);
+
+					// check which links were sent without preview
+					// -------------------------------------------
+					var linksWithoutEmbed = [];
+					data.payload.map(function(link) {
+						if (!link._embedlyExtract) {
+							linksWithoutEmbed.push(link.url);
+						}
+					});
+
+					// get missing previews and stream to client via socket.io
+					// -------------------------------------------------------
+					EmbedlyExtractModel.getExtractForUrls(linksWithoutEmbed, function(embeds) {
+						socketio.sendToConnection({
+							connection: data.connection
+							, payload: embeds
+						}, response);
+					});
 				});
 		});
 	};
