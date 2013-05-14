@@ -20,7 +20,6 @@
 				.populate('_embedlyExtract')
 				.paginate(page, 10)
 				.exec(function(err, links) {
-					// TODO - remove duplication with search.js
 
 					// prepare pagination parameters
 					// -----------------------------
@@ -29,8 +28,8 @@
 					if (prev) { prev = '/stream?page=' + prev }
 					if (next) { next = '/stream?page=' + next }
 
-					// preprare response data
-					// ----------------------
+					// prepare response data
+					// ---------------------
 					var data = {
 						'connection': uuid.v1()
 						, 'page': page
@@ -59,7 +58,7 @@
 						socketio.sendToConnection({
 							connection: data.connection
 							, payload: embeds
-						}, response);
+						});
 					});
 				});
 		});
