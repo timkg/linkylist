@@ -28,11 +28,7 @@
 
 			var socketio = require('./src/socketio').init(server);
 
-			if (config.MODE === 'PRODUCTION') {
-				require('./src/routes/prod.js').start(app);
-			} else if (config.MODE === 'DEVELOPMENT') {
-				require('./src/routes/main.js').start(app);
-			}
+			require('./src/routes/main.js').start(app);
 
 		});
 	};
