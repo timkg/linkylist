@@ -20,6 +20,8 @@
 
 			response.on('end', function() {
 
+				// log response if statusCode was not successful
+				// ---------------------------------------------
 				if( response.statusCode !== 200 ) {
 					console.log(responseData);
 				}
