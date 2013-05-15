@@ -1,0 +1,9 @@
+h3
+    if (typeof link._embedlyExtract.favicon_url !== 'undefined')
+        img(src= link._embedlyExtract.favicon_url)
+    = link._embedlyExtract.title
+p= link._embedlyExtract.description
+div
+    if (link._embedlyExtract.images && link._embedlyExtract.images.length)
+        for image in link._embedlyExtract.images
+            img(src= image.url)

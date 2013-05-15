@@ -3,34 +3,23 @@
 	"use strict";
 
 	var qs = require('querystring');
+	var array_helper = require('./arrayhelper');
 
 	// API version == 1.0
 	var TWITTER_SEARCH_BASE_URL = 'http://search.twitter.com/search.json?';
 	var TWITTER_DEFAULT_SEARCH_PARAMS = '&include_entities=1';
 
-	exports.extractUrlsFromTweets = function(tweets) {
+	exports.extractUniqueUrlsFromTweets = function(tweets) {
 		if( typeof tweets === 'string' ) { tweets = JSON.parse(tweets); }
 		var urls = [];
 		var tweetsWithUrls = [];
 		for( var i = 0, len = tweets.length; i < len; i++ ) {
 			if( tweets[i].entities && tweets[i].entities.urls ) {
-				tweetsWithUrls.push(tweets[i]);
-				var arrayOfUrlsInTweet = tweets[i].entities.urls;
-				for( var j = 0, urlsLen = arrayOfUrlsInTweet.length; j < urlsLen; j++ ) {
-					var expanded_url = (arrayOfUrlsInTweet[j].expanded_url ? arrayOfUrlsInTweet[j].expanded_url : arrayOfUrlsInTweet[j].url);
-					urls.push(expanded_url);
-				}
+				urls.push(tweets[i].entities.urls[0].expanded_url);
 			}
 		}
 
-		var uniqueUrls = [];
-		urls.map(function(url) {
-			if (uniqueUrls.indexOf(url) === -1) {
-				uniqueUrls.push(url);
-			}
-		});
-
-		return uniqueUrls;
+		return array_helper.unique(urls);
 	};
 
 	exports.buildSearchUrlFromQuery = function(query) {

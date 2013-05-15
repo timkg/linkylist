@@ -28,9 +28,22 @@
 			keywords: mongoose.Schema.Types.Mixed,
 			entities: mongoose.Schema.Types.Mixed,
 			images: mongoose.Schema.Types.Mixed
-		}
+		};
 
 		var EmbedlyExtractModel = mongoose.model('EmbedlyExtract', mongoose.Schema(extractFormat));
+
+		EmbedlyExtractModel.assignEmbedToLink = function(embed, callback) {
+			LinkModel.findOrCreate({ url: embed.original_url}, function(err, link) {
+				if (err) { deferred.reject(new Error(err)); return false; }
+				if (!link._embedlyExtract) {
+					link._embedlyExtract = embed._id;
+					link.save(function(err) {
+						if (err) { callback(new Error(err), null); }
+						callback(null, embed);
+					});
+				} else { callback(null, embed); }
+			});
+		};
 
 		EmbedlyExtractModel.promiseToSaveDocument = function(json) {
 			if (typeof json === 'string') { json = JSON.parse(json); }
@@ -39,24 +52,24 @@
 
 			if (!json.original_url) { deferred.reject(new Error('url not existent or not readable')); }
 
-			EmbedlyExtractModel.create(json, function(err, embed) {
-				if (err || !embed) {
-					console.log(err);
-					deferred.reject(new Error(err));
-				}
-				console.log('saved new embedly extract', embed.original_url);
-				LinkModel.findOrCreate({ url: embed.original_url}, function(err, link) {
-					if (err) {
-						console.log(err);
-						deferred.reject(new Error(err));
+			EmbedlyExtractModel
+				.findOne({original_url: json.original_url})
+				.exec(function(err, embed) {
+					if (!embed) {
+						EmbedlyExtractModel.create(json, function(err, embed) {
+							if (err || !embed) { deferred.reject(new Error(err)); return false; }
+							EmbedlyExtractModel.assignEmbedToLink(embed, function(err, embed) {
+								if (err || !embed) { deferred.reject(new Error(err)); }
+								deferred.resolve(embed);
+							});
+						});
+					} else {
+						EmbedlyExtractModel.assignEmbedToLink(embed, function(err, embed) {
+							if (err || !embed) { deferred.reject(new Error(err)); }
+							deferred.resolve(embed);
+						});
 					}
-					link._embedlyExtract = embed._id;
-					link.save(function(err) {
-						if (err) { deferred.reject(new Error(err)); }
-						deferred.resolve(embed);
-					})
 				});
-			});
 
 			return deferred.promise;
 		};
@@ -67,7 +80,10 @@
 
 			var allOperationsAsPromises = [];
 			json.forEach(function(embedValue) {
-				allOperationsAsPromises.push(EmbedlyExtractModel.promiseToSaveDocument(embedValue));
+				var embedPromise = EmbedlyExtractModel.promiseToSaveDocument(embedValue).fail(function(error) {
+					console.warn(error);
+				});
+				allOperationsAsPromises.push(embedPromise);
 			});
 
 			Q.allResolved(allOperationsAsPromises)

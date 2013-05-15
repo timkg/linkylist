@@ -1,10 +1,11 @@
-article(id= link._id)
-    time(datetime= link.date_added)
-    a(href= link.url)= link.url
-    ul
+article(id= link._id, style="border: 1px solid red; margin: 20px 0;")
+    h2= link.url
+    div.preview
+        if (link._embedlyExtractttt)
+            include preview.jade
+        else
+            p fetching preview, please wait
+    ul.tweets
         for tweet in link._tweets
             li
-                a(href= tweet.from_user)
-                    img(src= tweet.profile_image_url)
-                    h4= tweet.from_user_name
-                    p= tweet.text
+                include tweet.jade

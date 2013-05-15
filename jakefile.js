@@ -12,8 +12,8 @@
 	});
 
 	desc('Run all tests');
-	task('allTests', ['serviceTests', 'dbTests', 'utilsTests', 'socketTests'], function() {
-
+	task('allTests', ['dbTests', 'serviceTests', 'utilsTests', 'socketTests'], function() {
+		complete();
 	}, {async: true});
 
 	desc('Socket.io tests');

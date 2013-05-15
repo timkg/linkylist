@@ -7,7 +7,6 @@
 	var TweetModel = require('../models/Tweet').compileModel(); // used for .populate('_tweets')
 	require('mongoose-pagination');
 	var socketio = require('../socketio');
-
 	var uuid = require('node-uuid');
 
 	exports.start = function(app) {
@@ -40,8 +39,8 @@
 
 					// send response to client
 					// -----------------------
-//					response.render('templates/stream', {links: data});
-					response.json(data);
+					response.render('templates/stream', {links: data});
+//					response.json(data);
 
 					// check which links were sent without preview
 					// -------------------------------------------
@@ -52,14 +51,16 @@
 						}
 					});
 
-					// get missing previews and stream to client via socket.io
-					// -------------------------------------------------------
-					EmbedlyExtractModel.getExtractForUrls(linksWithoutEmbed, function(embeds) {
-						socketio.sendToConnection({
-							connection: data.connection
-							, payload: embeds
+					// get missing previews and stream them to client via socket.io
+					// ------------------------------------------------------------
+					if (linksWithoutEmbed.length > 0) {
+						EmbedlyExtractModel.getExtractForUrls(linksWithoutEmbed, function(embeds) {
+							socketio.sendToConnection({
+								connection: data.connection
+								, payload: embeds
+							});
 						});
-					});
+					}
 				});
 		});
 	};
