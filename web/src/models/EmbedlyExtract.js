@@ -5,6 +5,7 @@
 	var mongoose = require('mongoose');
 	var LinkModel = require('./Link').compileModel();
 	var Q = require('q');
+	var array_helper = require('../utils/arrayhelper');
 
 	var embedlyservice = require('../services/embedly');
 
@@ -13,8 +14,8 @@
 		if (mongoose.models.EmbedlyExtractModel) { return mongoose.models.EmbedlyExtractModel; }
 
 		var extractFormat = {
-			original_url: { type: String, required: true },
-			url: String,
+			original_url: { type: String, required: true, unique: true },
+			url: {type: String},
 			provider_name: String,
 			provider_url: String,
 			provider_display: String,
@@ -36,14 +37,15 @@
 
 			var deferred = Q.defer();
 
-			if (!json.url) { deferred.reject(new Error('url not existent or not readable')); }
+			if (!json.original_url) { deferred.reject(new Error('url not existent or not readable')); }
 
 			EmbedlyExtractModel.create(json, function(err, embed) {
 				if (err || !embed) {
 					console.log(err);
 					deferred.reject(new Error(err));
 				}
-				LinkModel.findOrCreate({ url: embed.url}, function(err, link) {
+				console.log('saved new embedly extract', embed.original_url);
+				LinkModel.findOrCreate({ url: embed.original_url}, function(err, link) {
 					if (err) {
 						console.log(err);
 						deferred.reject(new Error(err));
@@ -86,6 +88,10 @@
 		};
 
 		EmbedlyExtractModel.getExtractForUrls = function(listOfUrls, callback) {
+			if (!Array.isArray(listOfUrls) || !(listOfUrls.length > 0 )) {
+				throw new TypeError("EmbedlyExtractModel.getExtractForUrls expects array as first argument");
+			}
+			listOfUrls = array_helper.unique(listOfUrls);
 			embedlyservice.getExtractForUrls(listOfUrls, function(embedlyApiResponse) {
 				EmbedlyExtractModel.saveDocuments(embedlyApiResponse, callback);
 			});
