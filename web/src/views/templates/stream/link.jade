@@ -1,11 +1,13 @@
-article(id= link._id, style="border: 1px solid red; margin: 20px 0;")
-    h2= link.url
-    div.preview
-        if (link._embedlyExtractttt)
-            include preview.jade
-        else
-            p fetching preview, please wait
-    ul.tweets
-        for tweet in link._tweets
-            li
-                include tweet.jade
+article.stream-link(id= link._id)
+    div.overlay
+    div.content
+        include meta.jade
+        div.preview
+            if (link._embedlyExtract)
+                include preview.jade
+            else
+                p fetching preview, please wait
+//        ul.tweets
+//            for tweet in link._tweets
+//                li
+//                    include tweet.jade

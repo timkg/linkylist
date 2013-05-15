@@ -1,0 +1,32 @@
+- var tweets, media, images, content;
+- tweets = link._tweets.length || null;
+- media = link._embedlyExtract.media ? link._embedlyExtract.media.type : null;
+- images = link._embedlyExtract.images.length || null;
+- content = link._embedlyExtract.content ? link._embedlyExtract.content.length : null;
+
+
+ul.meta
+    li.meta-li
+        a.meta-link.tweets.text-hide
+            - if (tweets)
+                i.meta-icon.icon-twitter
+            - else
+                i.meta-icon.inactive.icon-twitter
+    li.meta-li
+        a.meta-link.media.text-hide
+            - if (media)
+                i.meta-icon.icon-play
+            - else
+                i.meta-icon.inactive.icon-play
+    li.meta-li
+        a.meta-link.images.text-hide
+            - if (images)
+                i.meta-icon.icon-images
+            - else
+                i.meta-icon.inactive.icon-images
+    li.meta-li
+        a.meta-link.content.text-hide
+            - if (content)
+                i.meta-icon.icon-type
+            - else
+                i.meta-icon.inactive.icon-type

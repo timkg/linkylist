@@ -6,6 +6,11 @@
 	var nodeunit = require('nodeunit').reporters['default'];
 	var templatizer = require('templatizer');
 
+	desc('Start render test server');
+	task('renderTests', ['compileJade'], function() {
+
+	});
+
 	desc('Compile jade templates for client-side templating');
 	task('compileJade', [], function() {
 		templatizer(__dirname + '/web/templates/partials', __dirname + '/web/public/js/templates.js');
