@@ -21,7 +21,7 @@
 
 					var data = {
 						link: link
-						, subtitle: (link._embedlyExtract.title || '(couldn\'t find the page\'s title, sorry)')
+						, subtitle: (link._embedlyExtract ? link._embedlyExtract.title : '(couldn\'t find the page\'s title, sorry)')
 					}
 					response.render('link', {data: data})
 				});
