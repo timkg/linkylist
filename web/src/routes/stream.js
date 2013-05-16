@@ -35,11 +35,12 @@
 						, 'prev_page': prev
 						, 'next_page': next
 						, 'payload': links
+						, 'subtitle': 'Recently shared links'
 					};
 
 					// send response to client
 					// -----------------------
-					response.render('templates/stream', {links: data});
+					response.render('stream', {data: data});
 //					response.json(data);
 
 					// check which links were sent without preview

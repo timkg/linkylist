@@ -1,0 +1,8 @@
+extends layouts/index
+
+block content
+    section.stream.clearfix
+        for link in data.payload
+            include partials/link-item/link.jade
+        a(href=data.prev_page) prev
+        a(href=data.next_page) next

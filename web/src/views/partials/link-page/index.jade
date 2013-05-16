@@ -1,0 +1,21 @@
+extends ../../layouts/index
+
+block content
+    - var link = data.link
+
+    article.link(id= link._id)
+        div.content
+            div.preview
+                if (link._embedlyExtract)
+                    include preview.jade
+                else
+                    p fetching preview, please wait
+            div.media
+                include media.jade
+            div.images
+                include images.jade
+            ul.tweets
+                for tweet in link._tweets
+                    li
+                        include tweet.jade
+            include article

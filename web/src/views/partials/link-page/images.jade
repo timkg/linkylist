@@ -1,0 +1,4 @@
+div.images
+    if (link._embedlyExtract.images && link._embedlyExtract.images.length)
+        for image in link._embedlyExtract.images
+            img(src= image.url)

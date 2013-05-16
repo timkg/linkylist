@@ -31,7 +31,7 @@
 
 						// send response
 						// -------------
-						response.render('templates/search', {links: data});
+						response.render('search', {data: data});
 //						response.json(data);
 
 						// check which links were sent without preview

@@ -1,0 +1,7 @@
+extends layouts/index
+
+block content
+    for link in data.payload
+        include link-item/link.jade
+    // pagination
+    a(href= data.next_page) more

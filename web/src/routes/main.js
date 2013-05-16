@@ -14,7 +14,10 @@
 		require('./stream').start(app);
 
 		app.get('/', function(request, response) {
-			response.render('layouts/index.jade');
+			var data = {
+				'subtitle': 'share your knowledge'
+			};
+			response.render('home', {data: data});
 		});
 
 	};

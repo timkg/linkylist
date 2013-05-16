@@ -1,0 +1,18 @@
+- var tweets, media, images, content;
+- tweets = link._tweets && link._tweets.length || null;
+- media = link._embedlyExtract && link._embedlyExtract.media ? link._embedlyExtract.media.type : null;
+- images = link._embedlyExtract && link._embedlyExtract.images.length || null;
+- content = link._embedlyExtract && link._embedlyExtract.content ? link._embedlyExtract.content.length : null;
+- var details = [];
+- if (tweets) details.push('tweets');
+- if (media) details.push('embedded media');
+- if (images) details.push('images');
+- if (content) details.push('article preview');
+- var infoString = details.join(', ');
+
+article.stream-link(id= link._id)
+    div.content
+        include meta.jade
+        include preview.jade
+        //include tweets.jade
+        a.button.secondary(href= "/link/#{link._id}") more info - #{infoString}

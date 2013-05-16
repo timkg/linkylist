@@ -5,7 +5,10 @@
 	require.config({
 		baseUrl: '/js',
 		paths: {
+			'zepto': './vendors/zepto',
 			'jquery': './vendors/jquery',
+			'foundation': './vendors/foundation',
+			'topbar': './vendors/foundation.topbar',
 			'lo-dash': './vendors/lo-dash',
 			'backbone': './vendors/backbone',
 			'backbone.paginator': './vendors/backbone.paginator',
@@ -32,9 +35,17 @@
 		}
 	});
 
-	require(['App'], function(App) {
-
-		window.App = App;
-
+	var dollar = ('__proto__' in {} ? 'zepto' : 'jquery');
+	require([dollar], function() {
+		require(['foundation', 'topbar'], function() {
+			$(document).foundation();
+			require(['App', 'masonry'], function(App) {
+				$('.stream').masonry({
+					itemSelector: '.stream-link'
+				});
+				window.App = App;
+			});
+		});
 	});
+
 }());
