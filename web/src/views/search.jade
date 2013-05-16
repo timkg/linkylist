@@ -1,7 +1,7 @@
 extends layouts/index
 
 block content
-    for link in data.payload
-        include link-item/link.jade
-    // pagination
-    a(href= data.next_page) more
+    section.stream.clearfix
+        for link in data.payload
+            include partials/link-item/link.jade
+        a(href= data.next_page) more
