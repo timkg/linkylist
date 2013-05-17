@@ -9,6 +9,7 @@
 		if (mongoose.models.UserModel) { return mongoose.models.UserModel; }
 
 		var userFormat = {
+
 			id: { type: Number, unique: true},
 			id_str: String,
 			name: String,
@@ -22,7 +23,8 @@
 			profile_image_url_https: String
 		};
 
-		var UserModel = mongoose.model('User', mongoose.Schema(userFormat));
+		var UserSchema = mongoose.Schema(userFormat);
+		var UserModel = mongoose.model('User', UserSchema);
 
 		UserModel.findOrCreate = function(twitterUser, callback) {
 			UserModel.findOne({id: twitterUser.id}, function(err, user) {

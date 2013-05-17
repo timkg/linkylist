@@ -58,74 +58,72 @@
 				});
 			});
 
-
 			return deferred.promise;
 		};
 
 		TweetModel.saveDocuments = function(json, callback) {
 			if (typeof json === 'string') { json = JSON.parse(json); }
-
 			// guarantee that we have the results, and not the whole api response
 			// ------------------------------------------------------------------
 			if (json.results && json.completed_in) { json = json.results; }
 
-			if (!Array.isArray(json)) { json = [json]; }
-
-
-			var allOperationsAsPromises = [];
-			json.forEach(function(tweet) {
-				if( tweet.entities.urls && tweet.entities.urls[0] ) {
-					var savePromise = TweetModel.promiseToSaveDocument(tweet).fail(function(reason) {
-						console.warn(reason);
+			// determine which tweeted urls already exist as LinkModel
+			// -------------------------------------------------------
+			var allUniqueLinksTweeted = twitter_helper.extractUniqueUrlsFromTweets(json);
+			LinkModel
+				.find({ url: { $in: allUniqueLinksTweeted } })
+				.exec(function(err, links) {
+					var allAlreadyExistingLinks = [];
+					links.forEach(function(link) {
+						allAlreadyExistingLinks.push(link.url);
 					});
+					// get links tweeted for which no LinkModel exists
+					// -----------------------------------------------
+					var newLinks = [];
+					allUniqueLinksTweeted.forEach(function(link) {
+						if (allAlreadyExistingLinks.indexOf(link) === -1) {
+							newLinks.push({url: link});
+						}
+					});
+					// create new LinkModels for all new urls
+					// --------------------------------------
+					LinkModel.create(newLinks, function(err) {
+						if (err) { throw err; }
 
-					allOperationsAsPromises.push(savePromise);
-				}
-			});
+						// proceed with TweetModel creation
+						// --------------------------------
+						if (!Array.isArray(json)) { json = [json]; }
 
-			// call callback once all promises are resolved
-			// --------------------------------------------
-			Q.allResolved(allOperationsAsPromises)
-				.then(function() {
-					callback();
+						var allOperationsAsPromises = [];
+						json.forEach(function(tweet) {
+							if( tweet.entities.urls && tweet.entities.urls[0] ) {
+								var savePromise = TweetModel.promiseToSaveDocument(tweet).fail(function(reason) {
+									console.warn(reason);
+								});
+
+								allOperationsAsPromises.push(savePromise);
+							}
+						});
+
+						// call callback once all promises are resolved
+						// --------------------------------------------
+						Q.allResolved(allOperationsAsPromises)
+							.then(function() {
+								callback();
+							})
+							.fail(function(err) {
+								console.log(err);
+							});
+
+					})
 				})
-				.fail(function(err) {
-					console.log(err);
-				});
 		};
 
 		TweetModel.searchApiForTweetsAbout = function(searchTerm, callback) {
 			tweetService.searchTweetsWithUrlsAbout(searchTerm, function(twitterApiResponse) {
-
-				// determine which tweeted urls already exist as LinkModel
-				// -------------------------------------------------------
-				var allUniqueLinksTweeted = twitter_helper.extractUniqueUrlsFromTweets(twitterApiResponse.results);
-				LinkModel
-					.find({ url: { $in: allUniqueLinksTweeted } })
-					.exec(function(err, links) {
-						var allAlreadyExistingLinks = [];
-						links.forEach(function(link) {
-							allAlreadyExistingLinks.push(link.url);
-						});
-						// get links tweeted for which no LinkModel exists
-						// -----------------------------------------------
-						var newLinks = [];
-						allUniqueLinksTweeted.forEach(function(link) {
-							if (allAlreadyExistingLinks.indexOf(link) === -1) {
-								newLinks.push({url: link});
-							}
-						});
-						// create new LinkModels for all new urls
-						// --------------------------------------
-						LinkModel.create(newLinks, function(err) {
-							if (err) { throw err; }
-							// proceed with TweetModel creation
-							// --------------------------------
-							TweetModel.saveDocuments(twitterApiResponse, function() {
-								callback(twitterApiResponse);
-							});
-						})
-					})
+				TweetModel.saveDocuments(twitterApiResponse, function() {
+					callback(twitterApiResponse);
+				});
 			});
 		};
 

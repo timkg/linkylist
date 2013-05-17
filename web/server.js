@@ -17,13 +17,17 @@
 			app.use(connect.bodyParser());
 			app.use(connect.cookieParser());
 			app.use(connect.session({secret: process.env.APP_SECRET}));
-			app.use(express.compress());
-
 			// user authentication
 			// -------------------
 			auth.start(app);
 
+			// gzip compression
+			// ----------------
+			app.use(express.compress());
+
+
 			// static asset serving
+			// --------------------
 			// "/public" is not part of the HHTP path. /public/js/somefile.js is requested as /js/somefile.js
 			app.use(express.static(__dirname + '/public'));
 			// except for main.js - serve custom main.js for dev vs prod. This file is requested as /public/js/main.js
@@ -33,6 +37,7 @@
 
 			var server = http.createServer(app);
 			server.listen(config.http_port);
+			console.log('server running on port ', config.http_port);
 
 //			var socketio = require('./src/socketio').init(server);
 

@@ -3,6 +3,7 @@
 	"use strict";
 
 	var everyauth = require('everyauth');
+	var UserModel = require('./models/User').compileModel();
 
 	exports.start = function(app) {
 		// https://github.com/bnoguchi/everyauth/issues/303
@@ -42,6 +43,9 @@
 		app.use(everyauth.middleware());
 		app.use(postEveryauthMiddlewareHack());
 		everyauth.helpExpress(app);
+
+		// user auth logic
+		// ---------------
 		var usersById = {};
 		var nextUserId = 0;
 		function addUser (source, sourceUser) {
@@ -59,7 +63,9 @@
 		var usersByTwitId = {};
 		everyauth.everymodule
 			.findUserById( function (id, callback) {
-				callback(null, usersById[id]);
+				UserModel.findOne({id: id}, function(err, user) {
+					callback(err, user);
+				});
 			});
 		everyauth.debug = true;
 		everyauth.twitter
@@ -68,7 +74,11 @@
 			.entryPath('/auth/twitter')
 			.callbackPath('/auth/twitter/callback')
 			.findOrCreateUser( function (session, accessToken, accessTokenSecret, twitterUserMetadata) {
-				return usersByTwitId[twitterUserMetadata.id] || (usersByTwitId[twitterUserMetadata.id] = addUser('twitter', twitterUserMetadata));
+				var promise = this.Promise();
+				UserModel.findOrCreate(twitterUserMetadata, function(err, user) {
+					return promise.fulfill(user);
+				});
+				return promise;
 			}).redirectPath('/');
 		app.use(everyauth.middleware());
 	};

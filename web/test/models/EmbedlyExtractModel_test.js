@@ -11,7 +11,10 @@
 		db.connect(function() {
 			EmbedlyExtractModel.remove({}, function(err) {
 				if( err ) { throw err; }
-				test.done();
+				LinkModel.remove({}, function(err) {
+					if( err ) { throw err; }
+					test.done();
+				});
 			});
 		});
 	};
@@ -78,7 +81,10 @@
 	exports.end = function(test) {
 		EmbedlyExtractModel.remove({}, function(err) {
 			if( err ) { throw err; }
-			db.disconnect(test.done);
+			LinkModel.remove({}, function(err) {
+				if( err ) { throw err; }
+				db.disconnect(test.done());
+			});
 		});
 	};
 
