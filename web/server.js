@@ -1,9 +1,11 @@
 (function() {
 	"use strict";
 
+	var connect = require('connect');
 	var express = require('express');
 	var http = require('http');
 
+	var auth = require('./src/auth');
 	var db = require('./src/db');
 	var config = require('./config');
 
@@ -11,9 +13,15 @@
 
 		db.connect(function() {
 
-			console.log(config.app_url);
-
 			var app = express();
+			app.use(connect.bodyParser());
+			app.use(connect.cookieParser());
+			app.use(connect.session({secret: process.env.APP_SECRET}));
+			app.use(express.compress());
+
+			// user authentication
+			// -------------------
+			auth.start(app);
 
 			// static asset serving
 			// "/public" is not part of the HHTP path. /public/js/somefile.js is requested as /js/somefile.js
@@ -26,7 +34,7 @@
 			var server = http.createServer(app);
 			server.listen(config.http_port);
 
-			var socketio = require('./src/socketio').init(server);
+//			var socketio = require('./src/socketio').init(server);
 
 			require('./src/routes/main.js').start(app);
 

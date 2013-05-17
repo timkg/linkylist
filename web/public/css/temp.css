@@ -46,12 +46,20 @@ header {
     padding: 5px;
 }
 
+.profile-link > img {
+    width: 2em;
+}
+.expanded .profile-link > img {
+    display: none;
+}
+
 .stream {
     background-color: #eee;
     border-top: 1px solid #ccc;
     border-right: 1px solid #fff;
     border-left: 1px solid #ccc;
     border-radius: 2px;
+    font-size: 12px;
 }
 
 /*body > .stream {*/
@@ -77,7 +85,7 @@ header {
      */
 
     .stream-link {
-        width: 200px;
+        width: 300px;
         float: left;
         position: relative;
         border: 1px solid transparent;

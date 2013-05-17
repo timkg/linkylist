@@ -4,30 +4,33 @@ block content
     .row
         .columns.large-6
             .panel
-                h2.subheader  Latest links
+                h2.subheader  Links
+                .row.collapse
+                    form(action="/search", method="GET")
+                        .large-9.small-9.columns
+                            input(type="text", name="q", placeholder="enter a search term to find content")
+                        .large-3.small-3.columns
+                            button.postfix(type="submit") go
                 p
                     | LinkList is all about knowledge sharing - and discovery!
                     | Search for a simple keyword and let us find relevant content that is making the rounds.
                     | If something spikes your interest, add it to a board right away.
                 a.button(href="/stream") see all recent links
-                p &mdash; or &mdash;
-                form(action="/search", method="GET")
-                    input(type="text", name="q", value="tell us one of your interests")
-                    button(type="submit") go
                 ul.latest-links
                     li link1
                     li link2
                     li link3
         .columns.large-6
             .panel
-                h2.subheader Latest boards
+                h2.subheader Boards
+                .row.collapse
+                    a.button.postfix(href="#") start organizing your knowledge
                 p
                     | LinkList allows you to organize related resources into boards.
                     | Create boards about specific topics that interest you and share them with the world.
                 p
                     | Create step-by-step introductions to a topic for newbies,
                     | or create a reference for professionals. It's up to you.
-                a.button(href="#") start organizing your knowledge
                 ul.latest-boards
                     li board1
                     li board2

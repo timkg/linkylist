@@ -36,7 +36,7 @@
 	});
 
 	var dollar = ('__proto__' in {} ? 'zepto' : 'jquery');
-	require([dollar], function() {
+	require(['jquery'], function() {
 		require(['foundation', 'topbar'], function() {
 			$(document).foundation();
 			require(['App', 'masonry'], function(App) {
