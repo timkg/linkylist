@@ -9,8 +9,9 @@
 - if (images) details.push('images');
 - if (content) details.push('article preview');
 - var infoString = details.join(', ');
+- var extraClasses = extraClasses || ''
 
-article.stream-link(id= link._id)
+article(class="stream-link grid-item", id= link._id)
     div.content
         include meta.jade
         include preview.jade

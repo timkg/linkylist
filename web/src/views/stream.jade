@@ -1,7 +1,8 @@
 extends layouts/index
 
 block content
-    section.stream.clearfix
+    section.stream.clearfix.res-grid
+        - var extraClasses = '.grid-item'
         for link in data.payload
             include partials/link-item/link.jade
         a(href=data.prev_page) prev
