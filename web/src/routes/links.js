@@ -27,5 +27,10 @@
 				});
 
 		});
+
+		app.post('/links/:url', function(request, response) {
+			console.log(request.params.url);
+			response.json(request.params.url);
+		});
 	};
 } ());

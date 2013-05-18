@@ -3,5 +3,5 @@ extends layouts/index
 block content
     section.stream.clearfix
         for link in data.payload
-            include partials/link-item/link.jade
+            include partials/link-item/link
         a(href= data.next_page) more
