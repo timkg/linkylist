@@ -46,28 +46,13 @@
 
 		// user auth logic
 		// ---------------
-		var usersById = {};
-		var nextUserId = 0;
-		function addUser (source, sourceUser) {
-			var user;
-			if (arguments.length === 1) { // password-based
-				user = sourceUser = source;
-				user.id = ++nextUserId;
-				return usersById[nextUserId] = user;
-			} else { // non-password-based
-				user = usersById[++nextUserId] = {id: nextUserId};
-				user[source] = sourceUser;
-			}
-			return user;
-		}
-		var usersByTwitId = {};
 		everyauth.everymodule
 			.findUserById( function (id, callback) {
 				UserModel.findOne({id: id}, function(err, user) {
 					callback(err, user);
 				});
 			});
-		everyauth.debug = true;
+//		everyauth.debug = true;
 		everyauth.twitter
 			.consumerKey(process.env.TWITTER_CONSUMER_KEY)
 			.consumerSecret(process.env.TWITTER_CONSUMER_SECRET)

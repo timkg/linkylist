@@ -6,11 +6,7 @@ block content
             .panel
                 h2.subheader  Links
                 .row.collapse
-                    form(action="/search", method="GET")
-                        .large-9.small-9.columns
-                            input(type="text", name="q", placeholder="enter a search term to find content")
-                        .large-3.small-3.columns
-                            button.postfix(type="submit") go
+                    include partials/link/search-form.jade
                 p
                     | LinkList is all about knowledge sharing - and discovery!
                     | Search for a simple keyword and let us find relevant content that is making the rounds.
@@ -24,7 +20,7 @@ block content
             .panel
                 h2.subheader Boards
                 .row.collapse
-                    a.button.postfix start organizing your knowledge
+                    include partials/board/creation-form.jade
                 p
                     | LinkList allows you to organize related resources into boards.
                     | Create boards about specific topics that interest you and share them with the world.

@@ -10,27 +10,33 @@
 		app.get('/links', function(request, response) {
 
 		});
-		app.get('/link/:id', function(request, response) {
+		app.get('/links/:id', function(request, response) {
 
 			LinkModel
 				.findOne({_id: request.params.id})
-				.populate('_tweets')
 				.populate('_embedlyExtract')
+				.populate('_tweets')
 				.exec(function(err, link) {
 					if (err) { throw err; }
-
-					var data = {
-						link: link
-						, subtitle: (link._embedlyExtract ? link._embedlyExtract.title : '(couldn\'t find the page\'s title, sorry)')
-					}
-					response.render('link', {data: data})
+					response.render('links/link', {link: link})
 				});
 
 		});
 
-		app.post('/links/:url', function(request, response) {
-			console.log(request.params.url);
-			response.json(request.params.url);
+		app.get('/links/create', function(request, response) {
+			response.render('links/create');
+		});
+
+		app.post('/links', function(request, response) {
+			LinkModel
+				.findOrCreate({url: request.body.url}, function(err, link) {
+					link
+						.populate('_tweets')
+						.populate('_embedlyExtract', function(err, link) {
+							if (err) { response.render('links/create', {err: err}); }
+							response.redirect('/links/'+link._id)
+						});
+				});
 		});
 	};
 } ());

@@ -10,9 +10,7 @@
 
 		var linkFormat = {
 			"url": { type: String, required: true, unique: true },
-			"_embedlyOembed": { type: mongoose.Schema.Types.ObjectId, ref: 'EmbedlyOembed' },
 			"_embedlyExtract": { type: mongoose.Schema.Types.ObjectId, ref: 'EmbedlyExtract' },
-			"_readability": { type: mongoose.Schema.Types.ObjectId, ref: 'Readability' },
 			"_tweets": [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tweet' }],
 			"date_added": Date
 		};

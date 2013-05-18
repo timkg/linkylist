@@ -1,0 +1,6 @@
+form(action="/boards", method="POST")
+    input(type="hidden", value="{!board.id}")
+    .large-9.small-9.columns
+        input(type="text", name="subject", placeholder="what should this board be about?")
+    .large-3.small-3.columns
+        button.postfix(type="submit") create

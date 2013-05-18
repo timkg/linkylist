@@ -10,17 +10,15 @@
 		app.set('views', path.join(__dirname, '../views'));
 		app.set('view engine', 'jade');
 
-		require('./link').start(app);
 		require('./search').start(app);
 		require('./stream').start(app);
 
+		require('./links').start(app);
+		require('./users').start(app);
+		require('./boards').start(app);
+
 		app.get('/', function(request, response) {
 			response.render('home');
-		});
-
-		app.get('/login', function(request, response) {
-			console.log('/login');
-
 		});
 
 	};
