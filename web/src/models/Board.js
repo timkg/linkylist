@@ -44,7 +44,12 @@
 					if (!query._owner || !query.subject) {
 						callback(new Error('boardModel.findOrCreate requires object literal with _owner(ID) and subject(String) as argument'), null);
 					}
-					BoardModel.create({owner: query._owner, subject: query.subject, date_added: Date.now() }, function(err, board) {
+					BoardModel.create({
+						_owner: query._owner
+						, subject: query.subject
+						, date_added: Date.now()
+						, date_modified: Date.now()
+					}, function(err, board) {
 						if (err) {
 							callback(err, null);
 						}

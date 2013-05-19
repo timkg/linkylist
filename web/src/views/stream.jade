@@ -4,6 +4,6 @@ block content
     section.stream.clearfix.res-grid
         - var extraClasses = '.grid-item'
         for link in data.payload
-            include partials/link/link.jade
+            include partials/link/link-board-item.jade
         a(href=data.prev_page) prev
         a(href=data.next_page) next

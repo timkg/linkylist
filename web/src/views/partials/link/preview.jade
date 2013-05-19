@@ -1,9 +1,0 @@
-div.preview
-    if (link._embedlyExtract)
-        h4
-            if (link._embedlyExtract.favicon_url)
-                img(src= link._embedlyExtract.favicon_url)
-            a(href= "#{link.url}")= link._embedlyExtract.title
-        p !{link._embedlyExtract.description}
-    else
-        p fetching preview, please wait

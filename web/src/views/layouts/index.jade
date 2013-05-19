@@ -43,5 +43,9 @@
                         li
                             a(href="/logout") logout
 
+        if (err.length > 0)
+            .alert-box.alert !{err}
+        if (success.length > 0)
+            .alert-box.success= success
         block content
         include ../static-includes/bottom-scripts.jade

@@ -3,31 +3,40 @@ extends layouts/index.jade
 block content
     .row
         .columns.large-6
-            .panel
-                h2.subheader  Links
-                .row.collapse
-                    include partials/link/search-form.jade
+                .panel
+                    h2.subheader  Links
+                    .row.collapse
+                        include partials/link/search-form.jade
                 p
                     | LinkList is all about knowledge sharing - and discovery!
                     | Search for a simple keyword and let us find relevant content that is making the rounds.
                     | If something spikes your interest, add it to a board right away.
-                a.button(href="/stream") see all recent links
-                ul.latest-links
-                    li link1
-                    li link2
-                    li link3
+                .recent-content-preview
+                    ul.inline-list
+                        li
+                            strong Latest links
+                        li
+                            a(href="/stream") (browse all)
+                    ul.latest-links
+                        for link in links
+                            include partials/link/link-list-item.jade
         .columns.large-6
-            .panel
-                h2.subheader Boards
-                .row.collapse
-                    include partials/board/creation-form.jade
+                .panel
+                    h2.subheader Boards
+                    .row.collapse
+                        include partials/board/creation-form.jade
                 p
                     | LinkList allows you to organize related resources into boards.
                     | Create boards about specific topics that interest you and share them with the world.
                 p
                     | Create step-by-step introductions to a topic for newbies,
                     | or create a reference for professionals. It's up to you.
-                ul.latest-boards
-                    li board1
-                    li board2
-                    li board3
+                .recent-content-preview
+                    ul.inline-list
+                        li
+                            strong Latest boards
+                        li
+                            a(href="/boards") (browse all)
+                    ul.latest-boards
+                        for board in boards
+                            include partials/board/board-list-item.jade

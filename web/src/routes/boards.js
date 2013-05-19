@@ -15,7 +15,7 @@
 			BoardModel
 				.page(page, function(err, boards) {
 					if (err) { console.log(err); }
-					response.json('boards');
+					response.render('boards/boards', {boards: boards});
 				});
 		});
 
@@ -28,7 +28,19 @@
 				.populate('_links')
 				.exec(function(err, board) {
 					if (err) { console.log(err); }
-					response.render('boards/board', {board: board});
+					// mongoose does not support populate() of nested sub-documents out of the box
+					// we need to query the link documents in order to populate their _embedlyExtract sub-documents
+					var linkIds = [];
+					board._links.forEach(function(link) {
+						linkIds.push(link._id);
+					});
+					LinkModel
+						.find({_id: { $in: linkIds }})
+						.populate('_embedlyExtract')
+						.exec(function(err, links) {
+							board._links = links;
+							response.render('boards/board', {board: board});
+						});
 				});
 		});
 
@@ -64,10 +76,28 @@
 
 		// adding links
 		// ------------
-		app.put('/boards/:id', function(request, response) {
-			response.json(request.body);
-			// findOrCreate link
-			// save board-link association
+		app.post('/boards/:id/links', function(request, response) {
+			if (!request.body.url) {
+				request.flash('err', 'You need to specify the URL of the link to add');
+				response.redirect('/boards/show/' + request.params.id);
+				return;
+			}
+			LinkModel.findOrCreate({url: request.body.url}, function(err, link) {
+				BoardModel
+					.findOne({_id: request.params.id})
+					.exec(function(err, board) {
+						if (board._links.indexOf(link._id) === -1) {
+							board._links.push(link._id);
+							board.save(function(err, board) {
+								request.flash('success', 'Link added successfully');
+								response.redirect('/boards/show/' + board._id);
+							});
+						} else {
+							request.flash('success', 'Link already was in your board');
+							response.redirect('/boards/show/' + board._id);
+						}
+					});
+			});
 		});
 
 	};

@@ -31,6 +31,7 @@
 			// --------------
 			app.use(function(req, res, next) {
 				res.locals.err = req.flash('error');
+				res.locals.success = req.flash('success');
 				next();
 			});
 

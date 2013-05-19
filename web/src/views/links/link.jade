@@ -1,5 +1,7 @@
 extends ../layouts/index.jade
 
 block content
-    h2  link
-    pre !{JSON.stringify(link)}
+    .row
+        h2 !{link.title || link.url}
+    .row
+        pre !{JSON.stringify(link)}

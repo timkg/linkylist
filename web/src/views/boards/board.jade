@@ -1,8 +1,10 @@
 extends ../layouts/index.jade
 
 block content
-    h2  board
-
-    include ../partials/board/link-add-form.jade
-
-    pre !{JSON.stringify(board)}
+    .row
+        h2  board
+    .row
+        include ../partials/board/link-add-form.jade
+    .row
+        for link in board._links
+            include ../partials/link/link.jade

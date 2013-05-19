@@ -1,7 +1,7 @@
 - var tweets, media, images, content;
 - tweets = link._tweets && link._tweets.length || null;
 - media = link._embedlyExtract && link._embedlyExtract.media ? link._embedlyExtract.media.type : null;
-- images = link._embedlyExtract && link._embedlyExtract.images.length || null;
+- images = link._embedlyExtract && link._embedlyExtract.images ? link._embedlyExtract.images.length : null;
 - content = link._embedlyExtract && link._embedlyExtract.content ? link._embedlyExtract.content.length : null;
 - var details = [];
 - if (tweets) details.push('tweets');
@@ -12,8 +12,17 @@
 - var extraClasses = extraClasses || ''
 
 article(class="stream-link grid-item", id= link._id)
-    div.content
+    pre.hide !{JSON.stringify(link)}
+    .content
         include meta.jade
-        include preview.jade
+        .preview
+            if (link._embedlyExtract)
+                h4
+                    if (link._embedlyExtract.favicon_url)
+                        img(src= link._embedlyExtract.favicon_url)
+                    a(href= "#{link.url}") !{link._embedlyExtract.title || link._embedlyExtract.url}
+                p !{link._embedlyExtract.description}
+            else
+                p fetching preview, please wait
         //include tweets.jade
-        a.button.secondary(href= "/link/#{link._id}") more info - #{infoString}
+        a.button.secondary(href= "/links/#{link._id}") more info - #{infoString}

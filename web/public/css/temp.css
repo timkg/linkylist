@@ -36,6 +36,10 @@ body {
     padding: 0;
 }
 
+ul {
+    list-style: none;
+}
+
 /**
  * Layout
  */
@@ -68,3 +72,19 @@ header {
 .pagination > a {
     padding: 10px;
 }
+
+.recent-content-preview {
+    margin: 40px 0 40px 0;
+}
+
+.latest-links > li,
+.latest-boards > li{
+    border-top: 1px solid #ddd;
+    padding: 8px 0;
+}
+
+.latest-links {}
+.latest-links > .link-item {}
+
+.latest-boards {}
+.latest-boards > .board-item {}
