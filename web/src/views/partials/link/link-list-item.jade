@@ -1,0 +1,5 @@
+li(class="link-item", id= link._id)
+    if (link._embedlyExtract)
+        a(href= "/links/#{link._id}") !{link._embedlyExtract.title || link._embedlyExtract.url}
+    else
+        p fetching preview, please wait
