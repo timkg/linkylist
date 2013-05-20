@@ -4,5 +4,6 @@ block content
     .row
         h2  boards
     .row
-        for board in boards
-            include ../partials/board/board
+        ul.latest-boards
+            for board in boards
+                include ../partials/board/board-list-item.jade

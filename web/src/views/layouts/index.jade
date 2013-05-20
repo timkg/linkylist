@@ -11,16 +11,18 @@
 
     body.antialiased
 
-        pre.hide
-            span everyauth:
-            !{JSON.stringify(everyauth)}
-
+        if user
+            script
+                var user = !{JSON.stringify(user)}
+        else
+            script
+                var user = undefined;
 
         nav.top-bar
             ul.title-area
                 li.name
                     h1.subheader
-                        a(href="/") LinkList
+                        a(href="/") LinkyList
                 li.toggle-topbar.menu-icon
                     a(href="#")
                         span
@@ -42,6 +44,28 @@
                                 img(src= everyauth.twitter.user.profile_image_url)
                         li
                             a(href="/logout") logout
+
+        // foundation nav.top-bar requires JS to toggle small screen menu
+        // A no-js alternative for small screens is provided here
+        .show-for-small.hide
+            ul.fallback-menu
+                li
+                    a(href="/") LinkyList
+                li
+                    a(href="/stream") Recent Links
+                li
+                    a(href="/boards") Boards
+                - if (!everyauth.loggedIn)
+                    li
+                        a(href='/auth/twitter', style='border: 0px')
+                        img(style='border: 0px', src='https://si0.twimg.com/images/dev/buttons/sign-in-with-twitter-l.png')
+                - else
+                    li
+                        a.profile-link(href="#")
+                            span.show-for-small Profile
+                            img(src= everyauth.twitter.user.profile_image_url)
+                    li
+                        a(href="/logout") logout
 
         if (err.length > 0)
             .alert-box.alert !{err}

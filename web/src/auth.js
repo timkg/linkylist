@@ -42,7 +42,6 @@
 		app.use(preEveryauthMiddlewareHack());
 		app.use(everyauth.middleware());
 		app.use(postEveryauthMiddlewareHack());
-		everyauth.helpExpress(app);
 
 		// user auth logic
 		// ---------------

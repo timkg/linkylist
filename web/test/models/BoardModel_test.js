@@ -19,9 +19,6 @@
 		test.done();
 	};
 
-	exports.test_savesInstances = function() {
-
-	};
 
 	exports.end = function(test) {
 		BoardModel.remove({}, function(err) {

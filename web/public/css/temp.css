@@ -44,10 +44,11 @@ ul {
  * Layout
  */
 
-header {
-    width: 100%;
-    margin: 0 0 20px 0;
-    padding: 5px;
+.no-js .fallback-menu {
+    display: block !important;
+}
+.js .fallback-menu {
+    display: none !important;
 }
 
 .profile-link > img {

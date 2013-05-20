@@ -10,7 +10,7 @@
 /**
  * Responsive grid mediaquery definition
  */
-@media (max-width: 1499px) {
+@media (min-width: 1199px) {
     .res-grid {
         -moz-column-count:    4;
         -webkit-column-count: 4;

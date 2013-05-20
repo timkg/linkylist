@@ -13,7 +13,7 @@
 			'text': 'web/public/js/vendors/text',
 			'statemachine': 'web/public/js/vendors/state-machine',
 			'q': 'web/public/js/vendors/q',
-			'app': 'web/public/js/app'
+			'App': 'web/public/js/app'
 		},
 		shim: {
 			'backbone': {
@@ -33,8 +33,8 @@
 		}
 
 		}, [
-
-		], function() {
+			'web/public/js/collections/chatMessageCollection_test'
+		], function(chatMessageCollection_test) {
 			window.__karma__.start();
 	});
 

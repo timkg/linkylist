@@ -36,13 +36,10 @@
 	});
 
 	var dollar = ('__proto__' in {} ? 'zepto' : 'jquery');
-	require(['jquery'], function() {
+	require([dollar], function() {
 		require(['foundation', 'topbar'], function() {
 			$(document).foundation();
-			require(['App', 'masonry'], function(App) {
-				$('.stream').masonry({
-					itemSelector: '.stream-link'
-				});
+			require(['App'], function(App) {
 				window.App = App;
 			});
 		});

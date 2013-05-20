@@ -22,6 +22,8 @@
 			app.use(connect.session({secret: process.env.APP_SECRET}));
 			app.use(express.compress());
 			app.use(flashMessages());
+			app.use(express.errorHandler());
+			app.locals.pretty = true;
 
 			// user authentication
 			// -------------------
@@ -48,7 +50,10 @@
 			server.listen(config.http_port);
 			console.log('server running on port ', config.http_port);
 
-//			var socketio = require('./src/socketio').init(server);
+			// socket.io
+			// ---------
+			var io = require('./src/socketio').start(server);
+			require('./src/chat').start(io);
 
 			// start routes
 			// ------------

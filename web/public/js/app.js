@@ -3,30 +3,30 @@
 	"use strict";
 
 	define([
-		'/socket.io/socket.io.js',
-		'jquery',
-		'lo-dash',
-		'backbone',
-		'./lib/commands'
-	], function(io, $, _, Backbone, Commands) {
+		'/socket.io/socket.io.js'
+		, 'lo-dash'
+		, 'backbone'
+//		, './lib/commands'
+	], function(io, _, Backbone /*, Commands*/) {
 
 		var App = {};
+		App.dependencies = {};
+		App.set = function(dependencyName, dependency) {
+			if (!App.dependencies[dependencyName]) {
+				App.dependencies[dependencyName] = dependency;
+			}
+		};
+		App.get = function(dependencyName) {
+			return App.dependencies[dependencyName];
+		};
 
-		App.Events = _.extend({}, Backbone.Events);
-		App.Commands = _.extend({}, new Commands());
+		App.set('socket', io.connect('/'));
+		App.set('_', _);
+		App.set('backbone', Backbone);
+		App.set('user', window.user);
 
-		App.socket = io.connect('/');
-
-//		App.initDisplayer = function(container) {
-//			// check resolution
-//			// use modernizer to check for touch
-//			// conditionally load correct UI
-//			require(['ui/scrollgrid/scrollgrid'], function(ScrollGrid) {
-//				App.displayer = new ScrollGrid(App.queue);
-//				App.displayer.init( container );
-//				App.displayer.start();
-//			});
-//		};
+//		App.Events = _.extend({}, Backbone.Events);
+//		App.Commands = _.extend({}, new Commands());
 
 		return App;
 	});

@@ -5,7 +5,7 @@
 	var io;
 	var socketList = [];
 
-	exports.init = function(server) {
+	exports.start = function(server) {
 		io = require('socket.io').listen(server);
 
 		io.configure(function () {
@@ -14,7 +14,7 @@
 			io.set('log level', 1);
 		});
 
-		return this;
+		return io;
 	};
 
 	exports.sendToConnection = function(data) {

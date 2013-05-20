@@ -19,8 +19,7 @@ files = [
   'web/public/test/requirejs-tests.js', // tests loaded here
 
   // files that should be accessible, but not loaded directly via script tags - needed for requirejs
-  {pattern: 'web/public/**/*.js', included: false},
-  {pattern: 'web/public/views/**/*.views', included: false},
+  {pattern: 'web/public/**/*.js', included: false}
 
 ];
 

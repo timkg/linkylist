@@ -3,7 +3,7 @@
 	"use strict";
 
 	define([
-		'./../stream/linkStreamCollection'
+		'./linkStreamCollection'
 	], function(LinkStreamCollection) {
 
 		describe('LinkStreamCollection', function() {

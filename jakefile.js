@@ -17,7 +17,12 @@
 	});
 
 	desc('Run all tests');
-	task('allTests', ['dbTests', 'serviceTests', 'utilsTests', 'socketTests'], function() {
+	task('allTests', [
+		'dbTests'
+		, 'utilsTests'
+		, 'serviceTests'
+		, 'socketTests'
+	], function() {
 		complete();
 	}, {async: true});
 
