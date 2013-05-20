@@ -2,18 +2,14 @@
 	/**/
 	"use strict";
 
-	define(['App'], function(App) {
-
-		// TODO - refactor App dependency to constructor argument
-		var Backbone = App.get('backbone')
-			, _ = App.get('_')
-			, user = App.get('user') || {name: 'TestUser'};
+	define(['backbone'], function(Backbone) {
 
 		var ChatMessageCollection = Backbone.Collection.extend({
-			initialize: function() {
-				this.socket = App.get('socket');
+			initialize: function(App) {
+				this.App = App;
+				this.socket = this.App.get('socket');
 				this.initSocketListeners();
-				this.socket.emit('join', user.name);
+				this.socket.emit('join', this.App.get('user').name);
 			}
 			, socketEvents: {
 				'text': 'onTextReceived'

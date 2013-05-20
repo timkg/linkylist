@@ -12,9 +12,7 @@
 		var App = {};
 		App.dependencies = {};
 		App.set = function(dependencyName, dependency) {
-			if (!App.dependencies[dependencyName]) {
 				App.dependencies[dependencyName] = dependency;
-			}
 		};
 		App.get = function(dependencyName) {
 			return App.dependencies[dependencyName];

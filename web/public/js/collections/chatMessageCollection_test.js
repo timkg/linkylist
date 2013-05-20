@@ -2,7 +2,12 @@
 	/*global define, require*/
 	"use strict";
 
-	define(['./chatMessageCollection'], function(ChatMessageCollection) {
+	define([
+		'App'
+		, './chatMessageCollection'
+	], function(App, ChatMessageCollection) {
+
+		App.set('user', {name: 'TestUser'});
 
 		describe('chatMessageCollection', function() {
 
@@ -11,12 +16,12 @@
 			});
 
 			it('can be instantiated', function() {
-				var chat = new ChatMessageCollection();
+				var chat = new ChatMessageCollection(App);
 				expect(chat).to.be.ok();
 			});
 
 			it('holds a socket property', function() {
-				var chat = new ChatMessageCollection();
+				var chat = new ChatMessageCollection(App);
 				expect(chat.socket).to.be.ok();
 			});
 
