@@ -5,11 +5,11 @@
 	define(['backbone'], function(Backbone) {
 
 		var ChatMessageCollection = Backbone.Collection.extend({
-			initialize: function(App) {
-				this.App = App;
-				this.socket = this.App.get('socket');
+			initialize: function(models, socket, user) {
+				this.socket = socket
+				this.user = user;
+				this.socket.emit('join', this.user);
 				this.initSocketListeners();
-				this.socket.emit('join', this.App.get('user').name);
 			}
 			, socketEvents: {
 				'text': 'onTextReceived'
@@ -23,13 +23,11 @@
 				});
 			}
 			, onTextReceived: function(msg) {
-				console.log(msg);
-				debugger;
+				this.add({msg: msg});
 			}
 
 			, onAnnouncementReceived: function(msg) {
-				console.log(msg);
-				debugger;
+				return msg;
 			}
 		});
 

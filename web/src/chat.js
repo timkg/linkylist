@@ -9,8 +9,8 @@
 				io.sockets.emit('announcement', user.name + ' joined.');
 			});
 			socket.on('text', function(msg) {
-				console.log('text');
-				socket.emit('text', user.name, msg);
+				console.log('text ', msg);
+				io.sockets.emit('text', msg);
 			});
 		});
 	}

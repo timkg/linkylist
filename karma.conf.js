@@ -15,7 +15,6 @@ files = [
   JASMINE_ADAPTER,
   REQUIRE,
   REQUIRE_ADAPTER,
-  'node_modules/expect.js/expect.js',
   'web/public/test/requirejs-tests.js', // tests loaded here
 
   // files that should be accessible, but not loaded directly via script tags - needed for requirejs
