@@ -11,8 +11,8 @@ basePath = '';
 // but not directly loaded via <script> tags
 files = [
   'http://localhost:5000/socket.io/socket.io.js', // make socket.io available for tests
-  MOCHA,
-  MOCHA_ADAPTER,
+  JASMINE,
+  JASMINE_ADAPTER,
   REQUIRE,
   REQUIRE_ADAPTER,
   'node_modules/expect.js/expect.js',
