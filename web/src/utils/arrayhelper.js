@@ -8,7 +8,7 @@
 			if (uniqueValues.indexOf(value) === -1) {
 				uniqueValues.push(value);
 			}
-		})
+		});
 
 		return uniqueValues;
 	};

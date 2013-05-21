@@ -32,7 +32,7 @@
 		if (!query.q) { query.q = 'javascript'; }
 
 		// tell twitter to only return tweets with links, if corresponding filter is not yet included in query
-		if (query.q.indexOf('filter:links') === -1) { query.q += " filter:links" }
+		if (query.q.indexOf('filter:links') === -1) { query.q += " filter:links"; }
 
 		return TWITTER_SEARCH_BASE_URL
 				+ 'q=' + query.q

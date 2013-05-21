@@ -11,7 +11,7 @@
 		// show all recent
 		// ---------------
 		app.get('/boards', function(request, response) {
-			var page = parseInt(request.query.page) || 1;
+			var page = parseInt(request.query.page, 10) || 1;
 			BoardModel
 				.page(page, function(err, boards) {
 					if (err) { console.log(err); }

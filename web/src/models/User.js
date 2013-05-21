@@ -57,6 +57,7 @@
 				});
 		};
 
-		return mongoose.models.UserModel = UserModel;
+		mongoose.models.UserModel = UserModel;
+		return UserModel;
 	};
-} ())
+} ());

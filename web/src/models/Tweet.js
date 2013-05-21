@@ -54,7 +54,7 @@
 						// TweetModel was created, LinkModel created and/or updated to include Tweet - resolve promise
 						// -------------------------------------------------------------------------------------------
 						deferred.resolve(tweet);
-					})
+					});
 				});
 			});
 
@@ -115,8 +115,8 @@
 								console.log(err);
 							});
 
-					})
-				})
+					});
+				});
 		};
 
 		TweetModel.searchApiForTweetsAbout = function(searchTerm, callback) {
@@ -127,7 +127,8 @@
 			});
 		};
 
-		return mongoose.models.TweetModel = TweetModel;
+		mongoose.models.TweetModel = TweetModel;
+		return TweetModel;
 	};
 
 } ());

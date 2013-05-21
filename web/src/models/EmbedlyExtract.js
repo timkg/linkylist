@@ -34,7 +34,7 @@
 
 		EmbedlyExtractModel.assignEmbedToLink = function(embed, callback) {
 			LinkModel.findOrCreate({ url: embed.original_url}, function(err, link) {
-				if (err) { deferred.reject(new Error(err)); return false; }
+				if (err) { throw err; }
 				if (!link._embedlyExtract) {
 					link._embedlyExtract = embed._id;
 					link.save(function(err) {
@@ -104,7 +104,7 @@
 		};
 
 		EmbedlyExtractModel.getExtractForUrls = function(listOfUrls, callback) {
-			if (!Array.isArray(listOfUrls) || !(listOfUrls.length > 0 )) {
+			if (!Array.isArray(listOfUrls) || (listOfUrls.length === 0 )) {
 				throw new TypeError("EmbedlyExtractModel.getExtractForUrls expects array as first argument");
 			}
 			listOfUrls = array_helper.unique(listOfUrls);
@@ -113,7 +113,8 @@
 			});
 		};
 
-		return mongoose.models.EmbedlyExtractModel = EmbedlyExtractModel;
+		mongoose.models.EmbedlyExtractModel = EmbedlyExtractModel;
+		return EmbedlyExtractModel;
 	};
 
 

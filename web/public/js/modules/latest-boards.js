@@ -1,5 +1,5 @@
 (function () {
-	/**/
+	/*global define*/
 	"use strict";
 
 	define([
@@ -10,7 +10,6 @@
 		LatestBoards.name = 'latest-boards';
 		LatestBoards.init = function(app, ui) {
 			var boards = new LatestBoardCollection([], app.get('socket'));
-			console.log('lboards here');
 			return boards;
 		};
 

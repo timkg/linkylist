@@ -15,7 +15,7 @@
 				.page(page, function(err, users) {
 					if (err) { console.log(err); }
 					response.json(users);
-				})
+				});
 		});
 
 		// show one

@@ -38,6 +38,7 @@
 			});
 		};
 
-		return mongoose.models.LinkModel = LinkModel;
+		mongoose.models.LinkModel = LinkModel;
+		return LinkModel;
 	};
-} ())
+} ());

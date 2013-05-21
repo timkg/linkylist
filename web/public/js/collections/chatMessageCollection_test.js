@@ -1,5 +1,5 @@
 (function () {
-	/*global define, require*/
+	/*global define, require, describe, it, expect, runs, waitsFor*/
 	"use strict";
 
 	define([
@@ -36,11 +36,11 @@
 
 				waitsFor(function() {
 					return chat.models.length === 1;
-				}, 'received text event', 1500)
+				}, 'received text event', 1500);
 
 			});
 
-		})
+		});
 
 	});
 

@@ -9,7 +9,7 @@
 	var OEMBED_BASE_URL = 'http://api.embed.ly/1/oembed?key=';
 
 	exports.getExtractForUrls = function(listOfUrls, callback, test_api_key) {
-		if (!Array.isArray(listOfUrls) || !(listOfUrls.length > 0 )) { return false; }
+		if (!Array.isArray(listOfUrls) || (listOfUrls.length === 0 )) { return false; }
 		var api_key = API_KEY || test_api_key;
 		var url = EXTRACT_BASE_URL + api_key + '&urls=' + listOfUrlsIntoQueryParameter(listOfUrls);
 
@@ -20,7 +20,7 @@
 	};
 
 	exports.getOembedForUrls = function(listOfUrls, callback, test_api_key) {
-		if (!Array.isArray(listOfUrls) || !(listOfUrls.length > 0 )) { return false; }
+		if (!Array.isArray(listOfUrls) || (listOfUrls.length === 0 )) { return false; }
 		var api_key = API_KEY || test_api_key;
 		var url = OEMBED_BASE_URL + api_key + '&urls=' + listOfUrlsIntoQueryParameter(listOfUrls);
 

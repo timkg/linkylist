@@ -17,7 +17,7 @@ block content
                             strong Latest links
                         li
                             a(href="/stream") (browse all)
-                    ul.latest-links
+                    ul.latest-links(data-module="latest-links")
                         for link in links
                             include partials/link/link-list-item.jade
         .columns.large-6
@@ -37,6 +37,6 @@ block content
                             strong Latest boards
                         li
                             a(href="/boards") (browse all)
-                    ul.latest-boards
+                    ul.latest-boards(data-module="latest-boards")
                         for board in boards
                             include partials/board/board-list-item.jade

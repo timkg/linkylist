@@ -1,5 +1,5 @@
 (function() {
-	/**/
+	/*global define*/
 	"use strict";
 
 	define([
@@ -18,7 +18,7 @@
 				this._handlers[command] = {
 					handler: handler
 					, context: (context || this)
-				}
+				};
 			},
 
 			// returns true if a handler is defined for given command

@@ -1,5 +1,5 @@
 (function () {
-	/**/
+	/*global define*/
 	"use strict";
 
 	define([], function() {
@@ -9,7 +9,6 @@
 		Chat.init = function(app, ui) {
 			this.app = app;
 			this.ui = ui;
-			console.log('chat here');
 		};
 
 		return Chat;

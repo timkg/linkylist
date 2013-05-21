@@ -11,7 +11,7 @@
 
 	exports.start = function(app) {
 		app.get('/stream', function(request, response) {
-			var page = parseInt(request.query.page) || 1;
+			var page = parseInt(request.query.page, 10) || 1;
 			LinkModel
 				.find({})
 				.sort('-date_added')
@@ -22,10 +22,10 @@
 
 					// prepare pagination parameters
 					// -----------------------------
-					var prev = ((page - 1) > 0 ? page - 1 : null)
-					var next = (links.length === 10 ? page + 1 : null)
-					if (prev) { prev = '/stream?page=' + prev }
-					if (next) { next = '/stream?page=' + next }
+					var prev = ((page - 1) > 0 ? page - 1 : null);
+					var next = (links.length === 10 ? page + 1 : null);
+					if (prev) { prev = '/stream?page=' + prev; }
+					if (next) { next = '/stream?page=' + next; }
 
 					// prepare response data
 					// ---------------------

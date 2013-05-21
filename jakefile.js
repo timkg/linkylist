@@ -94,8 +94,17 @@
 
 
 	desc('Lint everything');
-	task('lint', ['lintClient', 'lintServer']);
+	task('lint', [], function() {
+		// specifying these tasks as dependencies in the array parameter did not work properly.
+		jake.Task['lintClient'].invoke();
+		jake.Task['lintServer'].invoke();
+	});
 
+	desc('Lint Client code');
+	task('lintClient', [], function() {
+		var passed = lint.validateFileList(clientLintFiles(), browserLintOptions(), {});
+		if (!passed) { fail('lint client failed'); }
+	});
 
 	desc('Lint Server code');
 	task('lintServer', [], function() {
@@ -104,25 +113,21 @@
 	});
 
 
-	desc('Lint Client code');
-	task('lintClient', [], function() {
-		var passed = lint.validateFileList(clientLintFiles(), browserLintOptions(), {});
-		if (!passed) { fail('lint client failed'); }
-	});
 
 	function clientLintFiles() {
 		var files = new jake.FileList();
-		files.include('web/public/js/**/*.js');
-		files.exclude('web/public/js/build.js');
-		files.exclude('web/public/js/main-prod.js');
-		files.exclude('web/public/js/vendors/*.js');
+		files.include('web/public/js/collections/*.js');
+		files.include('web/public/js/lib/*.js');
+		files.include('web/public/js/models/*.js');
+		files.include('web/public/js/modules/*.js');
+		files.include('web/public/js/views/*.js');
 		return files.toArray();
 	}
 
 	function serverLintFiles() {
 		var files = new jake.FileList();
 		files.include('web/**/*.js');
-		files.exclude('web/public/js/**/*.js');
+		files.exclude('web/public/**/*.js');
 		return files.toArray();
 	}
 
@@ -146,6 +151,8 @@
 			forin: true,
 			immed: true,
 			latedef: true,
+			laxcomma: true,
+			laxbreak: true,
 			newcap: true,
 			noarg: true,
 			noempty: true,

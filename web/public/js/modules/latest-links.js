@@ -1,5 +1,5 @@
 (function () {
-	/**/
+	/*global define*/
 	"use strict";
 
 	define([
@@ -10,7 +10,6 @@
 		LatestLinks.name = 'latest-boards';
 		LatestLinks.init = function(app, ui) {
 			var links = new LatestLinkCollection([], app.get('socket'));
-			console.log('llinks here');
 			return links;
 		};
 

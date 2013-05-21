@@ -15,8 +15,8 @@
 				LinkModel.remove({}, function(err) {
 					if (err) { throw err; }
 					test.done();
-				})
-			})
+				});
+			});
 		});
 	};
 
@@ -39,7 +39,7 @@
 							149
 						]
 					}
-				],
+				]
 			},
 			from_user: "bungpunk",
 			from_user_id: 315006999,
@@ -76,7 +76,7 @@
 					});
 			});
 
-		})
+		});
 	};
 
 	exports.end = function(test) {

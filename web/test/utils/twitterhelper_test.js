@@ -6,16 +6,16 @@
 	var twitterhelper = require('../../src/utils/twitterhelper');
 
 	exports.test_extractUrlsFromTweets = function(test) {
-		fs.readFile('./web/test/testdata/twitterSearchResponse.json', 'utf8', function(err, data) {
+		fs.readFile('./web/test/testdata/twitterSearchResponse.json', 'utf8', function(err, file) {
 			if (err) { throw err; }
-			var data = JSON.parse(data);
+			var data = JSON.parse(file);
 			var tweets = data.results;
 
 			var urls = twitterhelper.extractUniqueUrlsFromTweets(tweets);
 			test.ok(Array.isArray(urls), 'returns Array');
 			test.equals(urls[0], 'http://www.codecademy.com', 'found url in first tweet');
 			test.done();
-		})
+		});
 	};
 
 	exports.test_buildsSearchUrlFromKeyword = function(test) {

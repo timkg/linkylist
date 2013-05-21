@@ -17,6 +17,10 @@
 		return io;
 	};
 
+	exports.emit = function(event, params) {
+		io.sockets.emit(event, params);
+	};
+
 	exports.sendToConnection = function(data) {
 		if (!io) { throw new Error('socket.io was not instantiated upon server start-up.'); }
 

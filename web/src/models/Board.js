@@ -6,6 +6,7 @@
 	var pagination = require('mongoose-pagination');
 	var UserModel = require('../models/User').compileModel(); // used for .populate('_owner')
 	var LinkModel = require('../models/Link').compileModel(); // used for .populate('_links')
+	var socketio = require('../socketio');
 
 	exports.compileModel = function () {
 
@@ -19,7 +20,14 @@
 			, "date_modified": Date
 		};
 
-		var BoardModel = mongoose.model('Board', mongoose.Schema(boardFormat));
+		var BoardSchema = mongoose.Schema(boardFormat);
+
+		BoardSchema.post('save', function(board) {
+			console.log("BoardSchema.post('save')");
+			socketio.emit('board/add', board);
+		});
+
+		var BoardModel = mongoose.model('Board', BoardSchema);
 
 		BoardModel.page = function(page, callback) {
 			BoardModel
@@ -59,6 +67,7 @@
 			});
 		};
 
-		return mongoose.models.BoardModel = BoardModel;
+		mongoose.models.BoardModel = BoardModel;
+		return BoardModel;
 	};
-} ())
+} ());

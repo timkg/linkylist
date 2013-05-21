@@ -15,12 +15,14 @@
 
 				// Copy the session.auth properties over
 				for (var k in auth) {
-					ea[k] = auth[k];
+					if (auth.hasOwnProperty(k)) {
+						ea[k] = auth[k];
+					}
 				}
 
 				if (everyauth.enabled.password) {
 					// Add in access to loginFormFieldName() + passwordFormFieldName()
-					ea.password || (ea.password = {});
+					if (!ea.password) { ea.password = {}; }
 					ea.password.loginFormFieldName = everyauth.password.loginFormFieldName();
 					ea.password.passwordFormFieldName = everyauth.password.passwordFormFieldName();
 				}
@@ -28,8 +30,8 @@
 				res.locals.everyauth = ea;
 
 				next();
-			}
-		};
+			};
+		}
 
 		function postEveryauthMiddlewareHack() {
 			var userAlias = everyauth.expressHelperUserAlias || 'user';
@@ -38,7 +40,7 @@
 				res.locals[userAlias] = req.user;
 				next();
 			};
-		};
+		}
 		app.use(preEveryauthMiddlewareHack());
 		app.use(everyauth.middleware());
 		app.use(postEveryauthMiddlewareHack());

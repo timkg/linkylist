@@ -18,7 +18,7 @@
 				.populate('_tweets')
 				.exec(function(err, link) {
 					if (err) { throw err; }
-					response.render('links/link', {link: link})
+					response.render('links/link', {link: link});
 				});
 
 		});
@@ -34,7 +34,7 @@
 						.populate('_tweets')
 						.populate('_embedlyExtract', function(err, link) {
 							if (err) { response.render('links/create', {err: err}); }
-							response.redirect('/links/'+link._id)
+							response.redirect('/links/'+link._id);
 						});
 				});
 		});

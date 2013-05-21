@@ -12,7 +12,7 @@
 			UserModel.remove({}, function(err) {
 				if (err) { throw err; }
 				test.done();
-			})
+			});
 		});
 	};
 
@@ -35,7 +35,7 @@
 			UserModel.create(data, function(err, user) {
 				test.equals(user.screen_name, 'timkg');
 				test.done();
-			})
+			});
 		});
 	};
 
@@ -60,7 +60,7 @@
 			UserModel.findOrCreate({id: temp_id}, function(err, user2) {
 				test.equals(temp_id, user2.id);
 				test.done();
-			})
+			});
 		});
 	};
 
