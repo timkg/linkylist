@@ -116,11 +116,10 @@
 
 	function clientLintFiles() {
 		var files = new jake.FileList();
-		files.include('web/public/js/collections/*.js');
-		files.include('web/public/js/lib/*.js');
-		files.include('web/public/js/models/*.js');
-		files.include('web/public/js/modules/*.js');
-		files.include('web/public/js/views/*.js');
+		files.include('web/public/js/**/*.js');
+		files.exclude('web/public/js/vendors/*.js');
+		files.exclude('web/public/js/templates.js');
+		files.exclude('web/public/js/build.js');
 		return files.toArray();
 	}
 

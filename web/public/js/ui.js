@@ -1,20 +1,21 @@
 (function () {
-	/**/
+	/*global define, require*/
 	"use strict";
 
 	// TODO - check compatibility of zepto with backbone and masonry.
 	// var dollar = ('__proto__' in {} ? './vendors/zepto' : './vendors/jquery');
 	define([
 		'jquery'
-	], function() {
+		, 'lo-dash'
+	], function($, _) {
 		// load foundation + topbar
 		// ------------------------
-		require([,
+		require([
 			'foundation'
 			, 'topbar'
 		], function() {
 				$(document).foundation();
-		})
+		});
 
 
 		// ui wrapper object which contains $ and some utility functions
