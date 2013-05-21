@@ -6,12 +6,16 @@
 	// var dollar = ('__proto__' in {} ? './vendors/zepto' : './vendors/jquery');
 	define([
 		'jquery'
-		, 'foundation'
-		, 'topbar'
 	], function() {
-		// init foundation right away to guarantee basic nav functionality (especially topbar
-		// ----------------------------------------------------------------------------------
-		$(document).foundation();
+		// load foundation + topbar
+		// ------------------------
+		require([,
+			'foundation'
+			, 'topbar'
+		], function() {
+				$(document).foundation();
+		})
+
 
 		// ui wrapper object which contains $ and some utility functions
 		// -------------------------------------------------------------
