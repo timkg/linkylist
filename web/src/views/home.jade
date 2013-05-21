@@ -6,7 +6,7 @@ block content
                 .panel
                     h2.subheader Boards
                     .row.collapse
-                        include partials/board/creation-form.jade
+                        include partials/board/creationForm
                 p
                     | LinkyList allows you to organize related resources into boards.
                     | Create boards about specific topics that interest you and share them with the world.
@@ -21,12 +21,12 @@ block content
                             a(href="/boards") (browse all)
                     ul.latest-boards(data-module="latest-boards")
                         for board in boards
-                            include partials/board/board-list-item.jade
+                            include partials/board/boardListItem
         .columns.large-6
                 .panel
                     h2.subheader  Links
                     .row.collapse
-                        include partials/link/search-form.jade
+                        include partials/link/searchForm
                 p
                     | LinkyList is all about knowledge sharing - and discovery!
                     | Search for a simple keyword and let us find relevant content that is making the rounds.
@@ -39,4 +39,4 @@ block content
                             a(href="/stream") (browse all)
                     ul.latest-links(data-module="latest-links")
                         for link in links
-                            include partials/link/link-list-item.jade
+                            include partials/link/linkListItem

@@ -5,20 +5,20 @@
 	define([
 		'jquery'
 		, 'lo-dash'
-	], function($, _) {
+		, './templates'
+	], function($, _, templates) {
 		// load foundation + topbar
 		// ------------------------
 		require([
 			'topbar'
-		], function() {
+		], function(templates) {
 				$(document).foundation();
 		});
 
-
-		// ui wrapper object which contains $ and some utility functions
 		// -------------------------------------------------------------
 		var ui = {};
 		ui.$ = $;
+		ui.templates = templates;
 
 		// get name of all modules (DOM elms with data-module attribute) on current page
 		// -----------------------------------------------------------------------------
