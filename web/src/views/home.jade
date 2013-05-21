@@ -4,24 +4,6 @@ block content
     .row
         .columns.large-6
                 .panel
-                    h2.subheader  Links
-                    .row.collapse
-                        include partials/link/search-form.jade
-                p
-                    | LinkyList is all about knowledge sharing - and discovery!
-                    | Search for a simple keyword and let us find relevant content that is making the rounds.
-                    | If something spikes your interest, add it to a board right away.
-                .recent-content-preview
-                    ul.inline-list
-                        li
-                            strong Latest links
-                        li
-                            a(href="/stream") (browse all)
-                    ul.latest-links(data-module="latest-links")
-                        for link in links
-                            include partials/link/link-list-item.jade
-        .columns.large-6
-                .panel
                     h2.subheader Boards
                     .row.collapse
                         include partials/board/creation-form.jade
@@ -40,3 +22,21 @@ block content
                     ul.latest-boards(data-module="latest-boards")
                         for board in boards
                             include partials/board/board-list-item.jade
+        .columns.large-6
+                .panel
+                    h2.subheader  Links
+                    .row.collapse
+                        include partials/link/search-form.jade
+                p
+                    | LinkyList is all about knowledge sharing - and discovery!
+                    | Search for a simple keyword and let us find relevant content that is making the rounds.
+                    | If something spikes your interest, add it to a board right away.
+                .recent-content-preview
+                    ul.inline-list
+                        li
+                            strong Latest links
+                        li
+                            a(href="/stream") (browse all)
+                    ul.latest-links(data-module="latest-links")
+                        for link in links
+                            include partials/link/link-list-item.jade
