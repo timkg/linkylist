@@ -5,7 +5,6 @@
 	require.config({
 		baseUrl: '/js',
 		paths: {
-			'zepto': './vendors/zepto',
 			'jquery': './vendors/jquery',
 			'foundation': './vendors/foundation',
 			'topbar': './vendors/foundation.topbar',
@@ -19,7 +18,8 @@
 			'imagesLoaded': './vendors/jquery.imagesLoaded',
 			'infinitescroll': './vendors/jquery.infinitescroll',
 			'visible': './vendors/jquery.visible',
-			'App': './app'
+			'app': './app',
+			'ui': './ui'
 		},
 		shim: {
 			'backbone': {
@@ -35,13 +35,13 @@
 		}
 	});
 
-	var dollar = ('__proto__' in {} ? 'zepto' : 'jquery');
-	require([dollar], function() {
-		require(['foundation', 'topbar'], function() {
-			$(document).foundation();
-			require(['App'], function(App) {
-				window.App = App;
-			});
+	// application kick-off
+
+	require(['app', 'ui'], function(app, ui) {
+		window.app = app;
+		window.ui = ui;
+		app.loadModules(ui.getModules(), function(module) {
+			module.init(app, ui);
 		});
 	});
 
