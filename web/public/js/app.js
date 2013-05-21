@@ -10,6 +10,7 @@
 
 		var App = {};
 		App.dependencies = {};
+		App.modules = [];
 
 		// App utility methods
 		// -------------------
@@ -17,7 +18,12 @@
 			App.dependencies[dependencyName] = dependency;
 		};
 		App.get = function(dependencyName) {
-			return App.dependencies[dependencyName];
+			if (dependencyName in App.dependencies) { return App.dependencies[dependencyName]; }
+			for(var i=0; i<App.modules.length; i++) {
+				if (App.modules[i].name && App.modules[i].name === dependencyName) {
+					return App.modules[i];
+				}
+			}
 		};
 		App.loadModules = function(modules, fn) {
 			modules = _.map(modules, function(moduleName) {
@@ -25,7 +31,7 @@
 			});
 			require(modules, function() {
 				_.each(arguments, function(module) {
-					App.set(module.name, module);
+					App.modules.push(module);
 					fn(module);
 				});
 			});
