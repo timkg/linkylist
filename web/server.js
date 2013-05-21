@@ -40,9 +40,6 @@
 			// static asset serving
 			// --------------------
 			app.use(express.static(__dirname + '/public'));
-			app.get('/public/js/main.js', function(request, response) {
-				response.sendfile( __dirname + '/public/js/main-dev.js');
-			});
 
 			// start http server
 			// -----------------
