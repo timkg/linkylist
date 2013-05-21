@@ -6,14 +6,10 @@
 	var nodeunit = require('nodeunit').reporters['default'];
 	var templatizer = require('templatizer');
 
-	desc('Start render test server');
-	task('renderTests', ['compileJade'], function() {
-
-	});
-
 	desc('Compile jade templates for client-side templating');
-	task('compileJade', [], function() {
-		templatizer(__dirname + '/web/templates/partials', __dirname + '/web/public/js/templates.js');
+	task('compileTemplates', [], function() {
+		templatizer(__dirname + '/web/src/views/partials', __dirname + '/web/public/js/templates.js');
+		console.log('JADE OK');
 	});
 
 	desc('Run all tests');
@@ -87,29 +83,29 @@
 	}
 
 
-	desc('Default - lint');
-	task('default', ['lint'], function(){
-		console.log('\n\nOK');
-	});
+	desc('Default - lint, compileTemplates');
+	task('default', ['lint', 'compileTemplates']);
 
 
 	desc('Lint everything');
 	task('lint', [], function() {
 		// specifying these tasks as dependencies in the array parameter did not work properly.
-		jake.Task['lintClient'].invoke();
 		jake.Task['lintServer'].invoke();
+		jake.Task['lintClient'].invoke();
 	});
 
 	desc('Lint Client code');
 	task('lintClient', [], function() {
 		var passed = lint.validateFileList(clientLintFiles(), browserLintOptions(), {});
 		if (!passed) { fail('lint client failed'); }
+		console.log('CLIENT LINT OK\n\n');
 	});
 
 	desc('Lint Server code');
 	task('lintServer', [], function() {
 		var passed = lint.validateFileList(serverLintFiles(), nodeLintOptions(), {});
 		if (!passed) { fail('lint server failed'); }
+		console.log('SERVER LINT OK\n\n');
 	});
 
 
