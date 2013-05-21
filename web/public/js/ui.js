@@ -2,8 +2,6 @@
 	/*global define, require*/
 	"use strict";
 
-	// TODO - check compatibility of zepto with backbone and masonry.
-	// var dollar = ('__proto__' in {} ? './vendors/zepto' : './vendors/jquery');
 	define([
 		'jquery'
 		, 'lo-dash'
@@ -11,8 +9,7 @@
 		// load foundation + topbar
 		// ------------------------
 		require([
-			'foundation'
-			, 'topbar'
+			'topbar'
 		], function() {
 				$(document).foundation();
 		});

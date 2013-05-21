@@ -22,6 +22,9 @@
 			'ui': './ui'
 		},
 		shim: {
+			'topbar': {
+				deps: ['foundation']
+			},
 			'backbone': {
 				deps: ['lo-dash', 'jquery'],
 				exports: 'Backbone'
@@ -41,7 +44,7 @@
 		window.app = app;
 		window.ui = ui;
 		app.loadModules(ui.getModules(), function(module) {
-			module.init(app, ui);
+			module.init.call(module, app, ui);
 		});
 	});
 
