@@ -3,15 +3,18 @@
 	"use strict";
 
 	define([
-		'collections/latestBoardCollection'
-	], function(LatestBoardCollection) {
+		'lib/module'
+		,'collections/latestBoardCollection'
+		, 'views/latestBoardView'
+		, 'views/latestBoardCollectionView'
+	], function(Module, LatestBoardCollection, LatestBoardView, LatestBoardCollectionView) {
 
-		var LatestBoards = {};
-		LatestBoards.name = 'latest-boards';
-		LatestBoards.init = function(app, ui) {
-			var boards = new LatestBoardCollection([], app.get('socket'));
-			return boards;
-		};
+		var LatestBoards = new Module('latest-boards', {
+			init: function(app, ui) {
+				this.boards = new LatestBoardCollection([], app.get('socket'));
+				this.boardCollectionView = new LatestBoardCollectionView(app, ui, this.boards, LatestBoardView);
+			}
+		});
 
 		return LatestBoards;
 

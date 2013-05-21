@@ -3,15 +3,17 @@
 	"use strict";
 
 	define([
-		'collections/latestLinkCollection'
-	], function(LatestLinkCollection) {
+		'lib/module'
+		, 'collections/latestLinkCollection'
+	], function(Module, LatestLinkCollection) {
 
-		var LatestLinks = {};
-		LatestLinks.name = 'latest-boards';
-		LatestLinks.init = function(app, ui) {
-			var links = new LatestLinkCollection([], app.get('socket'));
-			return links;
-		};
+		var LatestLinks = new Module('latest-links', {
+			init: function(app, ui) {
+				this.app = app;
+				this.ui = ui;
+				this.links = new LatestLinkCollection([], app.get('socket'));
+			}
+		});
 
 		return LatestLinks;
 
