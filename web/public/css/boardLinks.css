@@ -1,0 +1,35 @@
+.board .link-item {
+    font-size: 12px;
+}
+
+.board .link-item .meta {
+    display: none;
+}
+
+.board {
+    -webkit-column-gap: 0;
+    -moz-column-gap: 0;
+    column-gap: 0;
+}
+.board > .link-item {
+    display: inline-table;
+}
+
+/**
+ * Responsive grid mediaquery definition
+ */
+@media (min-width: 768px) {
+    .board {
+        -moz-column-count:    2;
+        -webkit-column-count: 2;
+        column-count:         2;
+    }
+}
+
+@media (max-width: 768px) {
+    .board {
+        -moz-column-count:    1;
+        -webkit-column-count: 1;
+        column-count:         1;
+    }
+}

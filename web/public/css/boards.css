@@ -1,0 +1,11 @@
+.addLinkToBoard {
+    background-color: #ddd;
+    border-top: 1px solid #bbb;
+    border-left: 1px solid #bbb;
+    padding: 10px;
+}
+
+.addLinkToBoard input,
+.addLinkToBoard button{
+    margin: 0;
+}

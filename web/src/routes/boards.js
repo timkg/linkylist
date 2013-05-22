@@ -39,7 +39,11 @@
 						.populate('_embedlyExtract')
 						.exec(function(err, links) {
 							board._links = links;
-							response.render('boards/board', {board: board});
+							var viewerIsOwner = false;
+							if (request.user && request.user.id === board._owner.id) {
+								viewerIsOwner = true;
+							}
+							response.render('boards/board', {board: board, viewerIsOwner: viewerIsOwner});
 						});
 				});
 		});

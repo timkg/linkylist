@@ -11,8 +11,7 @@
 - var infoString = details.join(', ');
 - var extraClasses = extraClasses || ''
 
-article(class="stream-link grid-item", id= link._id)
-    pre.hide !{JSON.stringify(link)}
+article(class="link-item", id= link._id)
     .content
         include meta.jade
         .preview
@@ -24,5 +23,4 @@ article(class="stream-link grid-item", id= link._id)
                 p !{link._embedlyExtract.description}
             else
                 p fetching preview, please wait
-        //include tweets.jade
         a.button.secondary(href= "/links/#{link._id}") more info - #{infoString}

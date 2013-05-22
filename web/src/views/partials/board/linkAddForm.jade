@@ -1,6 +1,5 @@
-.row.collapse
-    form(action="/boards/#{board._id}/links", method="POST")
-        .large-9.small-9.columns
-            input(type="text", name="url", placeholder="paste or write URL of link to add")
-        .large-3.small-3.columns
-            button.postfix(type="submit") add
+form.addLinkToBoard.clearfix(action="/boards/#{board._id}/links", method="POST")
+    .large-9.small-9.columns
+        input(type="text", name="url", placeholder="paste or write URL of link to add")
+    .large-3.small-3.columns
+        button.postfix(type="submit") add

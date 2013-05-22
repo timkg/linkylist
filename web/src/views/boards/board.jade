@@ -2,11 +2,19 @@ extends ../layouts/index.jade
 
 block content
     .row
-        h2 !{board.subject}, by !{board._owner.name}
-    .row
-        include ../partials/board/linkAddForm
-    .row
-        section.stream.clearfix.res-grid
-            - var extraClasses = '.grid-item'
-            for link in board._links
-                include ../partials/link/linkBoardItem
+        .column.clear
+            h2.left !{board.subject}&nbsp;
+            h2.subheader &middot; a board by !{board._owner.name}
+
+        .column.large-9
+            if viewerIsOwner
+                .row.collapse
+                    include ../partials/board/linkAddForm.jade
+            .row.board(data-width="9")
+                for link in board._links
+                    include ../partials/link/linkBoardItem.jade
+
+        .column.large-3
+            h4
+                small Links you might be interested in
+            div.hide(data-module="related-links")
