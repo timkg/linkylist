@@ -11,9 +11,9 @@
 			initSocketListeners: function() {
 				if (!this.socketEvents) { return; }
 				var self = this;
-				_.each(this.socketEvents, function(fn, key, obj) {
-					if (typeof self[fn] !== 'function') { throw new TypeError('socketEvents needs to hold list of functions'); }
-					self.socket.on(key, _.bind(self[fn], self));
+				_.each(this.socketEvents, function(fnName, key, obj) {
+					if (typeof self[fnName] !== 'function') { throw new TypeError('socketEvents needs to hold list of strings of function names'); }
+					self.socket.on(key, _.bind(self[fnName], self));
 				});
 			}
 

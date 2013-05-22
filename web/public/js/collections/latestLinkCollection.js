@@ -15,13 +15,6 @@
 			, socketEvents: {
 				'link/add': 'onLinkAdded'
 			}
-			, initSocketListeners: function() {
-				var self = this;
-				_.each(this.socketEvents, function(fn, key, obj) {
-					if (typeof self[fn] !== 'function') { throw new TypeError('socketEvents needs to hold list of functions'); }
-					self.socket.on(key, _.bind(self[fn], self));
-				});
-			}
 			, onLinkAdded: function(link) {
 				this.add(link);
 			}
