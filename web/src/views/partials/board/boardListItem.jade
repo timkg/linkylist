@@ -1,8 +1,6 @@
-//pre !{JSON.stringify(board)}
-li.board-item
-    h3
-        a(href="/boards/show/#{board._id}") !{board.subject}
-            small , by !{board._owner.name}
-    ul
-        for link in board._links
-            include ../../partials/link/linkListItem.jade
+h3
+    a(href="/boards/show/#{board._id}") !{board.subject}
+        small , by !{board._owner.name}
+ul
+    for link in board._links
+        include ../../partials/link/linkListItem.jade

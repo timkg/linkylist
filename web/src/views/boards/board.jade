@@ -4,9 +4,9 @@ block content
     .row
         h2 !{board.subject}, by !{board._owner.name}
     .row
-        include ../partials/board/link-add-form.jade
+        include ../partials/board/linkAddForm
     .row
         section.stream.clearfix.res-grid
             - var extraClasses = '.grid-item'
             for link in board._links
-                include ../partials/link/link-board-item.jade
+                include ../partials/link/linkBoardItem

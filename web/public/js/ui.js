@@ -7,6 +7,7 @@
 		, 'lo-dash'
 		, './templates'
 	], function($, _, templates) {
+
 		// load foundation + topbar
 		// ------------------------
 		require([

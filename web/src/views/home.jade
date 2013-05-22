@@ -13,15 +13,20 @@ block content
                 p
                     | Create step-by-step introductions to a topic for newbies,
                     | or create a reference for professionals. It's up to you.
-                .recent-content-preview
+                .recent-content-preview(data-module="latest-boards")
                     ul.inline-list
                         li
                             strong Latest boards
                         li
                             a(href="/boards") (browse all)
-                    ul.latest-boards(data-module="latest-boards")
+                        li.newItems.hide
+                            a.round.success.label
+                                span 0
+                                | &nbsp;new
+                    ul.latest-boards
                         for board in boards
-                            include partials/board/boardListItem
+                            li.board-item
+                                include partials/board/boardListItem
         .columns.large-6
                 .panel
                     h2.subheader  Links

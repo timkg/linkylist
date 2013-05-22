@@ -23,8 +23,14 @@
 		var BoardSchema = mongoose.Schema(boardFormat);
 
 		BoardSchema.post('save', function(board) {
-			console.log("BoardSchema.post('save')");
-			socketio.emit('board/add', board);
+			BoardModel
+				.findOne({_id: board._id})
+				.populate('_owner')
+				.populate('_links')
+				.exec(function(err, board) {
+					if (err) { throw err; }
+					socketio.emit('board/add', board);
+				});
 		});
 
 		var BoardModel = mongoose.model('Board', BoardSchema);

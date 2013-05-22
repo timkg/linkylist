@@ -18,7 +18,7 @@ exports.board.boardListItem = function anonymous(locals, attrs, escape, rethrow,
     var buf = [];
     with (locals || {}) {
         var interp;
-        buf.push('<!--pre !{JSON.stringify(board)}--><li class="board-item"><h3><a');
+        buf.push("<h3><a");
         buf.push(attrs({
             href: "/boards/show/" + board._id + ""
         }, {
@@ -92,7 +92,7 @@ exports.board.boardListItem = function anonymous(locals, attrs, escape, rethrow,
                 }
             }
         }).call(this);
-        buf.push("</ul></li>");
+        buf.push("</ul>");
     }
     return buf.join("");
 };
