@@ -2,10 +2,12 @@
 	/*global define, _*/
 	"use strict";
 
-	define(['backbone'], function(Backbone) {
+	define([
+		'lib/socketCollection'
+	], function(SocketCollection) {
 
-		// TODO - refactor commonality into socketCollection
-		var LatestLinkCollection = Backbone.Collection.extend({
+
+		var LatestLinkCollection = SocketCollection.extend({
 			initialize: function(models, socket) {
 				this.socket = socket;
 				this.initSocketListeners();
@@ -20,8 +22,8 @@
 					self.socket.on(key, _.bind(self[fn], self));
 				});
 			}
-			, onLinkAdded: function(msg) {
-
+			, onLinkAdded: function(link) {
+				this.add(link);
 			}
 
 		});
