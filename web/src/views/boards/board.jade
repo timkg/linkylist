@@ -6,7 +6,7 @@ block content
             h2.left !{board.subject}&nbsp;
             h2.subheader &middot; a board by !{board._owner.name}
 
-        .column.large-9
+        .column.large-9(id="#{board._id}", data-module="board")
             if viewerIsOwner
                 .row.collapse
                     include ../partials/board/linkAddForm.jade

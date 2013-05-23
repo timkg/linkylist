@@ -120,15 +120,16 @@ exports.board.linkAddForm = function anonymous(locals, attrs, escape, rethrow, m
     var buf = [];
     with (locals || {}) {
         var interp;
-        buf.push('<div class="row collapse"><form');
+        buf.push("<form");
         buf.push(attrs({
             action: "/boards/" + board._id + "/links",
-            method: "POST"
+            method: "POST",
+            "class": "addLinkToBoard" + " " + "clearfix"
         }, {
             action: true,
             method: true
         }));
-        buf.push('><div class="large-9 small-9 columns"><input type="text" name="url" placeholder="paste or write URL of link to add"/></div><div class="large-3 small-3 columns"><button type="submit" class="postfix">add</button></div></form></div>');
+        buf.push('><div class="large-9 small-9 columns"><input type="text" name="url" placeholder="paste or write URL of link to add"/></div><div class="large-3 small-3 columns"><button type="submit" class="postfix">add</button></div></form>');
     }
     return buf.join("");
 };
@@ -233,12 +234,12 @@ exports.link.linkBoardItem = function anonymous(locals, attrs, escape, rethrow, 
         buf.push("<article");
         buf.push(attrs({
             id: link._id,
-            "class": "stream-link grid-item"
+            "class": "link-item"
         }, {
             "class": true,
             id: true
         }));
-        buf.push('><pre class="hide">' + ((interp = JSON.stringify(link)) == null ? "" : interp) + '</pre><div class="content"><ul class="meta"><li class="meta-li"><a class="meta-link tweets text-hide">');
+        buf.push('><div class="content"><ul class="meta"><li class="meta-li"><a class="meta-link tweets text-hide">');
         if (tweets) {
             buf.push('<i class="meta-icon icon-twitter"></i>');
         } else {
@@ -282,9 +283,12 @@ exports.link.linkBoardItem = function anonymous(locals, attrs, escape, rethrow, 
             }));
             buf.push(">" + ((interp = link._embedlyExtract.title || link._embedlyExtract.url) == null ? "" : interp) + "</a></h4><p>" + ((interp = link._embedlyExtract.description) == null ? "" : interp) + "</p>");
         } else {
-            buf.push("<p>fetching preview, please wait</p>");
+            buf.push("<h4>");
+            var __val__ = link.url;
+            buf.push(escape(null == __val__ ? "" : __val__));
+            buf.push("</h4><p>fetching preview, please wait</p>");
         }
-        buf.push("</div><!--include tweets.jade--><a");
+        buf.push("</div><a");
         buf.push(attrs({
             href: "/links/" + link._id + "",
             "class": "button" + " " + "secondary"

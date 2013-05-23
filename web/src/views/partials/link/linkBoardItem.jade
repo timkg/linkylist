@@ -22,5 +22,6 @@ article(class="link-item", id= link._id)
                     a(href= "#{link.url}") !{link._embedlyExtract.title || link._embedlyExtract.url}
                 p !{link._embedlyExtract.description}
             else
+                h4= link.url
                 p fetching preview, please wait
         a.button.secondary(href= "/links/#{link._id}") more info - #{infoString}
