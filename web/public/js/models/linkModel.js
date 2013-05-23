@@ -1,51 +1,43 @@
 (function() {
-	/*global define*/
+	/*global define, console*/
 	"use strict";
 
 	define([
-		'backbone'
-	], function(Backbone) {
+		'lib/socketModel'
+	], function(SocketModel) {
 
-		var LinkModel = new Backbone.Model.extend({
+		var LinkModel = SocketModel.extend({
 
-//			initialize: function(options) {
-//				if (!options.queue) {
-//					throw new Error('LinkModel needs queue');
-//				}
-//
-//				this.kickoff();
-//			},
-//
-//			onRequestStarted: function() {
-//				this.get('queue').next()
-//					.then(function(item) {
-//						this.set(item.valueOf());
-//						this.received();
-//					}.bind(this),
-//					function(reason) {
-//						this.fail(reason);
-//					}.bind(this));
-//			},
-//
-//			onReceivedItemFromQueue: function() {
-//				this.formatter.format(this.item);
-//				Backbone.events.trigger('itemReadyToPlaceOnRow', this.item);
-//			},
-//
-//			onError: function(reason) {
-//				throw new Error(reason);
-//			}
+			validate: function(attrs) {
+				if (!attrs.url) { throw new TypeError('LinkModel requires url attribute'); }
+			}
+
+			, socketEvents: {
+
+			}
+
+			, initialize: function(attrs, app) {
+				this.set(attrs, {validate: true});
+				this.socket = app.get('socket');
+				this.app = app;
+
+				this.socketEvents['link/' + this.get('url')] = 'onExtract';
+				this.initSocketListeners();
+			}
+
+			, getExtract: function() {
+				this.socket.emit('link/get', {url: url});
+			}
+
+			, onExtract: function(extract) {
+				this.set({_embedlyExtract: extract._embedlyExtract});
+			}
+
 
 		});
 
-//		StateMachine.create({
-//			target: LinkModel.prototype,
-//			events: [
-//				{ name: 'kickoff', from: 'none', to: 'RequestStarted' },
-//				{ name: 'received', from: 'RequestStarted', to: 'ReceivedItemFromQueue' },
-//				{ name: 'fail', from: 'RequestStarted', to: 'Error' }
-//			]});
 
+		window.LinkModel = LinkModel;
 		return LinkModel;
 
 	});
