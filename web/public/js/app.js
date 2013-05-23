@@ -44,7 +44,7 @@
 		// set common dependencies
 		// -----------------------
 		App.set('io', io);
-		App.set('socket', io.connect('http://localhost:5000'));
+		App.set('socket', io.connect('/'));
 		App.set('_', _);
 		App.set('backbone', Backbone);
 		App.set('user', window.user);

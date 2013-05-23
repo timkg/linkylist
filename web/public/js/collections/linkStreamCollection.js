@@ -15,7 +15,7 @@
 				type: 'GET',
 				dataType: 'json',
 				url: function() {
-					var base = 'http://localhost:5000/stream';
+					var base = '/stream';
 					if( this.next_page_param ) {
 						return base + '/' + this.next_page_param;
 					} else {
