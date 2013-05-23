@@ -15,8 +15,6 @@
 			, socketEvents: {
 				'link/add': 'onLinkAdded'
 			}
-<<<<<<< HEAD
-=======
 			, initSocketListeners: function() {
 				var self = this;
 				_.each(this.socketEvents, function(fn, key, obj) {
@@ -24,7 +22,6 @@
 					self.socket.on(key, _.bind(self[fn], self));
 				});
 			}
->>>>>>> 095f33776c09c2450b31808fd2ec4c5f60e44b7b
 			, onLinkAdded: function(link) {
 				this.add(link);
 			}
