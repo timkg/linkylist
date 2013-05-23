@@ -5,6 +5,7 @@
 	var BoardModel = require('../models/Board').compileModel();
 	var UserModel = require('../models/User').compileModel(); // used for .populate('_owner')
 	var LinkModel = require('../models/Link').compileModel(); // used for .populate('_links')
+	var socketio = require('../socketio');
 
 	exports.start = function(app) {
 
@@ -22,8 +23,10 @@
 		// show one
 		// --------
 		app.get('/boards/show/:id', function(request, response) {
+			var boardId = request.params.id;
+			socketio.emit('board/' + boardId, request.user);
 			BoardModel
-				.findOne({_id: request.params.id})
+				.findOne({_id: boardId})
 				.populate('_owner')
 				.populate('_links')
 				.exec(function(err, board) {
@@ -43,6 +46,7 @@
 							if (request.user && request.user.id === board._owner.id) {
 								viewerIsOwner = true;
 							}
+
 							response.render('boards/board', {board: board, viewerIsOwner: viewerIsOwner});
 						});
 				});
@@ -86,6 +90,7 @@
 				response.redirect('/boards/show/' + request.params.id);
 				return;
 			}
+			// TODO - remove duplication with models/Board.js
 			LinkModel.findOrCreate({url: request.body.url}, function(err, link) {
 				BoardModel
 					.findOne({_id: request.params.id})

@@ -5,6 +5,8 @@
 	var io;
 	var socketList = [];
 
+	exports.io;
+
 	exports.start = function(server) {
 		io = require('socket.io').listen(server);
 
@@ -13,7 +15,7 @@
 			io.set("polling duration", 10);
 			io.set('log level', 1);
 		});
-
+		exports.io = io;
 		return io;
 	};
 
