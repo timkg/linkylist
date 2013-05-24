@@ -5,7 +5,7 @@
 	var io;
 	var socketList = [];
 
-	exports.io;
+	exports.io = undefined;
 
 	exports.start = function(server) {
 		io = require('socket.io').listen(server);
