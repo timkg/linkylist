@@ -3,10 +3,10 @@
 	"use strict";
 
 	define([
-		'backbone'
-	], function(Backbone) {
+		'lib/collectionView'
+	], function(CollectionView) {
 
-		var LinkBoardCollectionView = Backbone.View.extend({
+		var LinkBoardCollectionView = CollectionView.extend({
 
 			initialize: function() {
 				var self = this;
@@ -14,6 +14,7 @@
 				this.ui = this.options.ui;
 				this.collection = this.options.collection;
 				this.itemView = this.options.itemView;
+				this.itemSelector = this.options.itemSelector;
 				this.collection.on('add', function(model, collection, event) {
 					self.onLinkAdd(model);
 				});
