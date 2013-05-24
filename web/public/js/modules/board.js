@@ -1,5 +1,5 @@
 (function () {
-	/*global define*/
+	/*global define, $, console*/
 	"use strict";
 
 	define([
@@ -23,20 +23,23 @@
 				this.ui = ui;
 				this.id = boardId;
 
-				this.board = new LinkBoardCollection([], app, ui, boardId);
-				this.boardView = new LinkBoardCollectionView({
+				this.collection = new LinkBoardCollection([], app, ui, boardId);
+				this.collectionView = new LinkBoardCollectionView({
 					el: $itemContainer[0]
-					, collection: this.board
+					, collection: this.collection
 					, app: app
 					, ui: ui
 					, itemView: LinkBoardView
+					, itemSelector: 'article.link-item'
 				});
+				this.parseModelsInDom();
 				this.initControls();
-				// parse Models on page and add to collection
+
+				window.board = this;
 			}
 			, initControls: function() {
 				var self = this;
-				this.ui.$('[data-module="board"]').find('form.addLinkToBoard').on('submit', function(event) {
+				$('[data-module="board"]').find('form.addLinkToBoard').on('submit', function(event) {
 					event.preventDefault();
 					var $input = $(event.currentTarget).find('input[name="url"]');
 					var url = $input.val();
@@ -46,10 +49,13 @@
 					}
 				});
 			}
+			, parseModelsInDom: function() {
+				var models = this.collectionView.parseModels();
+				this.collection.add(models, {silent: true});
+			}
 			, onLinkAdd: function(url) {
 				// check if link is duplicate
-				// TODO - this obviously needs all models on page parsed into collection
-				if (this.board.findWhere({url: url})) {
+				if (this.collection.findWhere({url: url})) {
 					console.log('already in collection');
 					return;
 				}
@@ -58,7 +64,7 @@
 				// create new BB LinkModel
 				var link = new LinkModel({url: url}, this.app);
 				// add new model to collection
-				this.board.add(link);
+				this.collection.add(link);
 				// note: view creation is managed by this.boardView's 'add' event listener
 			}
 		});
