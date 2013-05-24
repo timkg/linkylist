@@ -46,7 +46,7 @@
 							if (request.user && request.user.id === board._owner.id) {
 								viewerIsOwner = true;
 							}
-
+							board._links = board._links.reverse();
 							response.render('boards/board', {board: board, viewerIsOwner: viewerIsOwner});
 						});
 				});
