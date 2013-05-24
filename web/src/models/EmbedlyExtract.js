@@ -22,7 +22,7 @@
 			title: String,
 			description: String,
 			authors: [mongoose.Schema.Types.Mixed],
-			media: String,
+			media: mongoose.Schema.Types.Mixed,
 			content: mongoose.Schema.Types.Mixed,
 			keywords: mongoose.Schema.Types.Mixed,
 			entities: mongoose.Schema.Types.Mixed,
