@@ -234,10 +234,12 @@ exports.link.linkBoardItem = function anonymous(locals, attrs, escape, rethrow, 
         buf.push("<article");
         buf.push(attrs({
             id: link._id,
+            "data-json": "" + JSON.stringify(link) + "",
             "class": "link-item"
         }, {
             "class": true,
-            id: true
+            id: true,
+            "data-json": true
         }));
         buf.push('><div class="content"><ul class="meta"><li class="meta-li"><a class="meta-link tweets text-hide">');
         if (tweets) {
@@ -282,6 +284,9 @@ exports.link.linkBoardItem = function anonymous(locals, attrs, escape, rethrow, 
                 href: true
             }));
             buf.push(">" + ((interp = link._embedlyExtract.title || link._embedlyExtract.url) == null ? "" : interp) + "</a></h4><p>" + ((interp = link._embedlyExtract.description) == null ? "" : interp) + "</p>");
+            if (link._embedlyExtract.media) {
+                buf.push('<div class="flex-video">' + ((interp = link._embedlyExtract.media.html) == null ? "" : interp) + "</div>");
+            }
         } else {
             buf.push("<h4>");
             var __val__ = link.url;

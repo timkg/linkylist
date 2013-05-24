@@ -11,7 +11,7 @@
 - var infoString = details.join(', ');
 - var extraClasses = extraClasses || ''
 
-article(class="link-item", id= link._id)
+article(class="link-item", id= link._id, data-json="#{JSON.stringify(link)}")
     .content
         include meta.jade
         .preview
@@ -21,6 +21,8 @@ article(class="link-item", id= link._id)
                         img(src= link._embedlyExtract.favicon_url)
                     a(href= "#{link.url}") !{link._embedlyExtract.title || link._embedlyExtract.url}
                 p !{link._embedlyExtract.description}
+                if (link._embedlyExtract.media)
+                    .flex-video !{link._embedlyExtract.media.html}
             else
                 h4= link.url
                 p fetching preview, please wait
