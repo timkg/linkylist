@@ -89,10 +89,10 @@
 							if (board._links.indexOf(link._id) === -1) {
 								board._links.push(link._id);
 								board.save(function(err, board) {
-									socket.emit('board/' + board._id, {'board/add/link': link})
+									socket.emit('board/' + board._id, {'board/add/link': link});
 								});
 							} else {
-								socket.emit('board/' + board._id, {'board/add/link': link, error: 'duplicate'})
+								socket.emit('board/' + board._id, {'board/add/link': link, error: 'duplicate'});
 							}
 						});
 				});
