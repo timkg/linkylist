@@ -1,5 +1,5 @@
 li(class="link-item", id= link._id)
-    if (link._embedlyExtract && link._embedlyExtract.title)
-        a(href= "/links/#{link._id}") !{link._embedlyExtract.title}
+    if (link.preview && link.preview.title)
+        a(href= "/links/#{link._id}") !{link.preview.title}
     else
         a(href= "/links/#{link._id}") !{link.url}

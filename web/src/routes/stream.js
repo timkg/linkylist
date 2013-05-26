@@ -3,7 +3,6 @@
 	"use strict";
 
 	var LinkModel = require('../models/Link').compileModel();
-	var EmbedlyExtractModel = require('../models/EmbedlyExtract').compileModel(); // used for .populate('_embedlyExtract')
 	var TweetModel = require('../models/Tweet').compileModel(); // used for .populate('_tweets')
 	require('mongoose-pagination');
 	var socketio = require('../socketio');
@@ -16,7 +15,6 @@
 				.find({})
 				.sort('-date_added')
 				.populate('_tweets')
-				.populate('_embedlyExtract')
 				.paginate(page, 10)
 				.exec(function(err, links) {
 
@@ -41,27 +39,7 @@
 					// send response to client
 					// -----------------------
 					response.render('stream', {data: data});
-//					response.json(data);
 
-					// check which links were sent without preview
-					// -------------------------------------------
-					var linksWithoutEmbed = [];
-					data.payload.map(function(link) {
-						if (!link._embedlyExtract) {
-							linksWithoutEmbed.push(link.url);
-						}
-					});
-
-					// get missing previews and stream them to client via socket.io
-					// ------------------------------------------------------------
-					if (linksWithoutEmbed.length > 0) {
-						EmbedlyExtractModel.getExtractForUrls(linksWithoutEmbed, function(embeds) {
-							socketio.sendToConnection({
-								connection: data.connection
-								, payload: embeds
-							});
-						});
-					}
 				});
 		});
 	};

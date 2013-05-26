@@ -22,7 +22,6 @@
 				});
 			}
 			, render: function() {
-				console.log({link: this.model.toJSON()});
 				var html = this.template({link: this.model.toJSON()});
 				this.$el.html(html);
 				return this.$el;

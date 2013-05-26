@@ -3,9 +3,9 @@
 	"use strict";
 
 	var mongoose = require('mongoose');
-	var EmbedlyExtractModel = require('../models/EmbedlyExtract').compileModel();
 	var io = require('../socketio').io;
 	var screenshots = require('../services/screenshots');
+	var embedlyService = require('../services/embedly');
 
 	exports.compileModel = function () {
 
@@ -14,7 +14,7 @@
 		var linkFormat = {
 			"url": { type: String, required: true, unique: true },
 			"image": mongoose.Schema.Types.Mixed,
-			"_embedlyExtract": { type: mongoose.Schema.Types.ObjectId, ref: 'EmbedlyExtract' },
+			"preview": mongoose.Schema.Types.Mixed,
 			"_tweets": [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tweet' }],
 			"date_added": Date
 		};
@@ -22,38 +22,36 @@
 		var LinkSchema = mongoose.Schema(linkFormat);
 		var LinkModel = mongoose.model('Link', LinkSchema);
 
-		// get screenshot, extract and stream to client
-		// ----------------------------------
+		// get preview from embed.ly before saving
+		// ---------------------------------------
+		LinkSchema.pre('save', function(next) {
+			var self = this;
+			if (self.preview) { return; } // only execute if this link has no preview
+			embedlyService.getExtractForUrls([self.url], function(embeds) {
+				self.preview = embeds[0];
+				io.sockets.emit('link/' + self.url, self);
+				next();
+			});
+		});
+
+		// get screenshot after saving
+		// ---------------------------
 		LinkSchema.post('save', function(link) {
-			console.log('LinkSchema post save', link);
-
+			console.log('start post save');
 			if (!link.image) {
-				screenshots.get(link.url, link.id, function(response) {
-					link.image = response;
-					link.save();
-				})
-			}
-
-			if (!link._embedlyExtract) {
-				EmbedlyExtractModel.getExtractForUrls([link.url], function(embeds) {
-					embeds.forEach(function(embed) {
-						LinkModel
-							.findOne({url: embed.original_url})
-							.populate('_embedlyExtract')
-							.exec(function(err, link) {
-								io.sockets.emit('link/' + link.url, link);
-							});
-					});
+				screenshots.get(link.url, link._id, function(response) {
+					LinkModel.findOneAndUpdate({_id: link._id}, {image: response}, function(err) {
+						if (err) { console.log(err); }
+					})
 				});
 			}
-
 		});
 
 		LinkModel.findOrCreate = function(query, callback) {
 			LinkModel.findOne(query, function(err, link) {
 				if (err) { callback(err, null); }
 				if (link) {
-					LinkModel.findOne({_id: link._id}).populate('_embedlyExtract').exec(function(err, link) {
+					LinkModel.findOne({_id: link._id}).exec(function(err, link) {
 						callback(null, link); // first arg is the error object
 						return link;
 					});
@@ -66,7 +64,7 @@
 						if (err) {
 							callback(err, null);
 						}
-						LinkModel.findOne({_id: link._id}).populate('_embedlyExtract').exec(function(err, link) {
+						LinkModel.findOne({_id: link._id}).exec(function(err, link) {
 							callback(null, link); // first arg is the error object
 						});
 					});

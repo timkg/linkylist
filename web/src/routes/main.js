@@ -27,7 +27,6 @@
 		app.get('/', function(request, response) {
 			LinkModel
 				.find({})
-				.populate('_embedlyExtract')
 				.limit(10)
 				.sort({'date_added': -1})
 				.exec(function(err, links) {

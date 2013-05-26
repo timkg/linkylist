@@ -1,8 +1,8 @@
 - var tweets, media, images, content;
 - tweets = link._tweets && link._tweets.length || null;
-- media = link._embedlyExtract && link._embedlyExtract.media ? link._embedlyExtract.media.type : null;
-- images = link._embedlyExtract && link._embedlyExtract.images ? link._embedlyExtract.images.length : null;
-- content = link._embedlyExtract && link._embedlyExtract.content ? link._embedlyExtract.content.length : null;
+- media = link.preview && link.preview.media ? link.preview.media.type : null;
+- images = link.preview && link.preview.images ? link.preview.images.length : null;
+- content = link.preview && link.preview.content ? link.preview.content.length : null;
 - var details = [];
 - if (tweets) details.push('tweets');
 - if (media) details.push('embedded media');
@@ -15,14 +15,14 @@ article(class="link-item", id= link._id, data-json="#{JSON.stringify(link)}")
     .content
         include meta.jade
         .preview
-            if (link._embedlyExtract)
+            if (link.preview)
                 h4
-                    if (link._embedlyExtract.favicon_url)
-                        img(src= link._embedlyExtract.favicon_url)
-                    a(href= "#{link.url}") !{link._embedlyExtract.title || link._embedlyExtract.url}
-                p !{link._embedlyExtract.description}
-                if (link._embedlyExtract.media)
-                    .flex-video !{link._embedlyExtract.media.html}
+                    if (link.preview.favicon_url)
+                        img(src= link.preview.favicon_url)
+                    a(href= "#{link.url}") !{link.preview.title || link.preview.url}
+                p !{link.preview.description}
+                if (link.preview.media)
+                    .flex-video !{link.preview.media.html}
             else
                 h4= link.url
                 p fetching preview, please wait

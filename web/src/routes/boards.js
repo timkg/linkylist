@@ -31,24 +31,18 @@
 				.populate('_links')
 				.exec(function(err, board) {
 					if (err) { console.log(err); }
-					// mongoose does not support populate() of nested sub-documents out of the box
-					// we need to query the link documents in order to populate their _embedlyExtract sub-documents
-					var linkIds = [];
-					board._links.forEach(function(link) {
-						linkIds.push(link._id);
-					});
-					LinkModel
-						.find({_id: { $in: linkIds }})
-						.populate('_embedlyExtract')
-						.exec(function(err, links) {
-							board._links = links;
-							var viewerIsOwner = false;
-							if (request.user && request.user.id === board._owner.id) {
-								viewerIsOwner = true;
-							}
-							board._links = board._links.reverse();
-							response.render('boards/board', {board: board, viewerIsOwner: viewerIsOwner});
-						});
+					if (!board) {
+						request.flash('info', 'The requested board does not exist. Maybe it was deleted.');
+						response.redirect('/boards');
+						return;
+					}
+					var viewerIsOwner = false;
+					if (request.user && request.user.id === board._owner.id) {
+						viewerIsOwner = true;
+					}
+					board._links = board._links.reverse();
+					response.render('boards/board', {board: board, viewerIsOwner: viewerIsOwner});
+
 				});
 		});
 

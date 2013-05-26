@@ -18,81 +18,62 @@ exports.board.boardListItem = function anonymous(locals, attrs, escape, rethrow,
     var buf = [];
     with (locals || {}) {
         var interp;
-        buf.push("<h3><a");
+        buf.push("<a");
         buf.push(attrs({
             href: "/boards/show/" + board._id + ""
         }, {
             href: true
         }));
-        buf.push(">" + ((interp = board.subject) == null ? "" : interp) + "<small>, by " + ((interp = board._owner.name) == null ? "" : interp) + "</small></a></h3><ul>");
+        buf.push('><div class="content"><h3>');
+        var __val__ = board.subject;
+        buf.push(escape(null == __val__ ? "" : __val__));
+        buf.push("<small>, by " + ((interp = board._owner.name) == null ? "" : interp) + '</small></h3><div class="preview">');
+        board._links = board._links.reverse();
+        var count = 0;
         (function() {
             if ("number" == typeof board._links.length) {
                 for (var $index = 0, $$l = board._links.length; $index < $$l; $index++) {
                     var link = board._links[$index];
-                    buf.push("<li");
-                    buf.push(attrs({
-                        id: link._id,
-                        "class": "link-item"
-                    }, {
-                        "class": true,
-                        id: true
-                    }));
-                    buf.push(">");
-                    if (link._embedlyExtract && link._embedlyExtract.title) {
-                        buf.push("<a");
+                    if (link && link.image && !link.image.error && count < 4) {
+                        count += 1;
+                        buf.push("<img");
                         buf.push(attrs({
-                            href: "/links/" + link._id + ""
+                            src: cloudinary.url(link.image.public_id + "." + link.image.format, {
+                                width: 180,
+                                height: 150,
+                                crop: "fill",
+                                version: link.image.version
+                            })
                         }, {
-                            href: true
+                            src: true
                         }));
-                        buf.push(">" + ((interp = link._embedlyExtract.title) == null ? "" : interp) + "</a>");
-                    } else {
-                        buf.push("<a");
-                        buf.push(attrs({
-                            href: "/links/" + link._id + ""
-                        }, {
-                            href: true
-                        }));
-                        buf.push(">" + ((interp = link.url) == null ? "" : interp) + "</a>");
+                        buf.push("/>");
                     }
-                    buf.push("</li>");
                 }
             } else {
                 var $$l = 0;
                 for (var $index in board._links) {
                     $$l++;
                     var link = board._links[$index];
-                    buf.push("<li");
-                    buf.push(attrs({
-                        id: link._id,
-                        "class": "link-item"
-                    }, {
-                        "class": true,
-                        id: true
-                    }));
-                    buf.push(">");
-                    if (link._embedlyExtract && link._embedlyExtract.title) {
-                        buf.push("<a");
+                    if (link && link.image && !link.image.error && count < 4) {
+                        count += 1;
+                        buf.push("<img");
                         buf.push(attrs({
-                            href: "/links/" + link._id + ""
+                            src: cloudinary.url(link.image.public_id + "." + link.image.format, {
+                                width: 180,
+                                height: 150,
+                                crop: "fill",
+                                version: link.image.version
+                            })
                         }, {
-                            href: true
+                            src: true
                         }));
-                        buf.push(">" + ((interp = link._embedlyExtract.title) == null ? "" : interp) + "</a>");
-                    } else {
-                        buf.push("<a");
-                        buf.push(attrs({
-                            href: "/links/" + link._id + ""
-                        }, {
-                            href: true
-                        }));
-                        buf.push(">" + ((interp = link.url) == null ? "" : interp) + "</a>");
+                        buf.push("/>");
                     }
-                    buf.push("</li>");
                 }
             }
         }).call(this);
-        buf.push("</ul>");
+        buf.push("</div></div></a>");
     }
     return buf.join("");
 };
@@ -144,8 +125,8 @@ exports.link.article = function anonymous(locals, attrs, escape, rethrow, merge)
     with (locals || {}) {
         var interp;
         buf.push('<div class="content">');
-        if (link._embedlyExtract.content) {
-            buf.push("" + ((interp = link._embedlyExtract.content) == null ? "" : interp) + "");
+        if (link.preview.content) {
+            buf.push("" + ((interp = link.preview.content) == null ? "" : interp) + "");
         }
         buf.push("</div>");
     }
@@ -176,11 +157,11 @@ exports.link.images = function anonymous(locals, attrs, escape, rethrow, merge) 
     with (locals || {}) {
         var interp;
         buf.push('<div class="images">');
-        if (link._embedlyExtract.images && link._embedlyExtract.images.length) {
+        if (link.preview.images && link.preview.images.length) {
             (function() {
-                if ("number" == typeof link._embedlyExtract.images.length) {
-                    for (var $index = 0, $$l = link._embedlyExtract.images.length; $index < $$l; $index++) {
-                        var image = link._embedlyExtract.images[$index];
+                if ("number" == typeof link.preview.images.length) {
+                    for (var $index = 0, $$l = link.preview.images.length; $index < $$l; $index++) {
+                        var image = link.preview.images[$index];
                         buf.push("<img");
                         buf.push(attrs({
                             src: image.url
@@ -191,9 +172,9 @@ exports.link.images = function anonymous(locals, attrs, escape, rethrow, merge) 
                     }
                 } else {
                     var $$l = 0;
-                    for (var $index in link._embedlyExtract.images) {
+                    for (var $index in link.preview.images) {
                         $$l++;
-                        var image = link._embedlyExtract.images[$index];
+                        var image = link.preview.images[$index];
                         buf.push("<img");
                         buf.push(attrs({
                             src: image.url
@@ -221,9 +202,9 @@ exports.link.linkBoardItem = function anonymous(locals, attrs, escape, rethrow, 
         var interp;
         var tweets, media, images, content;
         tweets = link._tweets && link._tweets.length || null;
-        media = link._embedlyExtract && link._embedlyExtract.media ? link._embedlyExtract.media.type : null;
-        images = link._embedlyExtract && link._embedlyExtract.images ? link._embedlyExtract.images.length : null;
-        content = link._embedlyExtract && link._embedlyExtract.content ? link._embedlyExtract.content.length : null;
+        media = link.preview && link.preview.media ? link.preview.media.type : null;
+        images = link.preview && link.preview.images ? link.preview.images.length : null;
+        content = link.preview && link.preview.content ? link.preview.content.length : null;
         var details = [];
         if (tweets) details.push("tweets");
         if (media) details.push("embedded media");
@@ -266,12 +247,12 @@ exports.link.linkBoardItem = function anonymous(locals, attrs, escape, rethrow, 
             buf.push('<i class="meta-icon inactive icon-type"></i>');
         }
         buf.push('</a></li></ul><div class="preview">');
-        if (link._embedlyExtract) {
+        if (link.preview) {
             buf.push("<h4>");
-            if (link._embedlyExtract.favicon_url) {
+            if (link.preview.favicon_url) {
                 buf.push("<img");
                 buf.push(attrs({
-                    src: link._embedlyExtract.favicon_url
+                    src: link.preview.favicon_url
                 }, {
                     src: true
                 }));
@@ -283,9 +264,9 @@ exports.link.linkBoardItem = function anonymous(locals, attrs, escape, rethrow, 
             }, {
                 href: true
             }));
-            buf.push(">" + ((interp = link._embedlyExtract.title || link._embedlyExtract.url) == null ? "" : interp) + "</a></h4><p>" + ((interp = link._embedlyExtract.description) == null ? "" : interp) + "</p>");
-            if (link._embedlyExtract.media) {
-                buf.push('<div class="flex-video">' + ((interp = link._embedlyExtract.media.html) == null ? "" : interp) + "</div>");
+            buf.push(">" + ((interp = link.preview.title || link.preview.url) == null ? "" : interp) + "</a></h4><p>" + ((interp = link.preview.description) == null ? "" : interp) + "</p>");
+            if (link.preview.media) {
+                buf.push('<div class="flex-video">' + ((interp = link.preview.media.html) == null ? "" : interp) + "</div>");
             }
         } else {
             buf.push("<h4>");
@@ -323,14 +304,14 @@ exports.link.linkListItem = function anonymous(locals, attrs, escape, rethrow, m
             id: true
         }));
         buf.push(">");
-        if (link._embedlyExtract && link._embedlyExtract.title) {
+        if (link.preview && link.preview.title) {
             buf.push("<a");
             buf.push(attrs({
                 href: "/links/" + link._id + ""
             }, {
                 href: true
             }));
-            buf.push(">" + ((interp = link._embedlyExtract.title) == null ? "" : interp) + "</a>");
+            buf.push(">" + ((interp = link.preview.title) == null ? "" : interp) + "</a>");
         } else {
             buf.push("<a");
             buf.push(attrs({
@@ -355,8 +336,8 @@ exports.link.media = function anonymous(locals, attrs, escape, rethrow, merge) {
     with (locals || {}) {
         var interp;
         buf.push('<div class="media">');
-        if (link._embedlyExtract.media && link._embedlyExtract.media.type) {
-            buf.push("" + ((interp = link._embedlyExtract.media) == null ? "" : interp) + "");
+        if (link.preview.media && link.preview.media.type) {
+            buf.push("" + ((interp = link.preview.media) == null ? "" : interp) + "");
         }
         buf.push("</div>");
     }
@@ -423,19 +404,6 @@ exports.link.pagination = function anonymous(locals, attrs, escape, rethrow, mer
             href: true
         }));
         buf.push(">next</a></div>");
-    }
-    return buf.join("");
-};
-
-// preview.jade compiled template
-exports.link.preview = function anonymous(locals, attrs, escape, rethrow, merge) {
-    attrs = attrs || jade.attrs;
-    escape = escape || jade.escape;
-    rethrow = rethrow || jade.rethrow;
-    merge = merge || jade.merge;
-    var buf = [];
-    with (locals || {}) {
-        var interp;
     }
     return buf.join("");
 };

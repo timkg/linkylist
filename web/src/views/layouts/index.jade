@@ -74,5 +74,7 @@
             .alert-box.alert !{err}
         if (success.length > 0)
             .alert-box.success= success
+        if (info.length > 0)
+            .alert-box !{info}
         block content
         include ../static-includes/bottom-scripts.jade

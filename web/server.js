@@ -24,7 +24,10 @@
 			app.use(connect.session({secret: process.env.APP_SECRET}));
 			app.use(express.compress());
 			app.use(flashMessages());
-			app.use(express.errorHandler());
+			app.use(function(err, req, res, next){
+				console.error(err.stack);
+				res.send(500, 'Something broke!');
+			});
 			app.locals.pretty = true;
 
 			// user authentication
@@ -43,8 +46,9 @@
 			// view variables
 			// --------------
 			app.use(function(req, res, next) {
-				res.locals.err = req.flash('error');
-				res.locals.success = req.flash('success');
+				res.locals.err = req.flash('error') || undefined;
+				res.locals.success = req.flash('success') || undefined;
+				res.locals.info = req.flash('info') || undefined;
 				res.locals.api_key = cloudinary.config().api_key;
 				res.locals.cloud_name = cloudinary.config().cloud_name;
 				res.locals.cloudinary = cloudinary;
