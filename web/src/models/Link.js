@@ -13,7 +13,7 @@
 
 		var linkFormat = {
 			"url": { type: String, required: true, unique: true },
-			"screenshotUrl": String,
+			"image": mongoose.Schema.Types.Mixed,
 			"_embedlyExtract": { type: mongoose.Schema.Types.ObjectId, ref: 'EmbedlyExtract' },
 			"_tweets": [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tweet' }],
 			"date_added": Date
@@ -22,14 +22,14 @@
 		var LinkSchema = mongoose.Schema(linkFormat);
 		var LinkModel = mongoose.model('Link', LinkSchema);
 
-		// get screenshot and stream to client
+		// get screenshot, extract and stream to client
 		// ----------------------------------
 		LinkSchema.post('save', function(link) {
 			console.log('LinkSchema post save', link);
 
-			if (!link.screenshotUrl) {
+			if (!link.image) {
 				screenshots.get(link.url, link.id, function(response) {
-					link.screenshotUrl = response.url;
+					link.image = response;
 					link.save();
 				})
 			}

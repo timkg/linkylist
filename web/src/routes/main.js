@@ -3,10 +3,14 @@
 	"use strict";
 
 	var path = require('path');
+	var url = require('url');
 	var everyauth = require('everyauth');
 
 	var LinkModel = require('../models/Link').compileModel();
 	var BoardModel = require('../models/Board').compileModel();
+
+	var screenshots = require('../services/screenshots');
+
 
 	exports.start = function(app) {
 
@@ -24,16 +28,17 @@
 			LinkModel
 				.find({})
 				.populate('_embedlyExtract')
-				.limit(5)
+				.limit(10)
 				.sort({'date_added': -1})
 				.exec(function(err, links) {
 					BoardModel
 						.find({})
-						.populate('_owner')
 						.limit(5)
+						.populate('_owner')
+						.populate('_links')
 						.sort({'date_modified': -1})
 						.exec(function(err, boards) {
-							response.render('home', {boards: boards, links: links});
+							response.render('home', {boards: boards, links: links} );
 						});
 				});
 		});

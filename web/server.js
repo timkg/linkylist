@@ -10,6 +10,8 @@
 	var db = require('./src/db');
 	var config = require('./config');
 
+	var cloudinary = require('cloudinary');
+
 	exports.start = function() {
 
 		db.connect(function() {
@@ -29,17 +31,25 @@
 			// -------------------
 			auth.start(app);
 
+			// static asset serving
+			// --------------------
+			app.use(express.static(__dirname + '/public'));
+			cloudinary.config({
+				cloud_name: process.env.CLOUDINARY_CLOUD_NAME
+				, api_key: process.env.CLOUDINARY_API_KEY
+				, api_secret: process.env.CLOUDINARY_API_SECRET
+			});
+
 			// view variables
 			// --------------
 			app.use(function(req, res, next) {
 				res.locals.err = req.flash('error');
 				res.locals.success = req.flash('success');
+				res.locals.api_key = cloudinary.config().api_key;
+				res.locals.cloud_name = cloudinary.config().cloud_name;
+				res.locals.cloudinary = cloudinary;
 				next();
 			});
-
-			// static asset serving
-			// --------------------
-			app.use(express.static(__dirname + '/public'));
 
 			// start http server
 			// -----------------

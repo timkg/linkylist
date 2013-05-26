@@ -21,7 +21,13 @@
 
 
 	exports.get = function(url, id, callback) {
-		webshot(url, function(err, stream) {
+		var options = {
+			screenSize: {
+				width: 800
+				, height: 600
+			}
+		};
+		webshot(url, options, function(err, stream) {
 			if (err) { console.log(err); }
 
 			if (CDN === 'S3') {
