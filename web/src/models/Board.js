@@ -34,6 +34,11 @@
 //				});
 //		});
 
+		BoardSchema.pre('save', function(next) {
+			this.date_modified = Date.now();
+			next();
+		});
+
 		var BoardModel = mongoose.model('Board', BoardSchema);
 
 		BoardModel.page = function(page, callback) {
