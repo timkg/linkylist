@@ -72,14 +72,7 @@ ul {
     margin: 40px 0 40px 0;
 }
 
-.latest-links > li,
-.latest-boards > li{
+.latest-links > li {
     border-top: 1px solid #ddd;
     padding: 8px 0;
 }
-
-.latest-links {}
-.latest-links > .link-item {}
-
-.latest-boards {}
-.latest-boards > .board-item {}

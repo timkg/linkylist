@@ -1,6 +1,12 @@
-h3
-    a(href="/boards/show/#{board._id}") !{board.subject}
-        small , by !{board._owner.name}
-ul
-    for link in board._links
-        include ../../partials/link/linkListItem.jade
+a(href="/boards/show/#{board._id}")
+    .content
+        h3= board.subject
+            small , by !{board._owner.name}
+        .preview
+            - board._links = board._links.reverse()
+            - var count = 0;
+            for link in board._links
+                if (link && link.image && !link.image.error && count < 4)
+                    - count += 1
+                    img(src=cloudinary.url(link.image.public_id + '.' + link.image.format, { width: 180, height: 150,
+                    crop: 'fill',version: link.image.version }))
