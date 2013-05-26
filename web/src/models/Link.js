@@ -5,6 +5,7 @@
 	var mongoose = require('mongoose');
 	var EmbedlyExtractModel = require('../models/EmbedlyExtract').compileModel();
 	var io = require('../socketio').io;
+	var screenshots = require('../services/screenshots');
 
 	exports.compileModel = function () {
 
@@ -12,6 +13,7 @@
 
 		var linkFormat = {
 			"url": { type: String, required: true, unique: true },
+			"screenshotUrl": String,
 			"_embedlyExtract": { type: mongoose.Schema.Types.ObjectId, ref: 'EmbedlyExtract' },
 			"_tweets": [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tweet' }],
 			"date_added": Date
@@ -20,8 +22,18 @@
 		var LinkSchema = mongoose.Schema(linkFormat);
 		var LinkModel = mongoose.model('Link', LinkSchema);
 
+		// get screenshot and stream to client
+		// ----------------------------------
 		LinkSchema.post('save', function(link) {
 			console.log('LinkSchema post save', link);
+
+			if (!link.screenshotUrl) {
+				screenshots.get(link.url, link.id, function(response) {
+					link.screenshotUrl = response.url;
+					link.save();
+				})
+			}
+
 			if (!link._embedlyExtract) {
 				EmbedlyExtractModel.getExtractForUrls([link.url], function(embeds) {
 					embeds.forEach(function(embed) {
