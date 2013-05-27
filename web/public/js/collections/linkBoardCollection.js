@@ -28,7 +28,7 @@
 			}
 			, onLinkAdded: function(res) {
 				var model = this.findWhere({url: res.url});
-				model.set({_embedlyExtract: res._embedlyExtract});
+				model.set({preview: res.preview});
 			}
 
 		});

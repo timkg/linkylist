@@ -18,13 +18,18 @@
 				this.set(attrs, {validate: true});
 				this.socket = app.get('socket');
 				this.app = app;
-				this.socketEvents['link/' + this.get('url')] = 'onUpdate';
+				this.socketEvents['link/' + this.get('url')] = 'onGet';
 				this.initSocketListeners();
+				this.socket.emit('link/get', {url: this.get('url')});
+				this.socket.on('link/'+this.get('_id')+'/update', _.bind(this.onUpdate.bind, this));
 			}
-			, onUpdate: function(model) {
-				if (model.preview) {
-					this.set({preview: model.preview});
-				}
+			, onGet: function(model) {
+				console.log('onGet', model);
+				this.set(model);
+			}
+			, onUpdate: function(attrs) {
+				console.log('onUpdate', attrs);
+				this.set(attrs);
 			}
 
 		});
