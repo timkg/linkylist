@@ -13,74 +13,89 @@
 
 		var linkFormat = {
 			"url": { type: String, required: true, unique: true },
-			"image": mongoose.Schema.Types.Mixed,
-			"preview": mongoose.Schema.Types.Mixed,
+			"image": { type: mongoose.Schema.Types.Mixed },
+			"preview": { type: mongoose.Schema.Types.Mixed },
 			"_tweets": [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tweet' }],
 			"date_added": Date
 		};
 
 		var LinkSchema = mongoose.Schema(linkFormat);
+		LinkSchema.plugin(require('mongoose-eventify'));
 		var LinkModel = mongoose.model('Link', LinkSchema);
+
+		LinkModel.on('change:image', function(link) {
+			console.log('image changed!');
+			io.sockets.emit('link/' + link._id + '/update', {image: link.image});
+		});
+		LinkModel.on('change:preview', function(link) {
+			console.log('preview changed!');
+			io.sockets.emit('link/' + link._id + '/update', {preview: link.preview});
+		});
+		LinkModel.on('add', function(link) {
+			console.log('link created!');
+			io.sockets.emit('link/add', {link: link});
+		});
+
+		io.sockets.on('connection', function(socket) {
+			socket.on('link/get', function(data) {
+				LinkModel.findOne(data, function(err, link) {
+					if (err) { console.error(err); }
+					if (link && link.url) {
+						socket.emit('link/' + link.url, link);
+					}
+				});
+			});
+		});
 
 		// get preview from embed.ly before saving
 		// ---------------------------------------
-		LinkSchema.pre('save', function(next) {
+		LinkSchema.pre('save', true, function(next, done) {
+			next();
 			var self = this;
-			if (self.preview) { return; } // only execute if this link has no preview
-			embedlyService.getExtractForUrls([self.url], function(embeds) {
-				self.preview = embeds[0];
-				io.sockets.emit('link/' + self.url, self);
-				next();
-			});
+			if (!self.preview) {
+				embedlyService.getExtractForUrls([self.url], function(embeds) {
+					self.preview = embeds[0];
+					done();
+				});
+			} else {
+				done();
+			}
 		});
 
 		// get screenshot after saving
 		// ---------------------------
 		LinkSchema.post('save', function(link) {
-			console.log('start post save');
 			if (!link.image) {
 				screenshots.get(link.url, link._id, function(response) {
-					LinkModel.findOneAndUpdate({_id: link._id}, {image: response}, function(err) {
+					link.image = response;
+					link.save(function(err) {
 						if (err) { console.log(err); }
-					})
+					});
 				});
 			}
 		});
 
-		LinkModel.findOrCreate = function(query, callback) {
+		LinkModel.findOrCreate = function(query) {
+			var promise = new mongoose.Promise;
+
 			LinkModel.findOne(query, function(err, link) {
-				if (err) { callback(err, null); }
 				if (link) {
-					LinkModel.findOne({_id: link._id}).exec(function(err, link) {
-						callback(null, link); // first arg is the error object
-						return link;
-					});
+					promise.resolve(err, link);
 				}
 				if (!link) {
 					if (!query.url) {
-						callback(new Error('LinkModel.findOrCreate requires object literal with url as argument'), null);
+						promise.reject('LinkModel.findOrCreate needs object literal with url attribute as argument');
 					}
-					LinkModel.create({url: query.url, date_added: Date.now(), _tweets: []}, function(err, link) {
-						if (err) {
-							callback(err, null);
-						}
-						LinkModel.findOne({_id: link._id}).exec(function(err, link) {
-							callback(null, link); // first arg is the error object
-						});
+					LinkModel.create({url: query.url, date_added: Date.now(), preview: null}, function(err, link) {
+						promise.resolve(err, link);
 					});
 				}
 			});
+
+			return promise;
 		};
 
-		io.sockets.on('connection', function(socket) {
-			socket.on('link/get', function(data) {
-				console.log('link/get', data);
-				LinkModel.findOrCreate(data, function(err, link) {
-					console.log('link/' + link.url, link);
-					socket.emit('link/' + link.url, link);
-				});
-			});
-		});
+
 
 		mongoose.models.LinkModel = LinkModel;
 		return LinkModel;

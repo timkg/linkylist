@@ -22,17 +22,7 @@
 
 		var BoardSchema = mongoose.Schema(boardFormat);
 
-		// TODO - differentiate between create and update
-//		BoardSchema.post('save', function(board) {
-//			BoardModel
-//				.findOne({_id: board._id})
-//				.populate('_owner')
-//				.populate('_links')
-//				.exec(function(err, board) {
-//					if (err) { throw err; }
-//					io.sockets.emit('board/add', board);
-//				});
-//		});
+
 
 		BoardSchema.pre('save', function(next) {
 			this.date_modified = Date.now();
@@ -82,15 +72,18 @@
 		io.sockets.on('connection', function(socket) {
 			socket.on('board/add/link', function(params) {
 				if (!params._id || !params.url) {
-					throw new TypeError('socket.on("board/add/link") require object literarl with _id and url properties');
+					throw new TypeError('socket.on("board/add/link") require object literal with _id and url properties');
 				}
-				// TODO - remove duplication with routes/boards.js
-				LinkModel.findOrCreate({url: params.url}, function(err, link) {
-					console.log(err);
+				var linkPromise = LinkModel.findOrCreate({url: params.url});
+				linkPromise.onResolve(function(err, link) {
+					if (err) {
+						console.log(err);
+						return;
+					}
 					BoardModel
 						.findOne({_id: params._id})
 						.exec(function(err, board) {
-							console.log(err);
+							if (err) { console.log(err); return; }
 							if (board._links.indexOf(link._id) === -1) {
 								board._links.push(link._id);
 								board.save(function(err, board) {
