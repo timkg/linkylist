@@ -12,12 +12,12 @@
 	// lazy-loading dependencies
 	// -------------------------
 	// knox:
-	var knox = undefined;
-	var streamBuffer = undefined;
-	var client = undefined;
-	var S3_URL = undefined;
+	var knox;
+	var streamBuffer;
+	var client;
+	var S3_URL;
 	// cloudinary:
-	var cloudinary = undefined;
+	var cloudinary;
 
 
 	exports.get = function(url, id, callback) {
@@ -31,7 +31,7 @@
 			if (err) { console.log(err); }
 
 			if (CDN === 'S3') {
-				exports.sendImageStreamToS3(stream, callback);
+				exports.sendImageStreamToS3(stream, id, callback);
 			} else if (CDN === 'Cloudinary') {
 				exports.sendImageStreamToCloudinary(stream, id, callback);
 			}
@@ -47,10 +47,12 @@
 		imageStream.on('end', uploadStream.end);
 	};
 
-	exports.sendImageStreamToS3 = function(stream, callback) {
+	exports.sendImageStreamToS3 = function(stream, id, callback) {
 		if (!client) {
 			exports.configureKnoxClient();
 		}
+
+		var fileName = id.toString()+'.png';
 
 		// save incoming stream into buffer to calculate size, which is required by S3
 		// ---------------------------------------------------------------------------
@@ -70,7 +72,7 @@
 			req.on('response', function(res) {
 				if (res.statusCode === 200) { console.log(fileName + ' success'); }
 				callback(S3_URL + fileName);
-			})
+			});
 			req.end(imageBuffer.getContents());
 		});
 	};

@@ -15,6 +15,7 @@
 
 			}
 			, initialize: function(attrs, app) {
+				var _ = app.get('_');
 				this.set(attrs, {validate: true});
 				this.socket = app.get('socket');
 				this.app = app;

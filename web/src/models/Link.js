@@ -76,7 +76,7 @@
 		});
 
 		LinkModel.findOrCreate = function(query) {
-			var promise = new mongoose.Promise;
+			var promise = new mongoose.Promise();
 
 			LinkModel.findOne(query, function(err, link) {
 				if (link) {
