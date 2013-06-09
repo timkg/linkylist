@@ -4,7 +4,6 @@
 
 	var mongoose = require('mongoose');
 	var io = require('../socketio').io;
-	var screenshots = require('../services/screenshots');
 	var embedlyService = require('../services/embedly');
 
 	exports.compileModel = function () {
@@ -59,19 +58,6 @@
 				});
 			} else {
 				done();
-			}
-		});
-
-		// get screenshot after saving
-		// ---------------------------
-		LinkSchema.post('save', function(link) {
-			if (!link.image) {
-				screenshots.get(link.url, link._id, function(response) {
-					link.image = response;
-					link.save(function(err) {
-						if (err) { console.log(err); }
-					});
-				});
 			}
 		});
 

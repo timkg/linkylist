@@ -17,11 +17,6 @@ I use jake to automate test running, code linting, and template compilation.
 
 # Discussion of some Features
 
-## Website thumbnail generation
-I use phantomJS and the webshots module to capture screenshots of sites saved by users. These are not saved on the
-file system, but streamed to Cloudinary's CDN, and retrieved from there in various resolutions as needed to minimize
-client-side image resizing.
-
 ## Client-side modules
 Your typical unit of client-side functionality requires Backbone Collections, Models and Views. I use modules to keep
  these units together. A module of functionality (for example viewing a board and adding links to it) is managed by

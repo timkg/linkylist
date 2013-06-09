@@ -9,8 +9,6 @@
 	var LinkModel = require('../models/Link').compileModel();
 	var BoardModel = require('../models/Board').compileModel();
 
-	var screenshots = require('../services/screenshots');
-
 
 	exports.start = function(app) {
 
