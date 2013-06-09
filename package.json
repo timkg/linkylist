@@ -12,7 +12,8 @@
     "q": "*",
     "socket.io": "*",
     "socket.io-client": "*",
-    "templatizer": "*"
+    "templatizer": "*",
+    "cloudinary": "*"
   },
   "devDependencies": {
     "karma": "*",
