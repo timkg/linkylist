@@ -9,9 +9,11 @@
     "everyauth": "*",
     "mongoose": "*",
     "mongoose-pagination": "*",
+    "mongoose-eventify": "*",
     "q": "*",
     "socket.io": "*",
     "socket.io-client": "*",
+    "node-uuid": "*",
     "templatizer": "*",
     "cloudinary": "*"
   },
