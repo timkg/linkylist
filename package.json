@@ -2,8 +2,22 @@
   "name": "linkylist",
   "version": "0.0.1",
   "dependencies": {
+    "express": ">=3.*.*",
+    "jade": "*",
+    "connect": "*",
+    "connect-flash": "*",
+    "everyauth": "*",
+    "mongoose": "*",
+    "mongoose-pagination": "*",
+    "q": "*",
+    "socket.io": "*",
+    "socket.io-client": "*",
+    "templatizer": "*"
   },
   "devDependencies": {
+    "karma": "*",
+    "jshint": "*",
+    "expect.js": "*"
   },
   "engines": {
     "node": "0.8.x",
