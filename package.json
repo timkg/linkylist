@@ -18,6 +18,7 @@
     "cloudinary": "*"
   },
   "devDependencies": {
+    "jake": "*",
     "karma": "*",
     "jshint": "*",
     "expect.js": "*"
