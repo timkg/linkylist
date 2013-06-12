@@ -2,8 +2,9 @@
 	/*global define, console*/
 	"use strict";
 
+	var backbone = 'backbone'; // prevent r.js from including backbone
 	define([
-		'backbone'
+		backbone
 	], function(Backbone) {
 
 		var LinkBoardView = Backbone.View.extend({

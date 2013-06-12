@@ -1,7 +1,3 @@
-(function () {
-	/*global define*/
-	"use strict";
-
 	define([], function() {
 
 		function Module(name, hash) {
@@ -17,5 +13,3 @@
 		return Module;
 
 	});
-
-}());

@@ -2,9 +2,11 @@
 	/*global define*/
 	"use strict";
 
+	var backbone = 'backbone' // prevent r.js from including backbone
+		, backbonePaginator = 'backbone.paginator';
 	define([
-		'backbone',
-		'backbone.paginator'
+		backbone,
+		backbonePaginator
 	], function(Backbone, Paginator) {
 
 		var LinkStreamCollection = Backbone.Paginator.requestPager.extend({

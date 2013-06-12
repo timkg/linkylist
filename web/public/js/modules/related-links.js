@@ -1,6 +1,3 @@
-(function () {
-	/*global define*/
-	"use strict";
 
 	define([
 		'lib/module'
@@ -16,5 +13,3 @@
 		return relatedLinks;
 
 	});
-
-}());

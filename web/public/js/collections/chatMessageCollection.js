@@ -2,7 +2,8 @@
 	/*global define, _*/
 	"use strict";
 
-	define(['backbone'], function(Backbone) {
+	var backbone = 'backbone'; // prevent r.js from including backbone
+	define([backbone], function(Backbone) {
 
 		var ChatMessageCollection = Backbone.Collection.extend({
 			initialize: function(models, socket, user) {

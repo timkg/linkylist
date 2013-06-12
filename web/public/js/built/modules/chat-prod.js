@@ -1,0 +1,1 @@
+define("lib/module",[],function(){function e(e,t){if(!e)throw new TypeError("Module definition requires a name");this.name=e;for(var n in t)t.hasOwnProperty(n)&&(this[n]=t[n])}return e}),function(){define("modules/chat",["lib/module"],function(e){var t=new e("chat",{init:function(e,t){this.app=e,this.ui=t}});return t})}(),define("modules/chat-prod",function(){});

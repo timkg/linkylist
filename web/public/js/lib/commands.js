@@ -2,6 +2,7 @@
 	/*global define*/
 	"use strict";
 
+
 	define([
 		'lo-dash',
 		'jquery'

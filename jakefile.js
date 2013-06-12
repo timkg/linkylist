@@ -7,8 +7,8 @@
 		, templatizer = require('templatizer')
 		, requirejs = require('requirejs');
 
-	desc('Minify and concatenate JS modules via r.js');
-	task('rjs', [], function() {
+	desc('Minify and concatenate main.js via r.js');
+	task('rjsMain', ['compileTemplates'], function() {
 		var config = rjsBuildConfig();
 		requirejs.optimize(config, function (includedModules) {
 			console.log(includedModules);
@@ -16,6 +16,28 @@
 			console.log(err);
 		});
 	});
+
+	desc('Minify and concatenate JS modules via r.js');
+	task('rjsModules', [], function() {
+		var modules = new jake.FileList();
+		modules.include('./web/public/js/modules/*.js');
+		var moduleName, startOfModuleName, endOfModuleName, config;
+		modules.forEach(function(modulePath) {
+			// I would like to use a regex here, but JS has no lookbehind
+			startOfModuleName = modulePath.lastIndexOf('/') + 1;
+			endOfModuleName = modulePath.indexOf('.js');
+			moduleName = modulePath.substring(startOfModuleName, endOfModuleName);
+
+			config = rjsModuleBuildConfig(moduleName);
+			requirejs.optimize(config, function (includedModules) {
+				console.log(includedModules);
+			}, function(err) {
+				console.log(err);
+			});
+		});
+	});
+
+
 
 	desc('Compile jade templates for client-side templating');
 	task('compileTemplates', [], function() {
@@ -122,10 +144,20 @@
 	function rjsBuildConfig() {
 		// paths should be relative to app root, outsite the ./web folder
 		return ({
-			baseUrl: "./web/public/js",
+			baseUrl: './web/public/js',
 			mainConfigFile: "./web/public/js/main.js", // tell r.js where to load config
-			name: "main", // file from which to read dependencies and start optimizing
-			out: "./web/public/js/main-prod.js" // minified output file
+			name: 'main',
+			out: './web/public/js/main-prod.js'
+		});
+	}
+
+	function rjsModuleBuildConfig(moduleName) {
+		// paths should be relative to app root, outsite the ./web folder
+		return ({
+			baseUrl: './web/public/js',
+			mainConfigFile: "./web/public/js/main.js", // tell r.js where to load config
+			name: 'modules/' + moduleName,
+			out: './web/public/js/built/modules/' + moduleName + '.js'
 		});
 	}
 

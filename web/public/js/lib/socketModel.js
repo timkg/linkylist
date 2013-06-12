@@ -2,8 +2,9 @@
 	/*global define, _*/
 	"use strict";
 
+	var backbone = 'backbone'; // prevent r.js from including backbone
 	define([
-		'backbone'
+		backbone
 	], function(Backbone) {
 
 		var SocketModel = Backbone.Model.extend({

@@ -20,6 +20,7 @@
 		App.set = function(dependencyName, dependency) {
 			App.dependencies[dependencyName] = dependency;
 		};
+
 		App.get = function(dependencyName) {
 			if (dependencyName in App.dependencies) { return App.dependencies[dependencyName]; }
 			for(var i=0; i<App.modules.length; i++) {
@@ -28,17 +29,30 @@
 				}
 			}
 		};
+
 		App.loadModules = function(modules, fn) {
-			modules = _.map(modules, function(moduleName) {
+			var modulePaths = _.map(modules, function(moduleName) {
 				return './modules/' + moduleName;
 			});
-			require(modules, function() {
-				_.each(arguments, function(module) {
+
+			if (window.location.host.indexOf('localhost') >= 0) {
+				require.config({
+					baseUrl: window.location.origin + '/js/built'
+				});
+			} else {
+				require.config({
+					baseUrl: window.location.origin + '/js/built'
+				});
+			}
+
+			modulePaths.forEach(function(modulePath) {
+				require([modulePath], function(module) {
 					App.modules.push(module);
 					fn(module);
 				});
 			});
 		};
+
 		App.isUrl = function(s) {
 			var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
 			return regexp.test(s);
