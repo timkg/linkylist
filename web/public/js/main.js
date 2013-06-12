@@ -5,25 +5,23 @@
 	require.config({
 		baseUrl: '/js',
 		paths: {
-			'jquery': './vendors/jquery',
+			'jquery': '//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min',
 			'foundation': './vendors/foundation',
 			'topbar': './vendors/foundation.topbar',
 			'lo-dash': './vendors/lo-dash',
 			'backbone': './vendors/backbone',
 			'backbone.paginator': './vendors/backbone.paginator',
-			'text': 'vendors/text',
-			'statemachine': './vendors/state-machine',
-			'q': './vendors/q',
 			'masonry': './vendors/jquery.masonry',
 			'imagesLoaded': './vendors/jquery.imagesLoaded',
-			'infinitescroll': './vendors/jquery.infinitescroll',
-			'visible': './vendors/jquery.visible',
 			'app': './app',
 			'ui': './ui'
 		},
 		shim: {
 			'topbar': {
 				deps: ['foundation']
+			},
+			'foundation': {
+				deps: ['jquery']
 			},
 			'backbone': {
 				deps: ['lo-dash', 'jquery'],
@@ -32,13 +30,9 @@
 			'backbone.paginator': {
 				'deps': ['backbone'],
 				'exports': 'Backbone.Paginator'
-			},
-			'masonry': ['jquery'],
-			'visible': ['jquery']
+			}
 		}
 	});
-
-	// application kick-off
 
 	require(['app', 'ui'], function(app, ui) {
 		window.app = app;

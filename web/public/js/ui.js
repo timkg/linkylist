@@ -6,17 +6,11 @@
 		'jquery'
 		, 'lo-dash'
 		, './templates'
+		, 'topbar'
 	], function($, _, templates) {
 
-		// load foundation + topbar
-		// ------------------------
-		require([
-			'topbar'
-		], function(templates) {
-				$(document).foundation();
-		});
+		$(document).foundation();
 
-		// -------------------------------------------------------------
 		var ui = {};
 		ui.$ = $;
 		ui.templates = templates;

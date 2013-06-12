@@ -2,9 +2,20 @@
 	/*global desc, task, jake, fail, complete*/
 	"use strict";
 
-	var lint = require('./lint_runner.js');
-	var nodeunit = require('nodeunit').reporters['default'];
-	var templatizer = require('templatizer');
+	var lint = require('./lint_runner.js')
+		, nodeunit = require('nodeunit').reporters['default']
+		, templatizer = require('templatizer')
+		, requirejs = require('requirejs');
+
+	desc('Minify and concatenate JS modules via r.js');
+	task('rjs', [], function() {
+		var config = rjsBuildConfig();
+		requirejs.optimize(config, function (includedModules) {
+			console.log(includedModules);
+		}, function(err) {
+			console.log(err);
+		});
+	});
 
 	desc('Compile jade templates for client-side templating');
 	task('compileTemplates', [], function() {
@@ -108,7 +119,15 @@
 		console.log('SERVER LINT OK\n\n');
 	});
 
-
+	function rjsBuildConfig() {
+		// paths should be relative to app root, outsite the ./web folder
+		return ({
+			baseUrl: "./web/public/js",
+			mainConfigFile: "./web/public/js/main.js", // tell r.js where to load config
+			name: "main", // file from which to read dependencies and start optimizing
+			out: "./web/public/js/main-prod.js" // minified output file
+		});
+	}
 
 	function clientLintFiles() {
 		var files = new jake.FileList();

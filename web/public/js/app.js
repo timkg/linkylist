@@ -2,9 +2,12 @@
 	/*global define, require*/
 	"use strict";
 
+	// prevent from getting indexed by r.js
+	var socketIOClient = '/socket.io/socket.io.js';
+
 	define([
-		'/socket.io/socket.io.js'
-		, './vendors/lo-dash'
+		socketIOClient
+		, 'lo-dash'
 		, 'backbone'
 	], function(io, _, Backbone) {
 

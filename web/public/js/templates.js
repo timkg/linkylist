@@ -10,34 +10,24 @@ exports.link = {};
 exports.user = {};
 
 // boardListItem.jade compiled template
-exports.board.boardListItem = function anonymous(locals, attrs, escape, rethrow, merge) {
-    attrs = attrs || jade.attrs;
-    escape = escape || jade.escape;
-    rethrow = rethrow || jade.rethrow;
-    merge = merge || jade.merge;
+exports.board.boardListItem = function anonymous(locals) {
     var buf = [];
     with (locals || {}) {
-        var interp;
-        buf.push("<a");
-        buf.push(attrs({
+        buf.push("<a" + jade.attrs({
             href: "/boards/show/" + board._id + ""
         }, {
             href: true
-        }));
-        buf.push('><div class="content"><h3>');
-        var __val__ = board.subject;
-        buf.push(escape(null == __val__ ? "" : __val__));
-        buf.push("<small>, by " + ((interp = board._owner.name) == null ? "" : interp) + '</small></h3><div class="preview">');
+        }) + '><div class="content"><h3>' + jade.escape(null == (jade.interp = board.subject) ? "" : jade.interp) + "<small>, by " + ((jade.interp = board._owner.name) == null ? "" : jade.interp) + '</small></h3><div class="preview">');
         board._links = board._links.reverse();
         var count = 0;
         (function() {
-            if ("number" == typeof board._links.length) {
-                for (var $index = 0, $$l = board._links.length; $index < $$l; $index++) {
-                    var link = board._links[$index];
+            var $$obj = board._links;
+            if ("number" == typeof $$obj.length) {
+                for (var $index = 0, $$l = $$obj.length; $index < $$l; $index++) {
+                    var link = $$obj[$index];
                     if (link && link.image && !link.image.error && count < 4) {
                         count += 1;
-                        buf.push("<img");
-                        buf.push(attrs({
+                        buf.push("<img" + jade.attrs({
                             src: cloudinary.url(link.image.public_id + "." + link.image.format, {
                                 width: 180,
                                 height: 150,
@@ -46,29 +36,28 @@ exports.board.boardListItem = function anonymous(locals, attrs, escape, rethrow,
                             })
                         }, {
                             src: true
-                        }));
-                        buf.push("/>");
+                        }) + "/>");
                     }
                 }
             } else {
                 var $$l = 0;
-                for (var $index in board._links) {
+                for (var $index in $$obj) {
                     $$l++;
-                    var link = board._links[$index];
-                    if (link && link.image && !link.image.error && count < 4) {
-                        count += 1;
-                        buf.push("<img");
-                        buf.push(attrs({
-                            src: cloudinary.url(link.image.public_id + "." + link.image.format, {
-                                width: 180,
-                                height: 150,
-                                crop: "fill",
-                                version: link.image.version
-                            })
-                        }, {
-                            src: true
-                        }));
-                        buf.push("/>");
+                    if ($$obj.hasOwnProperty($index)) {
+                        var link = $$obj[$index];
+                        if (link && link.image && !link.image.error && count < 4) {
+                            count += 1;
+                            buf.push("<img" + jade.attrs({
+                                src: cloudinary.url(link.image.public_id + "." + link.image.format, {
+                                    width: 180,
+                                    height: 150,
+                                    crop: "fill",
+                                    version: link.image.version
+                                })
+                            }, {
+                                src: true
+                            }) + "/>");
+                        }
                     }
                 }
             }
@@ -79,54 +68,37 @@ exports.board.boardListItem = function anonymous(locals, attrs, escape, rethrow,
 };
 
 // creationForm.jade compiled template
-exports.board.creationForm = function anonymous(locals, attrs, escape, rethrow, merge) {
-    attrs = attrs || jade.attrs;
-    escape = escape || jade.escape;
-    rethrow = rethrow || jade.rethrow;
-    merge = merge || jade.merge;
+exports.board.creationForm = function anonymous(locals) {
     var buf = [];
     with (locals || {}) {
-        var interp;
         buf.push('<form action="/boards" method="POST"><input type="hidden" value="{!board.id}"/><div class="large-9 small-9 columns"><input type="text" name="subject" placeholder="what should this board be about?"/></div><div class="large-3 small-3 columns"><button type="submit" class="postfix">create</button></div></form>');
     }
     return buf.join("");
 };
 
 // linkAddForm.jade compiled template
-exports.board.linkAddForm = function anonymous(locals, attrs, escape, rethrow, merge) {
-    attrs = attrs || jade.attrs;
-    escape = escape || jade.escape;
-    rethrow = rethrow || jade.rethrow;
-    merge = merge || jade.merge;
+exports.board.linkAddForm = function anonymous(locals) {
     var buf = [];
     with (locals || {}) {
-        var interp;
-        buf.push("<form");
-        buf.push(attrs({
+        buf.push("<form" + jade.attrs({
             action: "/boards/" + board._id + "/links",
             method: "POST",
             "class": "addLinkToBoard" + " " + "clearfix"
         }, {
             action: true,
             method: true
-        }));
-        buf.push('><div class="large-9 small-9 columns"><input type="text" name="url" placeholder="paste or write URL of link to add"/></div><div class="large-3 small-3 columns"><button type="submit" class="postfix">add</button></div></form>');
+        }) + '><div class="large-9 small-9 columns"><input type="text" name="url" placeholder="paste or write URL of link to add"/></div><div class="large-3 small-3 columns"><button type="submit" class="postfix">add</button></div></form>');
     }
     return buf.join("");
 };
 
 // article.jade compiled template
-exports.link.article = function anonymous(locals, attrs, escape, rethrow, merge) {
-    attrs = attrs || jade.attrs;
-    escape = escape || jade.escape;
-    rethrow = rethrow || jade.rethrow;
-    merge = merge || jade.merge;
+exports.link.article = function anonymous(locals) {
     var buf = [];
     with (locals || {}) {
-        var interp;
         buf.push('<div class="content">');
         if (link.preview.content) {
-            buf.push("" + ((interp = link.preview.content) == null ? "" : interp) + "");
+            buf.push("" + ((jade.interp = link.preview.content) == null ? "" : jade.interp) + "");
         }
         buf.push("</div>");
     }
@@ -134,54 +106,43 @@ exports.link.article = function anonymous(locals, attrs, escape, rethrow, merge)
 };
 
 // creationForm.jade compiled template
-exports.link.creationForm = function anonymous(locals, attrs, escape, rethrow, merge) {
-    attrs = attrs || jade.attrs;
-    escape = escape || jade.escape;
-    rethrow = rethrow || jade.rethrow;
-    merge = merge || jade.merge;
+exports.link.creationForm = function anonymous(locals) {
     var buf = [];
     with (locals || {}) {
-        var interp;
         buf.push('<form action="/links" method="POST"><div class="large-9 small-9 columns"><input type="text" name="url" placeholder="paste or write the URL"/></div><div class="large-3 small-3 columns"><button type="submit" class="postfix">go</button></div></form>');
     }
     return buf.join("");
 };
 
 // images.jade compiled template
-exports.link.images = function anonymous(locals, attrs, escape, rethrow, merge) {
-    attrs = attrs || jade.attrs;
-    escape = escape || jade.escape;
-    rethrow = rethrow || jade.rethrow;
-    merge = merge || jade.merge;
+exports.link.images = function anonymous(locals) {
     var buf = [];
     with (locals || {}) {
-        var interp;
         buf.push('<div class="images">');
         if (link.preview.images && link.preview.images.length) {
             (function() {
-                if ("number" == typeof link.preview.images.length) {
-                    for (var $index = 0, $$l = link.preview.images.length; $index < $$l; $index++) {
-                        var image = link.preview.images[$index];
-                        buf.push("<img");
-                        buf.push(attrs({
+                var $$obj = link.preview.images;
+                if ("number" == typeof $$obj.length) {
+                    for (var $index = 0, $$l = $$obj.length; $index < $$l; $index++) {
+                        var image = $$obj[$index];
+                        buf.push("<img" + jade.attrs({
                             src: image.url
                         }, {
                             src: true
-                        }));
-                        buf.push("/>");
+                        }) + "/>");
                     }
                 } else {
                     var $$l = 0;
-                    for (var $index in link.preview.images) {
+                    for (var $index in $$obj) {
                         $$l++;
-                        var image = link.preview.images[$index];
-                        buf.push("<img");
-                        buf.push(attrs({
-                            src: image.url
-                        }, {
-                            src: true
-                        }));
-                        buf.push("/>");
+                        if ($$obj.hasOwnProperty($index)) {
+                            var image = $$obj[$index];
+                            buf.push("<img" + jade.attrs({
+                                src: image.url
+                            }, {
+                                src: true
+                            }) + "/>");
+                        }
                     }
                 }
             }).call(this);
@@ -192,14 +153,9 @@ exports.link.images = function anonymous(locals, attrs, escape, rethrow, merge) 
 };
 
 // linkBoardItem.jade compiled template
-exports.link.linkBoardItem = function anonymous(locals, attrs, escape, rethrow, merge) {
-    attrs = attrs || jade.attrs;
-    escape = escape || jade.escape;
-    rethrow = rethrow || jade.rethrow;
-    merge = merge || jade.merge;
+exports.link.linkBoardItem = function anonymous(locals) {
     var buf = [];
     with (locals || {}) {
-        var interp;
         var tweets, media, images, content;
         tweets = link._tweets && link._tweets.length || null;
         media = link.preview && link.preview.media ? link.preview.media.type : null;
@@ -212,8 +168,7 @@ exports.link.linkBoardItem = function anonymous(locals, attrs, escape, rethrow, 
         if (content) details.push("article preview");
         var infoString = details.join(", ");
         var extraClasses = extraClasses || "";
-        buf.push("<article");
-        buf.push(attrs({
+        buf.push("<article" + jade.attrs({
             id: link._id,
             "data-json": "" + JSON.stringify(link) + "",
             "class": "link-item"
@@ -221,8 +176,7 @@ exports.link.linkBoardItem = function anonymous(locals, attrs, escape, rethrow, 
             "class": true,
             id: true,
             "data-json": true
-        }));
-        buf.push('><div class="content"><ul class="meta"><li class="meta-li"><a class="meta-link tweets text-hide">');
+        }) + '><div class="content"><ul class="meta"><li class="meta-li"><a class="meta-link tweets text-hide">');
         if (tweets) {
             buf.push('<i class="meta-icon icon-twitter"></i>');
         } else {
@@ -250,76 +204,56 @@ exports.link.linkBoardItem = function anonymous(locals, attrs, escape, rethrow, 
         if (link.preview) {
             buf.push("<h4>");
             if (link.preview.favicon_url) {
-                buf.push("<img");
-                buf.push(attrs({
+                buf.push("<img" + jade.attrs({
                     src: link.preview.favicon_url
                 }, {
                     src: true
-                }));
-                buf.push("/>");
+                }) + "/>");
             }
-            buf.push("<a");
-            buf.push(attrs({
+            buf.push("<a" + jade.attrs({
                 href: "" + link.url + ""
             }, {
                 href: true
-            }));
-            buf.push(">" + ((interp = link.preview.title || link.preview.url) == null ? "" : interp) + "</a></h4><p>" + ((interp = link.preview.description) == null ? "" : interp) + "</p>");
+            }) + ">" + ((jade.interp = link.preview.title || link.preview.url) == null ? "" : jade.interp) + "</a></h4><p>" + ((jade.interp = link.preview.description) == null ? "" : jade.interp) + "</p>");
             if (link.preview.media) {
-                buf.push('<div class="flex-video">' + ((interp = link.preview.media.html) == null ? "" : interp) + "</div>");
+                buf.push('<div class="flex-video">' + ((jade.interp = link.preview.media.html) == null ? "" : jade.interp) + "</div>");
             }
         } else {
-            buf.push("<h4>");
-            var __val__ = link.url;
-            buf.push(escape(null == __val__ ? "" : __val__));
-            buf.push("</h4><p>fetching preview, please wait</p>");
+            buf.push("<h4>" + jade.escape(null == (jade.interp = link.url) ? "" : jade.interp) + "</h4><p>fetching preview, please wait</p>");
         }
-        buf.push("</div><a");
-        buf.push(attrs({
+        buf.push("</div><a" + jade.attrs({
             href: "/links/" + link._id + "",
             "class": "button" + " " + "secondary"
         }, {
             href: true
-        }));
-        buf.push(">more info - " + escape((interp = infoString) == null ? "" : interp) + "</a></div></article>");
+        }) + ">more info - " + jade.escape((jade.interp = infoString) == null ? "" : jade.interp) + "</a></div></article>");
     }
     return buf.join("");
 };
 
 // linkListItem.jade compiled template
-exports.link.linkListItem = function anonymous(locals, attrs, escape, rethrow, merge) {
-    attrs = attrs || jade.attrs;
-    escape = escape || jade.escape;
-    rethrow = rethrow || jade.rethrow;
-    merge = merge || jade.merge;
+exports.link.linkListItem = function anonymous(locals) {
     var buf = [];
     with (locals || {}) {
-        var interp;
-        buf.push("<li");
-        buf.push(attrs({
+        buf.push("<li" + jade.attrs({
             id: link._id,
             "class": "link-item"
         }, {
             "class": true,
             id: true
-        }));
-        buf.push(">");
+        }) + ">");
         if (link.preview && link.preview.title) {
-            buf.push("<a");
-            buf.push(attrs({
+            buf.push("<a" + jade.attrs({
                 href: "/links/" + link._id + ""
             }, {
                 href: true
-            }));
-            buf.push(">" + ((interp = link.preview.title) == null ? "" : interp) + "</a>");
+            }) + ">" + ((jade.interp = link.preview.title) == null ? "" : jade.interp) + "</a>");
         } else {
-            buf.push("<a");
-            buf.push(attrs({
+            buf.push("<a" + jade.attrs({
                 href: "/links/" + link._id + ""
             }, {
                 href: true
-            }));
-            buf.push(">" + ((interp = link.url) == null ? "" : interp) + "</a>");
+            }) + ">" + ((jade.interp = link.url) == null ? "" : jade.interp) + "</a>");
         }
         buf.push("</li>");
     }
@@ -327,17 +261,12 @@ exports.link.linkListItem = function anonymous(locals, attrs, escape, rethrow, m
 };
 
 // media.jade compiled template
-exports.link.media = function anonymous(locals, attrs, escape, rethrow, merge) {
-    attrs = attrs || jade.attrs;
-    escape = escape || jade.escape;
-    rethrow = rethrow || jade.rethrow;
-    merge = merge || jade.merge;
+exports.link.media = function anonymous(locals) {
     var buf = [];
     with (locals || {}) {
-        var interp;
         buf.push('<div class="media">');
         if (link.preview.media && link.preview.media.type) {
-            buf.push("" + ((interp = link.preview.media) == null ? "" : interp) + "");
+            buf.push("" + ((jade.interp = link.preview.media) == null ? "" : jade.interp) + "");
         }
         buf.push("</div>");
     }
@@ -345,14 +274,9 @@ exports.link.media = function anonymous(locals, attrs, escape, rethrow, merge) {
 };
 
 // meta.jade compiled template
-exports.link.meta = function anonymous(locals, attrs, escape, rethrow, merge) {
-    attrs = attrs || jade.attrs;
-    escape = escape || jade.escape;
-    rethrow = rethrow || jade.rethrow;
-    merge = merge || jade.merge;
+exports.link.meta = function anonymous(locals) {
     var buf = [];
     with (locals || {}) {
-        var interp;
         buf.push('<ul class="meta"><li class="meta-li"><a class="meta-link tweets text-hide">');
         if (tweets) {
             buf.push('<i class="meta-icon icon-twitter"></i>');
@@ -383,117 +307,72 @@ exports.link.meta = function anonymous(locals, attrs, escape, rethrow, merge) {
 };
 
 // pagination.jade compiled template
-exports.link.pagination = function anonymous(locals, attrs, escape, rethrow, merge) {
-    attrs = attrs || jade.attrs;
-    escape = escape || jade.escape;
-    rethrow = rethrow || jade.rethrow;
-    merge = merge || jade.merge;
+exports.link.pagination = function anonymous(locals) {
     var buf = [];
     with (locals || {}) {
-        var interp;
-        buf.push('<div class="clear pagination"><a');
-        buf.push(attrs({
+        buf.push('<div class="clear pagination"><a' + jade.attrs({
             href: data.prev_page
         }, {
             href: true
-        }));
-        buf.push(">prev</a><a");
-        buf.push(attrs({
+        }) + ">prev</a><a" + jade.attrs({
             href: data.next_page
         }, {
             href: true
-        }));
-        buf.push(">next</a></div>");
+        }) + ">next</a></div>");
     }
     return buf.join("");
 };
 
 // searchForm.jade compiled template
-exports.link.searchForm = function anonymous(locals, attrs, escape, rethrow, merge) {
-    attrs = attrs || jade.attrs;
-    escape = escape || jade.escape;
-    rethrow = rethrow || jade.rethrow;
-    merge = merge || jade.merge;
+exports.link.searchForm = function anonymous(locals) {
     var buf = [];
     with (locals || {}) {
-        var interp;
         buf.push('<form action="/search" method="GET"><div class="large-9 small-9 columns"><input type="text" name="q" placeholder="enter a keyword and search for links"/></div><div class="large-3 small-3 columns"><button type="submit" class="postfix">find</button></div></form>');
     }
     return buf.join("");
 };
 
 // tweet.jade compiled template
-exports.link.tweet = function anonymous(locals, attrs, escape, rethrow, merge) {
-    attrs = attrs || jade.attrs;
-    escape = escape || jade.escape;
-    rethrow = rethrow || jade.rethrow;
-    merge = merge || jade.merge;
+exports.link.tweet = function anonymous(locals) {
     var buf = [];
     with (locals || {}) {
-        var interp;
-        buf.push('<li class="tweet"><img');
-        buf.push(attrs({
+        buf.push('<li class="tweet"><img' + jade.attrs({
             src: tweet.profile_image_url
         }, {
             src: true
-        }));
-        buf.push("/><h5>");
-        var __val__ = tweet.from_user_name;
-        buf.push(escape(null == __val__ ? "" : __val__));
-        buf.push("</h5><p>");
-        var __val__ = tweet.text;
-        buf.push(escape(null == __val__ ? "" : __val__));
-        buf.push("</p></li>");
+        }) + "/><h5>" + jade.escape(null == (jade.interp = tweet.from_user_name) ? "" : jade.interp) + "</h5><p>" + jade.escape(null == (jade.interp = tweet.text) ? "" : jade.interp) + "</p></li>");
     }
     return buf.join("");
 };
 
 // tweets.jade compiled template
-exports.link.tweets = function anonymous(locals, attrs, escape, rethrow, merge) {
-    attrs = attrs || jade.attrs;
-    escape = escape || jade.escape;
-    rethrow = rethrow || jade.rethrow;
-    merge = merge || jade.merge;
+exports.link.tweets = function anonymous(locals) {
     var buf = [];
     with (locals || {}) {
-        var interp;
         buf.push('<ul class="tweets">');
         (function() {
-            if ("number" == typeof link._tweets.length) {
-                for (var $index = 0, $$l = link._tweets.length; $index < $$l; $index++) {
-                    var tweet = link._tweets[$index];
-                    buf.push('<li class="tweet"><img');
-                    buf.push(attrs({
+            var $$obj = link._tweets;
+            if ("number" == typeof $$obj.length) {
+                for (var $index = 0, $$l = $$obj.length; $index < $$l; $index++) {
+                    var tweet = $$obj[$index];
+                    buf.push('<li class="tweet"><img' + jade.attrs({
                         src: tweet.profile_image_url
                     }, {
                         src: true
-                    }));
-                    buf.push("/><h5>");
-                    var __val__ = tweet.from_user_name;
-                    buf.push(escape(null == __val__ ? "" : __val__));
-                    buf.push("</h5><p>");
-                    var __val__ = tweet.text;
-                    buf.push(escape(null == __val__ ? "" : __val__));
-                    buf.push("</p></li>");
+                    }) + "/><h5>" + jade.escape(null == (jade.interp = tweet.from_user_name) ? "" : jade.interp) + "</h5><p>" + jade.escape(null == (jade.interp = tweet.text) ? "" : jade.interp) + "</p></li>");
                 }
             } else {
                 var $$l = 0;
-                for (var $index in link._tweets) {
+                for (var $index in $$obj) {
                     $$l++;
-                    var tweet = link._tweets[$index];
-                    buf.push('<li class="tweet"><img');
-                    buf.push(attrs({
-                        src: tweet.profile_image_url
-                    }, {
-                        src: true
-                    }));
-                    buf.push("/><h5>");
-                    var __val__ = tweet.from_user_name;
-                    buf.push(escape(null == __val__ ? "" : __val__));
-                    buf.push("</h5><p>");
-                    var __val__ = tweet.text;
-                    buf.push(escape(null == __val__ ? "" : __val__));
-                    buf.push("</p></li>");
+                    if ($$obj.hasOwnProperty($index)) {
+                        var tweet = $$obj[$index];
+                        buf.push('<li class="tweet"><img' + jade.attrs({
+                            src: tweet.profile_image_url
+                        }, {
+                            src: true
+                        }) + "/><h5>" + jade.escape(null == (jade.interp = tweet.from_user_name) ? "" : jade.interp) + "</h5><p>" + jade.escape(null == (jade.interp = tweet.text) ? "" : jade.interp) + "</p></li>");
+                    }
                 }
             }
         }).call(this);
