@@ -5,6 +5,7 @@
 	var mongoose = require('mongoose');
 	var io = require('../socketio').io;
 	var embedlyService = require('../services/embedly');
+	var webshotClient = require("webshot-amqp-client");
 
 	exports.compileModel = function () {
 
@@ -49,7 +50,6 @@
 		// get preview from embed.ly before saving
 		// ---------------------------------------
 		LinkSchema.pre('save', true, function(next, done) {
-			next();
 			var self = this;
 			if (!self.preview) {
 				embedlyService.getExtractForUrls([self.url], function(embeds) {
@@ -59,6 +59,40 @@
 			} else {
 				done();
 			}
+			next();
+		});
+
+		// connect to amqp screenshot server to request and receive screenshots
+		// --------------------------------------------------------------------
+		webshotClient.init({
+			cloudinary: {
+				cloudName: process.env.CLOUDINARY_CLOUD_NAME
+				, apiKey: process.env.CLOUDINARY_API_KEY
+				, apiSecret: process.env.CLOUDINARY_API_SECRET
+			}
+			, amqp: {
+				host: process.env.AMQP_HOST
+				, port: process.env.AMQP_PORT
+				, username: process.env.AMQP_USERNAME
+				, password: process.env.AMQP_PASSWORD
+				, vhost: process.env.AMQP_VHOST
+			}
+		}, function() {
+
+			// save incoming screenshots as property on the respective Link document
+			webshotClient.onScreenshot(function(err, msg) {
+				LinkModel.update({_id: msg.public_id}, {$set: {image: msg}}, function(err) {
+					if (err) { console.log(err); }
+				});
+			});
+
+			// request screenshot if Link document is saved without
+			LinkSchema.post('save', function(link) {
+				if (!link.image) {
+					webshotClient.requestScreenshot(link.url, link._id);
+				}
+			});
+
 		});
 
 		LinkModel.findOrCreate = function(query) {

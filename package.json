@@ -15,7 +15,7 @@
     "socket.io-client": "*",
     "node-uuid": "*",
     "templatizer": "*",
-    "cloudinary": "*"
+    "webshot-amqp-client": "*"
   },
   "devDependencies": {
     "jake": "*",
